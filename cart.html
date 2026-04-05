@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Cart | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+        },
+        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; }
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #mobile-menu.open { max-height: 400px; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 right-6 z-[100] bg-on-surface text-surface px-6 py-4 rounded-xl shadow-2xl font-label text-sm font-bold flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <span class="material-symbols-outlined text-green-400" style="font-variation-settings:'FILL' 1">check_circle</span>
+  <span id="toast-msg">Item removed.</span>
+</div>
+
+<!-- Nav -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-10">
+      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="cart.html" class="text-orange-800 relative p-2">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600 hover:text-orange-800 transition-colors">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cultural Art</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-32 pb-24 px-4 md:px-8 max-w-7xl mx-auto">
+  <!-- Cart Header -->
+  <div class="mb-10">
+    <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter">Your Cart</h1>
+    <p id="cart-subtitle" class="text-on-surface-variant font-body mt-2"></p>
+  </div>
+
+  <!-- Empty Cart State -->
+  <div id="empty-cart" class="hidden flex flex-col items-center justify-center py-32 text-center">
+    <div class="w-24 h-24 rounded-full bg-surface-container-low flex items-center justify-center mb-8">
+      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">shopping_cart</span>
+    </div>
+    <h2 class="font-headline text-2xl font-bold mb-3">Your cart is empty</h2>
+    <p class="text-on-surface-variant font-body mb-8 max-w-md">Discover our curated collection of original artworks and premium prints. Every piece tells a unique story.</p>
+    <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
+  </div>
+
+  <!-- Cart with items -->
+  <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <!-- Items List -->
+    <div class="lg:col-span-7">
+      <div id="cart-items" class="space-y-6">
+        <!-- dynamically populated -->
+      </div>
+      <div class="mt-8">
+        <a href="gallery.html" class="flex items-center gap-2 text-primary font-label font-bold hover:gap-3 transition-all">
+          <span class="material-symbols-outlined text-sm">arrow_back</span> Continue Shopping
+        </a>
+      </div>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <aside class="lg:col-span-5 sticky top-32">
+      <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 space-y-6">
+        <h3 class="font-headline text-2xl font-bold">Order Summary</h3>
+
+        <div class="space-y-4 text-sm">
+          <div class="flex justify-between items-center text-on-surface-variant">
+            <span class="font-body font-light">Subtotal</span>
+            <span id="summary-subtotal" class="font-bold text-on-surface">$0.00</span>
+          </div>
+          <div class="flex justify-between items-center text-on-surface-variant">
+            <span class="font-body font-light">
+              Shipping
+              <span id="free-shipping-note" class="hidden ml-1 text-[10px] text-green-600 font-label font-bold uppercase tracking-widest">(Free!)</span>
+            </span>
+            <span id="summary-shipping" class="font-bold text-on-surface">$45.00</span>
+          </div>
+          <div class="flex justify-between items-center text-on-surface-variant">
+            <span class="font-body font-light">Tax (10%)</span>
+            <span id="summary-tax" class="font-bold text-on-surface">$0.00</span>
+          </div>
+          <div class="pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+            <span class="font-headline text-lg font-bold">Total</span>
+            <span id="summary-total" class="font-headline text-2xl font-extrabold text-primary">$0.00</span>
+          </div>
+        </div>
+
+        <a href="checkout.html" id="checkout-btn" class="block w-full py-5 bg-primary text-on-primary text-center rounded-xl font-headline font-extrabold text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all active:scale-[0.98]">
+          Proceed to Checkout
+        </a>
+
+        <div class="grid grid-cols-3 gap-4 mt-2">
+          <div class="bg-white p-3 rounded-lg text-center flex flex-col items-center gap-2 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-primary/70 text-xl" style="font-variation-settings:'FILL' 1">verified</span>
+            <span class="text-[9px] font-bold uppercase tracking-widest text-stone-500 leading-tight">Authentic<br/>Guarantee</span>
+          </div>
+          <div class="bg-white p-3 rounded-lg text-center flex flex-col items-center gap-2 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-primary/70 text-xl" style="font-variation-settings:'FILL' 1">local_shipping</span>
+            <span class="text-[9px] font-bold uppercase tracking-widest text-stone-500 leading-tight">Insured<br/>Shipping</span>
+          </div>
+          <div class="bg-white p-3 rounded-lg text-center flex flex-col items-center gap-2 border border-outline-variant/20">
+            <span class="material-symbols-outlined text-primary/70 text-xl" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+            <span class="text-[9px] font-bold uppercase tracking-widest text-stone-500 leading-tight">Gallery<br/>Certified</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="bg-stone-100 w-full mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-12">
+    <div class="flex flex-col gap-3">
+      <span class="text-xl font-bold text-stone-900 font-headline">Canvas Crush Studio</span>
+      <p class="text-stone-500 font-body font-light tracking-wide opacity-70">© 2024 Canvas Crush Studio. Curating Passion.</p>
+    </div>
+    <div class="flex gap-8 font-body font-light">
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="#">Shipping Info</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  CCS.updateCartBadge();
+
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  renderCart();
+});
+
+function renderCart() {
+  const cart = CCS.getCart();
+  const keys = Object.keys(cart);
+  const settings = CCS.getSettings();
+
+  const emptyCart = document.getElementById('empty-cart');
+  const cartContent = document.getElementById('cart-content');
+  const subtitle = document.getElementById('cart-subtitle');
+
+  const totalItems = keys.reduce((s, k) => s + cart[k].quantity, 0);
+  subtitle.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`;
+
+  if (keys.length === 0) {
+    emptyCart.classList.remove('hidden');
+    emptyCart.classList.add('flex');
+    cartContent.classList.add('hidden');
+    return;
+  }
+
+  emptyCart.classList.add('hidden');
+  emptyCart.classList.remove('flex');
+  cartContent.classList.remove('hidden');
+
+  // Render items
+  const itemsContainer = document.getElementById('cart-items');
+  let html = '';
+  keys.forEach(key => {
+    const item = cart[key];
+    const typeLabel = item.type === 'original' ? 'Original Artwork' : 'Giclée Print';
+    const frameLabel = item.frame !== 'none' ? item.frame : 'No Frame';
+    html += `
+      <div class="bg-surface-container-low rounded-xl p-5 md:p-7 border border-outline-variant/20 flex gap-5 md:gap-7 items-start group hover:shadow-md transition-all">
+        <a href="product.html?id=${item.artworkId}" class="w-24 h-24 md:w-32 md:h-32 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+          <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+        </a>
+        <div class="flex-grow min-w-0">
+          <div class="flex justify-between items-start gap-3">
+            <div>
+              <a href="product.html?id=${item.artworkId}" class="font-headline font-bold text-lg text-on-surface hover:text-primary transition-colors line-clamp-2">${item.title}</a>
+              <p class="text-on-surface-variant text-sm font-body font-light mt-0.5">${item.artist}</p>
+            </div>
+            <button onclick="removeItem('${key}')" class="p-2 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0" aria-label="Remove item">
+              <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${typeLabel}</span>
+            <span class="px-2.5 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${frameLabel}</span>
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center gap-3 bg-surface-container-high rounded-lg p-1">
+              <button onclick="changeQty('${key}', ${item.quantity - 1})" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface transition-all font-bold text-on-surface-variant hover:text-on-surface" ${item.quantity <= 1 ? 'disabled class="w-8 h-8 flex items-center justify-center rounded-md opacity-40 cursor-not-allowed"' : ''}>
+                <span class="material-symbols-outlined text-sm">remove</span>
+              </button>
+              <span class="w-8 text-center font-bold font-label text-on-surface">${item.quantity}</span>
+              <button onclick="changeQty('${key}', ${item.quantity + 1})" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface transition-all font-bold text-on-surface-variant hover:text-on-surface">
+                <span class="material-symbols-outlined text-sm">add</span>
+              </button>
+            </div>
+            <span class="font-headline font-bold text-lg text-on-surface">${CCS.formatPrice(item.price * item.quantity)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  itemsContainer.innerHTML = html;
+
+  // Update summary
+  const subtotal = CCS.getCartTotal();
+  const freeShipping = subtotal >= 5000;
+  const shipping = freeShipping ? 0 : settings.shippingRate;
+  const tax = (subtotal + shipping) * settings.taxRate;
+  const total = subtotal + shipping + tax;
+
+  document.getElementById('summary-subtotal').textContent = CCS.formatPrice(subtotal);
+  document.getElementById('summary-shipping').textContent = freeShipping ? 'FREE' : CCS.formatPrice(shipping);
+  document.getElementById('free-shipping-note').classList.toggle('hidden', !freeShipping);
+  document.getElementById('summary-tax').textContent = CCS.formatPrice(tax);
+  document.getElementById('summary-total').textContent = CCS.formatPrice(total);
+}
+
+function removeItem(key) {
+  CCS.removeFromCart(key);
+  renderCart();
+  CCS.updateCartBadge();
+  showToast('Item removed from cart');
+}
+
+function changeQty(key, newQty) {
+  if (newQty <= 0) {
+    if (confirm('Remove this item from cart?')) {
+      CCS.removeFromCart(key);
+      showToast('Item removed from cart');
+    }
+  } else {
+    CCS.updateQuantity(key, newQty);
+  }
+  renderCart();
+  CCS.updateCartBadge();
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  toast.classList.remove('translate-y-20', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+  setTimeout(() => {
+    toast.classList.add('translate-y-20', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }, 3000);
+}
+</script>
+</body>
+</html>

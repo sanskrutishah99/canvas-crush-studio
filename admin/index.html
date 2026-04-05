@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+        },
+        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; background-color: #fbfaf9; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #8c4a32 !important; box-shadow: 0 0 0 2px rgba(140,74,50,0.15) !important; }
+  .tab-nav-item.active { background-color: #8c4a32; color: #ffffff; }
+  #modal-overlay { transition: opacity 0.2s ease; }
+  #toast-admin { transition: all 0.3s ease; }
+</style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+
+<!-- Toast -->
+<div id="toast-admin" class="fixed bottom-6 right-6 z-[200] bg-on-surface text-surface px-6 py-4 rounded-xl shadow-2xl font-label text-sm font-bold flex items-center gap-3 translate-y-20 opacity-0 pointer-events-none">
+  <span id="toast-admin-icon" class="material-symbols-outlined text-green-400" style="font-variation-settings:'FILL' 1">check_circle</span>
+  <span id="toast-admin-msg">Saved!</span>
+</div>
+
+<!-- ═══════════════════════ LOGIN SCREEN ═══════════════════════ -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-surface-container-low to-surface-container-high">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-primary rounded-2xl mb-6 shadow-xl shadow-primary/20">
+        <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings:'FILL' 1">palette</span>
+      </div>
+      <h1 class="font-headline text-3xl font-extrabold tracking-tighter text-on-surface mb-2">Canvas Crush Studio</h1>
+      <p class="text-on-surface-variant font-body font-light">Admin Portal</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl shadow-stone-200/80 p-10 border border-outline-variant/20">
+      <h2 class="font-headline text-xl font-bold mb-8 text-center">Enter the Studio</h2>
+      <div class="space-y-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Password</label>
+          <div class="relative">
+            <input id="admin-password" type="password" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 pr-12 transition-all" placeholder="Enter admin password"/>
+            <button onclick="togglePasswordVis()" class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+              <span id="pw-eye" class="material-symbols-outlined text-xl">visibility</span>
+            </button>
+          </div>
+          <p id="login-error" class="hidden mt-2 text-red-500 text-xs font-label font-bold">Incorrect password. Please try again.</p>
+        </div>
+        <button onclick="doLogin()" class="w-full py-4 bg-primary text-on-primary font-headline font-bold text-lg rounded-lg hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
+          Enter Studio
+        </button>
+        <p class="text-center text-xs text-stone-400 font-label">Default password: <code class="bg-stone-100 px-2 py-0.5 rounded font-bold">canvas2024</code></p>
+      </div>
+    </div>
+
+    <p class="text-center mt-8 text-stone-400 text-sm font-body font-light">
+      <a href="../index.html" class="text-primary font-medium hover:underline">← Back to Site</a>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ DASHBOARD ═══════════════════════ -->
+<div id="dashboard" class="hidden min-h-screen flex flex-col">
+
+  <!-- Top Navbar -->
+  <nav class="bg-white border-b border-outline-variant/20 shadow-sm sticky top-0 z-40">
+    <div class="flex items-center justify-between px-6 py-4 max-w-screen-xl mx-auto">
+      <div class="flex items-center gap-4">
+        <div class="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-white text-lg" style="font-variation-settings:'FILL' 1">palette</span>
+        </div>
+        <div>
+          <span class="font-headline font-bold text-on-surface">Canvas Crush Studio</span>
+          <span class="ml-2 text-xs text-stone-400 font-label font-bold uppercase tracking-widest bg-surface-container-low px-2 py-0.5 rounded-full">Admin</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 md:gap-4">
+        <button onclick="showTab('artworks')" id="nav-artworks" class="tab-nav-item active px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high flex items-center gap-2">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">brush</span>
+          <span class="hidden md:block">Artworks</span>
+        </button>
+        <button onclick="showTab('settings')" id="nav-settings" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">settings</span>
+          <span class="hidden md:block">Settings</span>
+        </button>
+        <a href="../index.html" target="_blank" class="px-4 py-2 rounded-lg font-label font-bold text-sm border border-outline-variant/40 hover:bg-surface-container-low transition-all text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">open_in_new</span>
+          <span class="hidden md:block">View Site</span>
+        </a>
+        <button onclick="doLogout()" class="px-4 py-2 rounded-lg font-label font-bold text-sm hover:bg-red-50 hover:text-red-600 transition-all text-stone-500 flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">logout</span>
+          <span class="hidden md:block">Logout</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── ARTWORKS TAB ── -->
+  <div id="tab-artworks" class="flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <!-- Header + Add btn -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      <div>
+        <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Artworks</h1>
+        <p class="text-on-surface-variant font-body font-light mt-1">Manage your gallery collection</p>
+      </div>
+      <button onclick="openModal(null)" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
+        <span class="material-symbols-outlined">add</span> Add New Artwork
+      </button>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="stats-row">
+      <!-- dynamically populated -->
+    </div>
+
+    <!-- Artworks Table -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-surface-container-low border-b border-outline-variant/20">
+              <th class="text-left px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Artwork</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">Category</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Original</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Print</th>
+              <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Featured</th>
+              <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="artworks-table-body">
+            <!-- dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS TAB ── -->
+  <div id="tab-settings" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <div class="mb-8">
+      <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Settings</h1>
+      <p class="text-on-surface-variant font-body font-light mt-1">Configure your studio portal</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Admin Password -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
+        <h2 class="font-headline text-lg font-bold mb-6 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">lock</span>
+          Admin Password
+        </h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">New Password</label>
+            <input id="set-new-password" type="password" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Enter new password"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Confirm Password</label>
+            <input id="set-confirm-password" type="password" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Confirm new password"/>
+          </div>
+          <p id="pw-change-error" class="hidden text-red-500 text-xs font-label font-bold"></p>
+          <button onclick="savePassword()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Change Password</button>
+        </div>
+      </div>
+
+      <!-- Stripe -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">credit_card</span>
+          Stripe Payment Link
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Get this from <strong>Stripe Dashboard → Payment Links → Copy URL</strong>. Leave blank to use the standard checkout form.</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Payment Link URL</label>
+            <input id="set-stripe-link" type="url" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="https://buy.stripe.com/..."/>
+          </div>
+          <button onclick="saveStripeLink()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save</button>
+        </div>
+      </div>
+
+      <!-- Formspree -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">mail</span>
+          Formspree Endpoint
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Create a free account at <strong>formspree.io → Create Form → Copy Form ID</strong>. Used for newsletter signups and order notifications.</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Form ID</label>
+            <input id="set-formspree-id" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="abcd1234"/>
+          </div>
+          <button onclick="saveFormspree()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save</button>
+        </div>
+      </div>
+
+      <!-- Shipping & Tax -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
+        <h2 class="font-headline text-lg font-bold mb-6 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">local_shipping</span>
+          Shipping & Tax
+        </h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Flat Shipping Rate ($)</label>
+            <input id="set-shipping-rate" type="number" min="0" step="1" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="45"/>
+            <p class="text-stone-400 text-xs mt-1 font-label">Free shipping on orders over $5,000</p>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Tax Rate (%)</label>
+            <input id="set-tax-rate" type="number" min="0" max="100" step="0.1" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="10"/>
+          </div>
+          <button onclick="saveShippingTax()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save Settings</button>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="bg-white rounded-2xl border-2 border-red-200 p-8 lg:col-span-2">
+        <h2 class="font-headline text-lg font-bold mb-2 text-red-600 flex items-center gap-3">
+          <span class="material-symbols-outlined">warning</span>
+          Danger Zone
+        </h2>
+        <p class="text-stone-500 text-sm font-body font-light mb-6">These actions are irreversible. Proceed with caution.</p>
+        <div class="flex flex-wrap gap-4">
+          <button onclick="resetArtworks()" class="px-6 py-3 border-2 border-red-300 text-red-600 rounded-lg font-label font-bold hover:bg-red-50 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">restart_alt</span>
+            Reset Artworks to Default
+          </button>
+          <button onclick="clearAllData()" class="px-6 py-3 border-2 border-red-400 text-red-700 rounded-lg font-label font-bold hover:bg-red-50 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">delete_forever</span>
+            Clear All Store Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ADD/EDIT MODAL ═══════════════════════ -->
+<div id="modal-overlay" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl my-8">
+    <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
+      <h2 id="modal-title" class="font-headline text-2xl font-bold">Add New Artwork</h2>
+      <button onclick="closeModal()" class="p-2 text-stone-400 hover:text-stone-700 hover:bg-stone-100 rounded-lg transition-all">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="px-8 py-8 space-y-8 max-h-[70vh] overflow-y-auto">
+      <!-- Basic Info -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Title *</label>
+          <input id="m-title" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Artwork title"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Artist *</label>
+          <input id="m-artist" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Artist name"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Category *</label>
+          <select id="m-category" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all">
+            <option value="passionate">Passionate Art</option>
+            <option value="abstract">Abstract Emotional Art</option>
+            <option value="cultural">Cultural Art</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Medium *</label>
+          <input id="m-medium" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Oil on Canvas"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Year</label>
+          <input id="m-year" type="number" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="2024"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Dimensions</label>
+          <input id="m-dimensions" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder='48"×60"×1.5"'/>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Original Price ($) *</label>
+          <input id="m-original-price" type="number" min="0" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="2500"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Print Price ($)</label>
+          <input id="m-print-price" type="number" min="0" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="150"/>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex items-center gap-4">
+          <input id="m-featured" type="checkbox" class="w-5 h-5 rounded text-primary border-stone-300"/>
+          <label for="m-featured" class="font-label font-bold text-sm text-on-surface cursor-pointer">Mark as Featured</label>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Badge Text (optional)</label>
+          <input id="m-badge" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Artist Spotlight"/>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Description</label>
+        <textarea id="m-description" rows="4" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="Artwork description..."></textarea>
+      </div>
+
+      <!-- Images -->
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">Image URLs (up to 3)</label>
+        <div class="space-y-3">
+          <div class="flex gap-3">
+            <input id="m-img-1" type="url" oninput="updateImagePreview()" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Primary image)"/>
+          </div>
+          <input id="m-img-2" type="url" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Second image, optional)"/>
+          <input id="m-img-3" type="url" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Third image, optional)"/>
+        </div>
+        <!-- Preview -->
+        <div id="img-preview-container" class="hidden mt-4">
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Preview</p>
+          <div class="w-36 h-36 rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/20">
+            <img id="img-preview" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3 px-8 py-6 border-t border-outline-variant/20">
+      <button onclick="closeModal()" class="px-6 py-3 border border-outline-variant rounded-lg font-label font-bold text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
+      <button onclick="saveArtwork()" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
+        <span class="material-symbols-outlined text-base align-middle mr-1">save</span>Save Artwork
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- INLINE CCS STORE (self-contained copy for admin page) -->
+<script>
+const CCS = {
+  defaultArtworks: [
+    { id:1, title:"Eternal Ember", artist:"Canvas Crush Studio", category:"passionate", medium:"Oil on Belgian Linen", year:2024, dimensions:'48"×60"×1.5"', originalPrice:4200, printPrice:285, featured:true, badge:null, description:"A powerful exploration of raw passion rendered in thick, expressive brushwork. Fiery terracotta and deep umber tones converge on the canvas, creating electric visual tension.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuAYXOSUN_lMEOOitILwQ2lM41K_-1rzecEOvOZtzygyExBLETtk0WDaL0J0F-MdQzhp0yWQgymfFavTHsPdvBlJ0TmLL9Nx31lyoXPIFa_tO7F5E5m6i-LdUONRYfy9CK3W6ObQUuZCn9G2uKGw2rlAQCqsfswx5XnxeB0boQ2UDQApgV4cKz1F0kWn2GUeBpw4jNh3on_-mgXfg0pIUDOfz2DMS8SBPFWASJZoD3H7y5qWW9AcnkMfcz4zDzhZ8L4QjpsJfZnbzq0"] },
+    { id:2, title:"Crimson Gaze", artist:"Canvas Crush Studio", category:"passionate", medium:"Mixed Media", year:2024, dimensions:'36"×48"×1"', originalPrice:1850, printPrice:120, featured:false, badge:null, description:"A study in quiet intensity. Warm terracotta and sand tones layer to create a portrait of emotion that lingers long after first glance.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuCZTJWN2LI9STkmW8ngyyd38DH8q-R_c7E1RCZDAErp0zq90GPbdw2lpFx1uzrjJzSs3aDznvMM4pkmxQkigzPlOYllMxbnzXe26cavgxprq_nV6LRCWQm_W_lD3LbGI-15LzLncW20yGiMsm_9BoBOSrCJCzLG1xmRNg6J0bSlyrn64lPVzs2upmcNZ6XijHYxTKUK-LNrksazYbOiAYynveS4SIKRbMWKBwRRQwcFhbpRS-bNk6UGFfI_ajsbd276FLdteALUb1Y"] },
+    { id:3, title:"Pulse of Earth", artist:"Canvas Crush Studio", category:"passionate", medium:"Acrylic on Canvas", year:2024, dimensions:'30"×30"×1.5"', originalPrice:2100, printPrice:145, featured:false, badge:null, description:"An abstract explosion of earthy orange and muted terracotta paints colliding on a warm cream background, capturing the primal energy of the natural world.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuBRn4s2j3rixUoFJPWEiV9lbOf-60hgNCBOnCcOztd7MwGj2mQV68To-QPUAKTarMr7tQjkm6TQ8zvKvuex89tbDfFa4TfgJMNb0NolX5DdUP2vVx4MsgEJ1ayItCYs-d2NYgZbJO-97vSiGYTnsKmUWLg-uNQ4jYhAFQNhs_YdzRRvslD63ozjU7ehIT_EQyRNI_ABNiFM5DdDJwyIjGHi3emKMSdXcvn2fTeo6ghFhMk3mYmsI4oMgo6lF_wVTr2BoIEaEXQco4A"] },
+    { id:4, title:"Liquid Calm", artist:"Canvas Crush Studio", category:"abstract", medium:"Ink and Resin", year:2024, dimensions:'24"×24"×0.75"', originalPrice:950, printPrice:95, featured:false, badge:null, description:"Swirling clouds of sienna and muted burnt orange ink in water create ethereal organic textures. A meditation on stillness within chaos.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuBL2TKvlW2xV6b4jtJLbq_56lpoVVkThWaX5SgvTahek97FWmQKaHCqtLecH2ikjMyMrM5ocNVHpMQRg_ap1q-edgSYEG8c_cE0OT1ZEE95VPJmbyd-4SqwOwRSU4KxBJyZDr4-S82kRHNJjHjmg8x1CsJB23ArK-l067PTR8hPKtUk2LXLsGW6TKhxeO21mFk_pVIx32mt8FlqYwUVWHRgv-d5kfdrBruzk3BRPfiD-XXdzGOtPy70l_Ph58e9S3wSxR9nrvnhunY"] },
+    { id:5, title:"The Heart's Architecture", artist:"Canvas Crush Studio", category:"passionate", medium:"Oil on Canvas", year:2024, dimensions:'60"×72"×2"', originalPrice:12500, printPrice:480, featured:true, badge:"Artist Spotlight", description:"Our signature piece for the season. A study in the geometry of emotion, rendered over six months of intense studio work in our signature terracotta palette.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuCbSTR2fjBcNkntOltfcHiw54ivAJ0DaGi3WETuUPooeJOznRMjVrlwZU5dDrUzWWQ5sNxg5PqwYUJRrKXVa69ii_uHJkTQbdZk-VXHFDJ72QTkOfaQKrGB4PvGyNRamiYPhisOS6q9vgbqRlqWhM4pDWUCkZsD04tKDck1jsy3itnb-b_mYJ5SKaPIbA2CI8Qdz-mpPuiLcRbwlmRzmsMymhKtt1yxeFVSSRBHHTp9EKuBo2c2BrXqPg1xJh-4C97tjl7io_igUrA"] },
+    { id:6, title:"Whispers of Crimson Dawn", artist:"Elena Vance", category:"abstract", medium:"Mixed Media on Canvas", year:2024, dimensions:'48"×60"×1.5"', originalPrice:2850, printPrice:195, featured:true, badge:"Signed Original", description:"An exploration of the quiet turbulence found in the transition between shadow and light. Elena Vance utilizes a palette knife technique to layer raw pigments, creating a physical topography that invites the viewer to touch the emotion.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuDTJMbQ4j97tb71QNK4lFRYruXunPzz4eXZgNTV8Lo4Z3QS_Q8Kq05a74hOL92_yWB5yRni4sSppZeERQ8MtCyFbmtfd5avSY5SRPb0vDSSIteI0Bz2c0yoOyoPhpC5O9JY7tcUvcIzResLFnYUeUUazHUrPAaNOsWfs1pW4FV-0yErPKhNSqYSG6ssH961WmDlc-lUhjBYkHLmv4m1934u2yDAvUzxPBbFP_Y-UBF7aAL5xiVBDBX4hUGCDCxb6RpR4Sg857kE9cg", "https://lh3.googleusercontent.com/aida-public/AB6AXuARNVnxM_NQZ-0ICHXw7NpNL94GhSA-AEEUROl4hEJtoLiy0oT2XSpvFtCAQB5AvksYjjZ6ZJWtVu-efk5xNNF63QNbIggtegd4zvYa0IbUcXZiDWQiRR6u46_KRar_ua8P-sjqLvE84CiKQDWloQhW7wZ0MSa_NfYHo_AzrQrgLqk8NKDRRzARQhnerEaeOg4YyK_S_YGSF0GbmvLfYokVtiqNw4oOvwNH2FOjtexFsuHqmXN54mjBSwz2FWRalXyKfO2rDMqGG50"] },
+    { id:7, title:"Oceanic Nocturne", artist:"Canvas Crush Studio", category:"abstract", medium:"Oil on Canvas", year:2024, dimensions:'40"×60"×1.5"', originalPrice:1800, printPrice:140, featured:false, badge:null, description:"Moody blue and gold leaf highlights dance across a dark canvas, evoking the mysterious depths of midnight seas.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuBNI4BXrUg-5ySuhmdKir6M9hMNp68cTRKVFpl9cXbD6jQRYz6WPsEmPWbU08KcgDcxtK8Lzt_MO6gLZlCb2nUUW3mqvBSqZNHX6hzAzaSjGH6KT3QiLSKgzsEk50Y-5avnfNufBaz3CVsLKTaKwyGp1Y8wbHhtRSaj_JB28nP_41mrrJdm0Yt_RuN5MEl5lcBKI_eGLfio-Jok-p84caqVvyxWYH0PCfOwhsZPOx8nrRZXGRxFGBFCil5Ubs96Q_Y3IFhy8POxmo1GGjQ"] },
+    { id:8, title:"Sahara Gold", artist:"Canvas Crush Studio", category:"cultural", medium:"Oil on Canvas", year:2024, dimensions:'48"×24"×1.5"', originalPrice:1200, printPrice:95, featured:false, badge:null, description:"A panoramic landscape painting of a desert sunset with warm sand tones and a purple sky. Heritage and memory captured in a single sweeping vista.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuBU_K2EGRtCWYMIMsZ1G-mICe13OH7UxgGFwjodCmrbBilF-ttXRJgLx6R2NSF1LzhTHkLN-FxSi4-8CBlYVHXKYuPYT5xBeT8BLFMdhvI8aeBO_Mu1UaDWKxjOe4vE0zCgUc7JvkbDxMZCp2phjuPt8W67gx3SuZuku3N8A2fkco9B1-VvJFRQn4m53b0zc-IrcyAvn3VHHGmfKH4yvc5I6BL5e8ZPuZ0auCFHvd92bcZPOA1RETNKP50aHJlpkMOJBjY-dMHT3-g"] },
+    { id:9, title:"Inner Silence", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media", year:2024, dimensions:'24"×24"×1"', originalPrice:1400, printPrice:110, featured:false, badge:null, description:"Minimalist sculptural painting with layered neutral tones and deep shadow gaps. A study in restraint and the beauty of negative space.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuCCqoxOvLjYCHkATYrly2I4vneZcAS_j1Ue-KSPZUABlJd3pHb4TJiqjNSUG8ds9I4tlEghrNpOJYBFAufzD1QjLEgn9_6GkNnxa7MSOB8uyH4WORHQjfv-4FTfrp_9k34f1XaADvamDWydw_GksnoZ4UAZhvyBE7EE-dPteznQzIFw4L86BL0kkAGnwPWDwWr6KXBmIpnlrPHKk93WBGbQBQkR4HOuwcJ5i2iL2LOnAdpCVcvwIRhWYdkGXFJ1iszlqFSLsyAT6Q4"] },
+    { id:10, title:"Ochre Horizon", artist:"Canvas Crush Studio", category:"cultural", medium:"Oil on Belgian Linen", year:2024, dimensions:'60"×40"×1.5"', originalPrice:4200, printPrice:285, featured:true, badge:null, description:"Dramatic abstract painting with expressive brushstrokes of terracotta, ochre, and soft sand on a textured gallery canvas. The horizon as emotional metaphor.", images:["https://lh3.googleusercontent.com/aida-public/AB6AXuBUOiYJgcYDfhRQPznzXSATXoSpU6S71OC2wOs4RdMfLspVjMOF9RdiLgL04sp_zbQhFU8_dXZdZRxYmB1tLW1ji0XifCZK-W_stYYCHphJVI7RCV5JGxjt0aPAgsPJXHji2ssq1WGE12Ou8GMCRCrUe8IqH6ITUfSHG3R_4mpYIAgAqJ2qVbWOo2zkucJoEugBe496D70nC6DCj6z-B4nytj3hxdXH1aBsnwifzU29wwISILkVDRwZPzybw7cGPzGjDwjPioFQ4AI"] }
+  ],
+
+  getArtworks() {
+    try { const s = localStorage.getItem('ccs_artworks'); return s ? JSON.parse(s) : [...this.defaultArtworks]; } catch(e) { return [...this.defaultArtworks]; }
+  },
+  saveArtworks(a) { localStorage.setItem('ccs_artworks', JSON.stringify(a)); },
+  getSettings() {
+    try {
+      const s = localStorage.getItem('ccs_settings');
+      const d = { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1 };
+      return s ? { ...d, ...JSON.parse(s) } : d;
+    } catch(e) { return { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1 }; }
+  },
+  saveSettings(obj) {
+    const c = this.getSettings();
+    localStorage.setItem('ccs_settings', JSON.stringify({ ...c, ...obj }));
+  },
+  isAdminLoggedIn() { return sessionStorage.getItem('ccs_admin') === 'true'; },
+  adminLogin(pw) {
+    if (pw === this.getSettings().adminPassword) { sessionStorage.setItem('ccs_admin', 'true'); return true; }
+    return false;
+  },
+  adminLogout() { sessionStorage.removeItem('ccs_admin'); },
+  formatPrice(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
+  getCategoryLabel(cat) {
+    const m = { passionate:'Passionate Art', abstract:'Abstract Emotional Art', cultural:'Cultural Art' };
+    return m[cat] || cat;
+  }
+};
+
+// ─── State ──────────────────────────────────────────────────────────────────
+let editingId = null;
+
+// ─── Init ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (CCS.isAdminLoggedIn()) {
+    showDashboard();
+  }
+
+  document.getElementById('admin-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const pw = document.getElementById('admin-password').value;
+  const err = document.getElementById('login-error');
+  if (CCS.adminLogin(pw)) {
+    err.classList.add('hidden');
+    showDashboard();
+  } else {
+    err.classList.remove('hidden');
+    document.getElementById('admin-password').classList.add('border-red-400');
+  }
+}
+
+function doLogout() {
+  CCS.adminLogout();
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('admin-password').value = '';
+}
+
+function togglePasswordVis() {
+  const field = document.getElementById('admin-password');
+  const eye = document.getElementById('pw-eye');
+  if (field.type === 'password') { field.type = 'text'; eye.textContent = 'visibility_off'; }
+  else { field.type = 'password'; eye.textContent = 'visibility'; }
+}
+
+function showDashboard() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  loadSettings();
+  renderArtworksTab();
+}
+
+// ─── Tabs ────────────────────────────────────────────────────────────────────
+function showTab(tab) {
+  ['artworks', 'settings'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
+    document.getElementById(`tab-${t}`).classList.toggle('flex-grow', t === tab);
+    const btn = document.getElementById(`nav-${t}`);
+    btn.classList.toggle('active', t === tab);
+    if (t !== tab) btn.classList.add('text-on-surface-variant');
+    else btn.classList.remove('text-on-surface-variant');
+  });
+}
+
+// ─── Artworks Tab ────────────────────────────────────────────────────────────
+function renderArtworksTab() {
+  const artworks = CCS.getArtworks();
+
+  // Stats
+  const cats = [...new Set(artworks.map(a => a.category))];
+  const statsHtml = `
+    <div class="bg-white rounded-xl border border-outline-variant/20 p-5 shadow-sm">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Total Artworks</p>
+      <p class="text-3xl font-headline font-extrabold text-on-surface">${artworks.length}</p>
+    </div>
+    <div class="bg-white rounded-xl border border-outline-variant/20 p-5 shadow-sm">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Featured</p>
+      <p class="text-3xl font-headline font-extrabold text-primary">${artworks.filter(a => a.featured).length}</p>
+    </div>
+    <div class="bg-white rounded-xl border border-outline-variant/20 p-5 shadow-sm">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Categories</p>
+      <p class="text-3xl font-headline font-extrabold text-on-surface">${cats.length}</p>
+    </div>
+    <div class="bg-white rounded-xl border border-outline-variant/20 p-5 shadow-sm">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Avg. Original Price</p>
+      <p class="text-3xl font-headline font-extrabold text-on-surface">${CCS.formatPrice(artworks.reduce((s,a) => s + a.originalPrice, 0) / artworks.length || 0)}</p>
+    </div>
+  `;
+  document.getElementById('stats-row').innerHTML = statsHtml;
+
+  // Table
+  const catColors = {
+    passionate: 'bg-orange-100 text-orange-800',
+    abstract: 'bg-purple-100 text-purple-800',
+    cultural: 'bg-amber-100 text-amber-800'
+  };
+
+  let tableHtml = '';
+  artworks.forEach(art => {
+    const catColor = catColors[art.category] || 'bg-stone-100 text-stone-700';
+    tableHtml += `
+      <tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors group">
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+              <img src="${art.images[0]}" alt="${art.title}" class="w-full h-full object-cover"/>
+            </div>
+            <div>
+              <p class="font-bold text-sm text-on-surface">${art.title}</p>
+              <p class="text-xs text-on-surface-variant font-body font-light">${art.artist}</p>
+              ${art.badge ? `<span class="inline-block mt-0.5 px-1.5 py-0.5 bg-primary text-on-primary text-[9px] font-label font-bold rounded-sm uppercase tracking-widest">${art.badge}</span>` : ''}
+            </div>
+          </div>
+        </td>
+        <td class="px-4 py-4 hidden md:table-cell">
+          <span class="px-3 py-1 ${catColor} rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${CCS.getCategoryLabel(art.category)}</span>
+        </td>
+        <td class="px-4 py-4 hidden lg:table-cell">
+          <span class="font-bold text-sm text-on-surface">${CCS.formatPrice(art.originalPrice)}</span>
+        </td>
+        <td class="px-4 py-4 hidden lg:table-cell">
+          <span class="font-bold text-sm text-on-surface-variant">${CCS.formatPrice(art.printPrice)}</span>
+        </td>
+        <td class="px-4 py-4 text-center">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" ${art.featured ? 'checked' : ''} onchange="toggleFeatured(${art.id}, this.checked)" class="sr-only peer"/>
+            <div class="w-10 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          </label>
+        </td>
+        <td class="px-6 py-4 text-right">
+          <div class="flex items-center justify-end gap-2">
+            <button onclick="openModal(${art.id})" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit">
+              <span class="material-symbols-outlined text-lg">edit</span>
+            </button>
+            <button onclick="deleteArtwork(${art.id})" class="p-2 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+              <span class="material-symbols-outlined text-lg">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('artworks-table-body').innerHTML = tableHtml || '<tr><td colspan="6" class="px-6 py-12 text-center text-on-surface-variant font-body font-light">No artworks found.</td></tr>';
+}
+
+function toggleFeatured(id, value) {
+  const artworks = CCS.getArtworks();
+  const art = artworks.find(a => a.id === id);
+  if (art) {
+    art.featured = value;
+    CCS.saveArtworks(artworks);
+    renderArtworksTab();
+    showAdminToast(`"${art.title}" ${value ? 'marked as featured' : 'removed from featured'}`);
+  }
+}
+
+function deleteArtwork(id) {
+  const artworks = CCS.getArtworks();
+  const art = artworks.find(a => a.id === id);
+  if (!art) return;
+  if (!confirm(`Delete "${art.title}"? This cannot be undone.`)) return;
+  const updated = artworks.filter(a => a.id !== id);
+  CCS.saveArtworks(updated);
+  renderArtworksTab();
+  showAdminToast(`"${art.title}" deleted`, 'error');
+}
+
+// ─── Modal ────────────────────────────────────────────────────────────────────
+function openModal(id) {
+  editingId = id;
+  const overlay = document.getElementById('modal-overlay');
+  const title = document.getElementById('modal-title');
+
+  if (id === null) {
+    // Add mode
+    title.textContent = 'Add New Artwork';
+    clearModal();
+  } else {
+    // Edit mode
+    title.textContent = 'Edit Artwork';
+    const art = CCS.getArtworks().find(a => a.id === id);
+    if (!art) return;
+    document.getElementById('m-title').value = art.title;
+    document.getElementById('m-artist').value = art.artist;
+    document.getElementById('m-category').value = art.category;
+    document.getElementById('m-medium').value = art.medium;
+    document.getElementById('m-year').value = art.year;
+    document.getElementById('m-dimensions').value = art.dimensions;
+    document.getElementById('m-original-price').value = art.originalPrice;
+    document.getElementById('m-print-price').value = art.printPrice;
+    document.getElementById('m-featured').checked = art.featured;
+    document.getElementById('m-badge').value = art.badge || '';
+    document.getElementById('m-description').value = art.description;
+    document.getElementById('m-img-1').value = art.images[0] || '';
+    document.getElementById('m-img-2').value = art.images[1] || '';
+    document.getElementById('m-img-3').value = art.images[2] || '';
+    updateImagePreview();
+  }
+
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+  editingId = null;
+}
+
+function clearModal() {
+  ['m-title','m-artist','m-medium','m-year','m-dimensions','m-original-price','m-print-price','m-badge','m-description','m-img-1','m-img-2','m-img-3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('m-featured').checked = false;
+  document.getElementById('m-category').value = 'passionate';
+  document.getElementById('img-preview-container').classList.add('hidden');
+}
+
+function updateImagePreview() {
+  const url = document.getElementById('m-img-1').value.trim();
+  const container = document.getElementById('img-preview-container');
+  const img = document.getElementById('img-preview');
+  if (url && url.startsWith('http')) {
+    img.src = url;
+    container.classList.remove('hidden');
+  } else {
+    container.classList.add('hidden');
+  }
+}
+
+function saveArtwork() {
+  const title = document.getElementById('m-title').value.trim();
+  const artist = document.getElementById('m-artist').value.trim();
+  const originalPrice = parseFloat(document.getElementById('m-original-price').value);
+
+  if (!title || !artist || isNaN(originalPrice)) {
+    showAdminToast('Please fill in all required fields (Title, Artist, Original Price)', 'error');
+    return;
+  }
+
+  const imgs = [
+    document.getElementById('m-img-1').value.trim(),
+    document.getElementById('m-img-2').value.trim(),
+    document.getElementById('m-img-3').value.trim()
+  ].filter(Boolean);
+
+  if (imgs.length === 0) {
+    showAdminToast('Please add at least one image URL', 'error');
+    return;
+  }
+
+  const artworks = CCS.getArtworks();
+  const artData = {
+    id: editingId !== null ? editingId : (Math.max(...artworks.map(a => a.id), 0) + 1),
+    title,
+    artist,
+    category: document.getElementById('m-category').value,
+    medium: document.getElementById('m-medium').value.trim(),
+    year: parseInt(document.getElementById('m-year').value) || new Date().getFullYear(),
+    dimensions: document.getElementById('m-dimensions').value.trim(),
+    originalPrice,
+    printPrice: parseFloat(document.getElementById('m-print-price').value) || 0,
+    featured: document.getElementById('m-featured').checked,
+    badge: document.getElementById('m-badge').value.trim() || null,
+    description: document.getElementById('m-description').value.trim(),
+    images: imgs
+  };
+
+  if (editingId !== null) {
+    const idx = artworks.findIndex(a => a.id === editingId);
+    if (idx !== -1) artworks[idx] = artData;
+  } else {
+    artworks.push(artData);
+  }
+
+  CCS.saveArtworks(artworks);
+  closeModal();
+  renderArtworksTab();
+  showAdminToast(editingId !== null ? `"${title}" updated successfully` : `"${title}" added to collection`);
+}
+
+// ─── Settings Tab ────────────────────────────────────────────────────────────
+function loadSettings() {
+  const s = CCS.getSettings();
+  document.getElementById('set-stripe-link').value = s.stripePaymentLink || '';
+  document.getElementById('set-formspree-id').value = s.formspreeId || '';
+  document.getElementById('set-shipping-rate').value = s.shippingRate;
+  document.getElementById('set-tax-rate').value = Math.round(s.taxRate * 100);
+}
+
+function savePassword() {
+  const newPw = document.getElementById('set-new-password').value;
+  const confirmPw = document.getElementById('set-confirm-password').value;
+  const errEl = document.getElementById('pw-change-error');
+
+  if (!newPw || newPw.length < 6) {
+    errEl.textContent = 'Password must be at least 6 characters.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  if (newPw !== confirmPw) {
+    errEl.textContent = 'Passwords do not match.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+
+  errEl.classList.add('hidden');
+  CCS.saveSettings({ adminPassword: newPw });
+  document.getElementById('set-new-password').value = '';
+  document.getElementById('set-confirm-password').value = '';
+  showAdminToast('Password changed successfully');
+}
+
+function saveStripeLink() {
+  const link = document.getElementById('set-stripe-link').value.trim();
+  CCS.saveSettings({ stripePaymentLink: link });
+  showAdminToast('Stripe link saved');
+}
+
+function saveFormspree() {
+  const id = document.getElementById('set-formspree-id').value.trim();
+  CCS.saveSettings({ formspreeId: id });
+  showAdminToast('Formspree ID saved');
+}
+
+function saveShippingTax() {
+  const rate = parseFloat(document.getElementById('set-shipping-rate').value);
+  const tax = parseFloat(document.getElementById('set-tax-rate').value);
+  if (isNaN(rate) || isNaN(tax)) {
+    showAdminToast('Please enter valid numbers', 'error');
+    return;
+  }
+  CCS.saveSettings({ shippingRate: rate, taxRate: tax / 100 });
+  showAdminToast('Shipping & tax settings saved');
+}
+
+function resetArtworks() {
+  if (!confirm('Reset all artworks to the default collection? Any custom artworks will be lost.')) return;
+  localStorage.removeItem('ccs_artworks');
+  renderArtworksTab();
+  showAdminToast('Artworks reset to default');
+}
+
+function clearAllData() {
+  if (!confirm('Clear ALL store data including artworks, settings, and cart? This is irreversible.')) return;
+  localStorage.removeItem('ccs_artworks');
+  localStorage.removeItem('ccs_settings');
+  localStorage.removeItem('ccs_cart');
+  renderArtworksTab();
+  loadSettings();
+  showAdminToast('All data cleared', 'error');
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+function showAdminToast(msg, type = 'success') {
+  const toast = document.getElementById('toast-admin');
+  const icon = document.getElementById('toast-admin-icon');
+  const msgEl = document.getElementById('toast-admin-msg');
+
+  msgEl.textContent = msg;
+  icon.textContent = type === 'error' ? 'error' : 'check_circle';
+  icon.classList.toggle('text-green-400', type !== 'error');
+  icon.classList.toggle('text-red-400', type === 'error');
+
+  toast.classList.remove('translate-y-20', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+  setTimeout(() => {
+    toast.classList.add('translate-y-20', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }, 3500);
+}
+
+// Close modal on overlay click
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gallery | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+        },
+        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; }
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #mobile-menu.open { max-height: 400px; }
+  .filter-btn.active { background-color: #8c4a32; color: #ffffff; }
+  .filter-btn.active:hover { background-color: #7a3f2a; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-surface">
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 right-6 z-[100] bg-on-surface text-surface px-6 py-4 rounded-xl shadow-2xl font-label text-sm font-bold flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+  <span class="material-symbols-outlined text-green-400" style="font-variation-settings:'FILL' 1">check_circle</span>
+  <span id="toast-msg">Added to cart!</span>
+</div>
+
+<!-- Nav -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full">
+    <div class="flex items-center gap-10">
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900 font-headline">Canvas Crush Studio</a>
+      <div class="hidden md:flex items-center gap-8 font-headline tracking-tight font-light">
+        <a id="nav-passionate" href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
+        <a id="nav-abstract" href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
+        <a id="nav-cultural" href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="p-2 text-stone-500 hover:text-orange-800 transition-colors">
+        <span class="material-symbols-outlined">search</span>
+      </button>
+      <a href="cart.html" class="p-2 text-stone-500 hover:text-orange-800 transition-colors relative">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600 hover:text-orange-800 transition-colors">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cultural Art</a>
+      <a href="cart.html" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cart</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-40 pb-20 px-6 md:px-8 max-w-7xl mx-auto">
+  <header class="mb-12 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div class="max-w-3xl">
+        <h1 id="gallery-title" class="text-5xl md:text-7xl font-extrabold font-headline tracking-tighter text-on-surface mb-6">All Artworks</h1>
+        <p id="gallery-desc" class="text-xl text-on-surface-variant font-body leading-relaxed max-w-2xl font-light">A curated selection of original artworks and premium prints, spanning passion, abstraction, and cultural heritage.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="artwork-count" class="px-5 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant/30 rounded-full text-xs font-label font-bold uppercase tracking-widest">0 Artworks</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filters + Sort -->
+  <section class="mb-12 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between border-y border-outline-variant/20 py-8">
+    <div class="flex flex-wrap gap-3">
+      <button data-cat="all" class="filter-btn active px-5 py-2.5 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all rounded-lg font-label text-sm font-semibold text-on-surface">All</button>
+      <button data-cat="passionate" class="filter-btn px-5 py-2.5 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all rounded-lg font-label text-sm font-semibold text-on-surface">Passionate Art</button>
+      <button data-cat="abstract" class="filter-btn px-5 py-2.5 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all rounded-lg font-label text-sm font-semibold text-on-surface">Abstract Emotional Art</button>
+      <button data-cat="cultural" class="filter-btn px-5 py-2.5 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 transition-all rounded-lg font-label text-sm font-semibold text-on-surface">Cultural Art</button>
+    </div>
+    <div class="flex items-center gap-3 text-sm font-label text-on-surface-variant">
+      <span class="material-symbols-outlined text-lg">sort</span>
+      <span class="font-medium">Sort by:</span>
+      <select id="sort-select" class="bg-transparent border-none font-bold text-primary focus:ring-0 cursor-pointer">
+        <option value="featured">Featured First</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Artwork Grid -->
+  <div id="artwork-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <!-- dynamically populated -->
+  </div>
+
+  <div id="empty-state" class="hidden text-center py-24">
+    <span class="material-symbols-outlined text-6xl text-on-surface-variant/30 mb-4 block">brush</span>
+    <p class="text-on-surface-variant font-body text-lg">No artworks found for this filter.</p>
+    <button onclick="setFilter('all')" class="mt-6 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">View All Artworks</button>
+  </div>
+</main>
+
+<footer class="bg-stone-100 w-full mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-20 gap-12">
+    <div class="flex flex-col gap-3">
+      <span class="text-xl font-bold text-stone-900 font-headline">Canvas Crush Studio</span>
+      <p class="text-stone-500 font-body font-light tracking-wide opacity-70">© 2024 Canvas Crush Studio. Curating Passion.</p>
+    </div>
+    <div class="flex gap-10 font-body font-light tracking-wide">
+      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="#">Newsletter Signup</a>
+      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="#">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100 underline decoration-orange-800/40 underline-offset-4" href="#">Shipping Info</a>
+    </div>
+    <div class="flex gap-6">
+      <button class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-200 text-stone-600 hover:bg-primary hover:text-white transition-all shadow-sm">
+        <span class="material-symbols-outlined text-xl">share</span>
+      </button>
+      <button class="w-12 h-12 flex items-center justify-center rounded-full bg-stone-200 text-stone-600 hover:bg-primary hover:text-white transition-all shadow-sm">
+        <span class="material-symbols-outlined text-xl">mail</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+let currentFilter = 'all';
+let currentSort = 'featured';
+let favorites = {};
+
+document.addEventListener('DOMContentLoaded', () => {
+  CCS.updateCartBadge();
+
+  // Load favorites
+  try { favorites = JSON.parse(localStorage.getItem('ccs_favorites') || '{}'); } catch(e) {}
+
+  // Mobile nav toggle
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  // Read URL params
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  const featured = params.get('featured');
+
+  if (featured === 'true') {
+    currentFilter = 'featured';
+  } else if (cat) {
+    currentFilter = cat;
+  }
+
+  // Set active nav link
+  if (cat) {
+    const navEl = document.getElementById(`nav-${cat}`);
+    if (navEl) {
+      navEl.classList.remove('text-stone-500');
+      navEl.classList.add('text-orange-900', 'border-b', 'border-orange-800/30', 'pb-1');
+    }
+  }
+
+  // Update header
+  updateHeader();
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.cat));
+  });
+
+  // Sort select
+  document.getElementById('sort-select').addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderGallery();
+  });
+
+  // Set active filter button based on URL
+  if (currentFilter !== 'all' && currentFilter !== 'featured') {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.cat === currentFilter) btn.classList.add('active');
+    });
+  }
+
+  renderGallery();
+});
+
+function updateHeader() {
+  const title = document.getElementById('gallery-title');
+  const desc = document.getElementById('gallery-desc');
+  const descs = {
+    passionate: 'A curated selection of works capturing the intensity of human emotion through bold strokes and serene terracotta tones.',
+    abstract: 'Fluid thoughts made visible — works that express the unseen and challenge perception through abstraction.',
+    cultural: 'A celebration of heritage, roots, and the richness of human culture through evocative visual storytelling.',
+    featured: 'Hand-picked masterpieces selected by our curators for their extraordinary emotional resonance and artistic merit.',
+    all: 'A curated selection of original artworks and premium prints, spanning passion, abstraction, and cultural heritage.'
+  };
+  const titles = {
+    passionate: 'Passionate Art',
+    abstract: 'Abstract Emotional Art',
+    cultural: 'Cultural Art',
+    featured: 'Featured Works',
+    all: 'All Artworks'
+  };
+  title.textContent = titles[currentFilter] || 'All Artworks';
+  desc.textContent = descs[currentFilter] || descs['all'];
+  document.title = (titles[currentFilter] || 'Gallery') + ' | Canvas Crush Studio';
+}
+
+function setFilter(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  updateHeader();
+  renderGallery();
+}
+
+function getFilteredSorted() {
+  let artworks = CCS.getArtworks();
+
+  if (currentFilter === 'featured') {
+    artworks = artworks.filter(a => a.featured);
+  } else if (currentFilter !== 'all') {
+    artworks = artworks.filter(a => a.category === currentFilter);
+  }
+
+  if (currentSort === 'featured') {
+    artworks.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  } else if (currentSort === 'price-asc') {
+    artworks.sort((a, b) => a.originalPrice - b.originalPrice);
+  } else if (currentSort === 'price-desc') {
+    artworks.sort((a, b) => b.originalPrice - a.originalPrice);
+  }
+  return artworks;
+}
+
+function renderGallery() {
+  const artworks = getFilteredSorted();
+  const grid = document.getElementById('artwork-grid');
+  const emptyState = document.getElementById('empty-state');
+  const countBadge = document.getElementById('artwork-count');
+
+  countBadge.textContent = `${artworks.length} Artwork${artworks.length !== 1 ? 's' : ''}`;
+
+  if (artworks.length === 0) {
+    grid.innerHTML = '';
+    emptyState.classList.remove('hidden');
+    return;
+  }
+  emptyState.classList.add('hidden');
+
+  let html = '';
+  artworks.forEach((art, i) => {
+    const isFav = favorites[art.id] || false;
+    // Make first artwork of list span 2 cols if there are more than 2 items
+    const spanClass = (i === 0 && artworks.length > 2) ? 'lg:col-span-2' : '';
+    const aspectClass = (i === 0 && artworks.length > 2) ? 'aspect-[16/10]' : 'aspect-[4/5]';
+
+    html += `
+      <div class="${spanClass} group">
+        <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-outline-variant/10 flex flex-col h-full">
+          <a href="product.html?id=${art.id}" class="${aspectClass} w-full overflow-hidden block">
+            <img alt="${art.title}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="${art.images[0]}"/>
+          </a>
+          <div class="p-7 flex-grow flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                ${art.badge ? `<span class="inline-block px-3 py-1 bg-primary text-on-primary text-[10px] font-label font-bold tracking-widest uppercase rounded-sm mb-2">${art.badge}</span>` : ''}
+                <h3 class="text-xl md:text-2xl font-bold font-headline tracking-tight">${art.title}</h3>
+                <p class="text-on-surface-variant text-sm font-body font-light mt-1">${art.medium}, ${art.year}</p>
+              </div>
+              <button onclick="toggleFavorite(${art.id}, event)" class="p-2 bg-surface rounded-full text-on-surface-variant hover:text-primary transition-colors shadow-sm flex-shrink-0" aria-label="Toggle favorite">
+                <span class="material-symbols-outlined text-lg" style="font-variation-settings:'FILL' ${isFav ? 1 : 0}">${isFav ? 'favorite' : 'favorite'}</span>
+              </button>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-4 mt-4">
+                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
+                  <span class="block text-[11px] font-label font-bold text-primary uppercase tracking-widest mb-1">Original</span>
+                  <span class="text-lg font-bold font-headline text-on-surface">${CCS.formatPrice(art.originalPrice)}</span>
+                </div>
+                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
+                  <span class="block text-[11px] font-label font-bold text-secondary uppercase tracking-widest mb-1">Print</span>
+                  <span class="text-lg font-bold font-headline text-on-surface">${CCS.formatPrice(art.printPrice)}</span>
+                </div>
+              </div>
+              <a href="product.html?id=${art.id}" class="block w-full mt-6 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+}
+
+function toggleFavorite(id, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  favorites[id] = !favorites[id];
+  localStorage.setItem('ccs_favorites', JSON.stringify(favorites));
+  const btn = event.currentTarget;
+  const icon = btn.querySelector('.material-symbols-outlined');
+  const isFav = favorites[id];
+  icon.style.fontVariationSettings = `'FILL' ${isFav ? 1 : 0}`;
+  icon.classList.toggle('text-primary', isFav);
+  showToast(isFav ? 'Added to wishlist!' : 'Removed from wishlist');
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  toast.classList.remove('translate-y-20', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+  setTimeout(() => {
+    toast.classList.add('translate-y-20', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }, 3000);
+}
+</script>
+</body>
+</html>
