@@ -195,6 +195,30 @@
         </div>
       </div>
 
+      <!-- Cloudinary -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">cloud_upload</span>
+          Cloudinary (Image Uploads)
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Sign up free at <strong>cloudinary.com</strong>. Then go to <strong>Settings → Upload → Upload Presets → Add preset</strong> — set signing mode to <strong>"Unsigned"</strong> and copy the preset name.</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Cloud Name</label>
+            <input id="set-cloudinary-cloud" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="e.g. my-studio"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Upload Preset (unsigned)</label>
+            <input id="set-cloudinary-preset" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="e.g. canvas_crush_unsigned"/>
+          </div>
+          <div id="cloudinary-status" class="hidden px-4 py-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-xs font-label font-bold flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">check_circle</span>
+            Cloudinary connected! Upload buttons are now active.
+          </div>
+          <button onclick="saveCloudinary()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save &amp; Enable Uploads</button>
+        </div>
+      </div>
+
       <!-- Formspree -->
       <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
         <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
@@ -328,14 +352,28 @@
 
       <!-- Images -->
       <div>
-        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">Image URLs (up to 3)</label>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">Images (up to 3)</label>
         <div class="space-y-3">
-          <div class="flex gap-3">
+          <div class="flex gap-2">
             <input id="m-img-1" type="url" oninput="updateImagePreview()" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Primary image)"/>
+            <button type="button" onclick="openCloudinaryUpload(1)" class="flex-shrink-0 flex items-center gap-2 px-4 py-3 bg-primary text-white rounded-lg font-label text-xs font-bold hover:opacity-90 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
           </div>
-          <input id="m-img-2" type="url" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Second image, optional)"/>
-          <input id="m-img-3" type="url" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Third image, optional)"/>
+          <div class="flex gap-2">
+            <input id="m-img-2" type="url" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Second image, optional)"/>
+            <button type="button" onclick="openCloudinaryUpload(2)" class="flex-shrink-0 flex items-center gap-2 px-4 py-3 bg-stone-200 text-stone-700 rounded-lg font-label text-xs font-bold hover:bg-stone-300 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <input id="m-img-3" type="url" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... (Third image, optional)"/>
+            <button type="button" onclick="openCloudinaryUpload(3)" class="flex-shrink-0 flex items-center gap-2 px-4 py-3 bg-stone-200 text-stone-700 rounded-lg font-label text-xs font-bold hover:bg-stone-300 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
         </div>
+        <p class="mt-2 text-[10px] text-stone-400 font-label">Click <strong>Upload</strong> to pick from your computer (requires Cloudinary setup in Settings), or paste a URL directly.</p>
         <!-- Preview -->
         <div id="img-preview-container" class="hidden mt-4">
           <p class="text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Preview</p>
@@ -378,9 +416,9 @@ const CCS = {
   getSettings() {
     try {
       const s = localStorage.getItem('ccs_settings');
-      const d = { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1 };
+      const d = { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1, cloudinaryCloud:'', cloudinaryPreset:'' };
       return s ? { ...d, ...JSON.parse(s) } : d;
-    } catch(e) { return { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1 }; }
+    } catch(e) { return { adminPassword:'canvas2024', stripePaymentLink:'', formspreeId:'', shippingRate:45, taxRate:0.1, cloudinaryCloud:'', cloudinaryPreset:'' }; }
   },
   saveSettings(obj) {
     const c = this.getSettings();
@@ -678,10 +716,57 @@ function saveArtwork() {
   showAdminToast(editingId !== null ? `"${title}" updated successfully` : `"${title}" added to collection`);
 }
 
+// ─── Cloudinary Upload ───────────────────────────────────────────────────────
+function openCloudinaryUpload(slotNumber) {
+  const s = CCS.getSettings();
+  if (!s.cloudinaryCloud || !s.cloudinaryPreset) {
+    showAdminToast('Please set up Cloudinary in Settings first', 'error'); return;
+  }
+  const script = document.getElementById('cloudinary-script');
+  if (!script) {
+    const el = document.createElement('script');
+    el.id = 'cloudinary-script';
+    el.src = 'https://upload-widget.cloudinary.com/global/all.js';
+    el.onload = () => launchWidget(slotNumber, s.cloudinaryCloud, s.cloudinaryPreset);
+    document.head.appendChild(el);
+  } else {
+    launchWidget(slotNumber, s.cloudinaryCloud, s.cloudinaryPreset);
+  }
+}
+
+function launchWidget(slotNumber, cloud, preset) {
+  const widget = cloudinary.createUploadWidget(
+    { cloudName: cloud, uploadPreset: preset, sources: ['local','url','camera'], multiple: false, maxFileSize: 10000000, folder: 'canvas-crush-studio', cropping: false, showPoweredBy: false, styles: { palette: { window:'#FFFFFF', sourceBg:'#F6F3F0', windowBorder:'#D8CFCC', tabIcon:'#8C4A32', inactiveTabIcon:'#85736E', menuIcons:'#8C4A32', link:'#8C4A32', action:'#8C4A32', inProgress:'#8C4A32', complete:'#4CAF50', error:'#BA1A1A', textDark:'#1F1B1A', textLight:'#FFFFFF' } } },
+    (error, result) => {
+      if (!error && result && result.event === 'success') {
+        const url = result.info.secure_url;
+        document.getElementById(`m-img-${slotNumber}`).value = url;
+        if (slotNumber === 1) updateImagePreview();
+        showAdminToast(`Image ${slotNumber} uploaded successfully!`);
+      }
+    }
+  );
+  widget.open();
+}
+
+function saveCloudinary() {
+  const cloud = document.getElementById('set-cloudinary-cloud').value.trim();
+  const preset = document.getElementById('set-cloudinary-preset').value.trim();
+  if (!cloud || !preset) { showAdminToast('Please fill in both Cloud Name and Upload Preset', 'error'); return; }
+  CCS.saveSettings({ cloudinaryCloud: cloud, cloudinaryPreset: preset });
+  document.getElementById('cloudinary-status').classList.remove('hidden');
+  showAdminToast('Cloudinary settings saved! Upload buttons are now active ✓');
+}
+
 // ─── Settings Tab ────────────────────────────────────────────────────────────
 function loadSettings() {
   const s = CCS.getSettings();
   document.getElementById('set-stripe-link').value = s.stripePaymentLink || '';
+  document.getElementById('set-cloudinary-cloud').value = s.cloudinaryCloud || '';
+  document.getElementById('set-cloudinary-preset').value = s.cloudinaryPreset || '';
+  if (s.cloudinaryCloud && s.cloudinaryPreset) {
+    document.getElementById('cloudinary-status').classList.remove('hidden');
+  }
   document.getElementById('set-formspree-id').value = s.formspreeId || '';
   document.getElementById('set-shipping-rate').value = s.shippingRate;
   document.getElementById('set-tax-rate').value = Math.round(s.taxRate * 100);
