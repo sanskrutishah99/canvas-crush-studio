@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shipping Info | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: { "primary":"#8c4a32","surface-container-low":"#f6f3f0","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-fixed":"#ffdad3","surface-container-high":"#ede8e5" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Plus Jakarta Sans"] } } }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; }
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #mobile-menu.open { max-height: 400px; }
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart.html" class="relative p-2 text-stone-600 hover:text-orange-800 transition-colors">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2">Cultural Art</a>
+      <a href="cart.html" class="text-stone-700 font-medium py-2">Cart</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-36 pb-24 px-6 max-w-4xl mx-auto">
+  <div class="mb-12">
+    <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-orange-50 rounded-full">Delivery</span>
+    <h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Shipping Information</h1>
+    <p class="text-on-surface-variant font-light text-lg">Every piece is handled with the care it deserves.</p>
+  </div>
+
+  <!-- Key info cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+    <div class="bg-orange-50 border border-orange-100 rounded-2xl p-8 text-center">
+      <span class="material-symbols-outlined text-primary text-4xl mb-4 block" style="font-variation-settings:'FILL' 1">verified</span>
+      <h3 class="font-headline font-bold text-on-surface mb-2">Fully Insured</h3>
+      <p class="text-on-surface-variant text-sm font-light">Every shipment is insured for its full value, door to door.</p>
+    </div>
+    <div class="bg-orange-50 border border-orange-100 rounded-2xl p-8 text-center">
+      <span class="material-symbols-outlined text-primary text-4xl mb-4 block" style="font-variation-settings:'FILL' 1">inventory_2</span>
+      <h3 class="font-headline font-bold text-on-surface mb-2">Museum Packaging</h3>
+      <p class="text-on-surface-variant text-sm font-light">Archival materials, acid-free wrapping, and custom crating for originals.</p>
+    </div>
+    <div class="bg-orange-50 border border-orange-100 rounded-2xl p-8 text-center">
+      <span class="material-symbols-outlined text-primary text-4xl mb-4 block" style="font-variation-settings:'FILL' 1">public</span>
+      <h3 class="font-headline font-bold text-on-surface mb-2">Worldwide Delivery</h3>
+      <p class="text-on-surface-variant text-sm font-light">We ship to over 50 countries. Customs and import fees may apply.</p>
+    </div>
+  </div>
+
+  <div class="space-y-10 font-body font-light leading-relaxed">
+
+    <section class="space-y-4">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Processing Time</h2>
+      <p>All orders are carefully processed within <strong>2–5 business days</strong>. Original artworks may require additional time for condition checks, documentation, and custom crating.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Delivery Times & Rates</h2>
+      <div class="overflow-hidden rounded-xl border border-outline-variant/30">
+        <table class="w-full text-sm">
+          <thead class="bg-surface-container-high">
+            <tr>
+              <th class="text-left px-6 py-4 font-label font-bold uppercase tracking-wider text-on-surface-variant text-[11px]">Destination</th>
+              <th class="text-left px-6 py-4 font-label font-bold uppercase tracking-wider text-on-surface-variant text-[11px]">Prints</th>
+              <th class="text-left px-6 py-4 font-label font-bold uppercase tracking-wider text-on-surface-variant text-[11px]">Originals</th>
+              <th class="text-left px-6 py-4 font-label font-bold uppercase tracking-wider text-on-surface-variant text-[11px]">Rate</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/20">
+            <tr class="bg-white hover:bg-surface-container-low transition-colors">
+              <td class="px-6 py-4 font-medium">United States</td>
+              <td class="px-6 py-4 text-on-surface-variant">3–5 business days</td>
+              <td class="px-6 py-4 text-on-surface-variant">5–10 business days</td>
+              <td class="px-6 py-4 font-bold text-primary">From $25</td>
+            </tr>
+            <tr class="bg-white hover:bg-surface-container-low transition-colors">
+              <td class="px-6 py-4 font-medium">Canada</td>
+              <td class="px-6 py-4 text-on-surface-variant">5–7 business days</td>
+              <td class="px-6 py-4 text-on-surface-variant">7–14 business days</td>
+              <td class="px-6 py-4 font-bold text-primary">From $45</td>
+            </tr>
+            <tr class="bg-white hover:bg-surface-container-low transition-colors">
+              <td class="px-6 py-4 font-medium">Europe</td>
+              <td class="px-6 py-4 text-on-surface-variant">5–10 business days</td>
+              <td class="px-6 py-4 text-on-surface-variant">10–20 business days</td>
+              <td class="px-6 py-4 font-bold text-primary">From $65</td>
+            </tr>
+            <tr class="bg-white hover:bg-surface-container-low transition-colors">
+              <td class="px-6 py-4 font-medium">Australia / Asia</td>
+              <td class="px-6 py-4 text-on-surface-variant">7–14 business days</td>
+              <td class="px-6 py-4 text-on-surface-variant">14–25 business days</td>
+              <td class="px-6 py-4 font-bold text-primary">From $85</td>
+            </tr>
+            <tr class="bg-white hover:bg-surface-container-low transition-colors">
+              <td class="px-6 py-4 font-medium">Rest of World</td>
+              <td class="px-6 py-4 text-on-surface-variant">10–20 business days</td>
+              <td class="px-6 py-4 text-on-surface-variant">20–30 business days</td>
+              <td class="px-6 py-4 font-bold text-primary">Quoted at checkout</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-on-surface-variant">Free shipping on original artwork orders over $5,000.</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Tracking Your Order</h2>
+      <p>Once your order ships, you'll receive a confirmation email with a tracking number. You can track your shipment directly through the carrier's website.</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Returns & Damages</h2>
+      <p>We offer a <strong>30-day gallery guarantee</strong>. If your artwork arrives damaged or is not as described, contact us within 30 days of receipt and we will arrange a full replacement or refund. Please photograph any damage immediately upon unpacking.</p>
+      <p>Original artworks are non-returnable unless damaged in transit. Prints may be returned within 30 days in original condition.</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Customs & Import Duties</h2>
+      <p>International orders may be subject to customs duties and import taxes levied by the destination country. These fees are the buyer's responsibility and are not included in our shipping rates. We recommend checking your country's import regulations before ordering.</p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="font-headline text-2xl font-bold text-on-surface">Questions?</h2>
+      <p>Email us at <strong>hello@canvascrushstudio.com</strong> — we typically respond within 24 hours.</p>
+    </section>
+  </div>
+
+  <div class="mt-16 pt-8 border-t border-outline-variant/30 flex gap-6">
+    <a href="gallery.html" class="inline-flex items-center gap-2 text-primary font-label font-bold hover:gap-3 transition-all">
+      <span class="material-symbols-outlined text-sm">arrow_back</span>Back to Gallery
+    </a>
+  </div>
+</main>
+
+<footer class="bg-stone-100 w-full mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
+    <span class="text-xl font-bold text-stone-900 font-headline">Canvas Crush Studio</span>
+    <div class="flex gap-8 font-body font-light">
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="newsletter.html">Newsletter</a>
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+    </div>
+    <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    CCS.updateCartBadge();
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

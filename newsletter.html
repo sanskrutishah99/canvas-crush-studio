@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Newsletter | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: { "primary":"#8c4a32","surface-container-low":"#f6f3f0","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-fixed":"#ffdad3","on-primary":"#ffffff" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Plus Jakarta Sans"] } } }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; }
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #mobile-menu.open { max-height: 400px; }
+  input:focus { outline: none; border-color: #8c4a32 !important; box-shadow: 0 0 0 2px rgba(140,74,50,0.15) !important; }
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart.html" class="relative p-2 text-stone-600 hover:text-orange-800 transition-colors">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2">Cultural Art</a>
+      <a href="cart.html" class="text-stone-700 font-medium py-2">Cart</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-36 pb-24 px-6 max-w-2xl mx-auto">
+
+  <!-- Success state (hidden by default) -->
+  <div id="success-state" class="hidden text-center py-20">
+    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-green-500 text-4xl" style="font-variation-settings:'FILL' 1">check_circle</span>
+    </div>
+    <h2 class="font-headline text-4xl font-extrabold tracking-tighter mb-4">You're In!</h2>
+    <p class="text-on-surface-variant font-light text-lg mb-8">Welcome to the Collectors Club. Expect inspiration, exclusive drops, and art world stories in your inbox.</p>
+    <a href="gallery.html" class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-label font-bold rounded-lg hover:opacity-90 transition-all">
+      Explore the Gallery <span class="material-symbols-outlined text-sm">arrow_forward</span>
+    </a>
+  </div>
+
+  <!-- Form state -->
+  <div id="form-state">
+    <div class="mb-12 text-center">
+      <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1">mail</span>
+      </div>
+      <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-orange-50 rounded-full">Collectors Club</span>
+      <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Stay Inspired.</h1>
+      <p class="text-on-surface-variant font-light text-lg leading-relaxed">Join our collectors community for first access to new works, artist stories, and exclusive drops — straight to your inbox.</p>
+    </div>
+
+    <div class="bg-white border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+      <form id="newsletter-form" class="space-y-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">First Name</label>
+          <input id="nl-name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Your first name"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Email Address *</label>
+          <input id="nl-email" type="email" required class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="you@example.com"/>
+          <p id="nl-error" class="hidden mt-2 text-red-500 text-xs font-label font-bold">Please enter a valid email address.</p>
+        </div>
+        <div class="space-y-3">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400">Interests (optional)</label>
+          <div class="flex flex-wrap gap-3">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-primary" value="passionate"/> <span class="text-sm font-body">Passionate Art</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-primary" value="abstract"/> <span class="text-sm font-body">Abstract Emotional Art</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-primary" value="cultural"/> <span class="text-sm font-body">Cultural Art</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-primary" value="new-drops"/> <span class="text-sm font-body">New Drops</span></label>
+          </div>
+        </div>
+        <button type="submit" id="nl-submit" class="w-full py-5 bg-primary text-on-primary font-headline font-bold text-lg rounded-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-3">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">favorite</span>
+          Join the Club
+        </button>
+      </form>
+      <p class="text-center text-stone-400 text-[10px] font-label uppercase tracking-widest mt-6">No spam. Pure inspiration. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-3 gap-4 text-center">
+      <div class="p-5 bg-orange-50 rounded-xl">
+        <p class="font-headline text-2xl font-bold text-primary">1,200+</p>
+        <p class="text-on-surface-variant text-xs font-label font-bold uppercase tracking-wider mt-1">Collectors</p>
+      </div>
+      <div class="p-5 bg-orange-50 rounded-xl">
+        <p class="font-headline text-2xl font-bold text-primary">Monthly</p>
+        <p class="text-on-surface-variant text-xs font-label font-bold uppercase tracking-wider mt-1">Frequency</p>
+      </div>
+      <div class="p-5 bg-orange-50 rounded-xl">
+        <p class="font-headline text-2xl font-bold text-primary">Free</p>
+        <p class="text-on-surface-variant text-xs font-label font-bold uppercase tracking-wider mt-1">Always</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-stone-100 w-full mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
+    <span class="text-xl font-bold text-stone-900 font-headline">Canvas Crush Studio</span>
+    <div class="flex gap-8 font-body font-light">
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="newsletter.html">Newsletter</a>
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="shipping-info.html">Shipping Info</a>
+    </div>
+    <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    CCS.updateCartBadge();
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value.trim();
+      const name = document.getElementById('nl-name').value.trim();
+      const errEl = document.getElementById('nl-error');
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.classList.remove('hidden');
+        document.getElementById('nl-email').style.borderColor = '#ba1a1a';
+        return;
+      }
+      errEl.classList.add('hidden');
+      const btn = document.getElementById('nl-submit');
+      btn.textContent = 'Subscribing...';
+      btn.disabled = true;
+
+      const settings = CCS.getSettings();
+      if (settings.formspreeId) {
+        try {
+          await fetch(`https://formspree.io/f/${settings.formspreeId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ email, name, source: 'newsletter-page' })
+          });
+        } catch(e) {}
+      }
+
+      document.getElementById('form-state').classList.add('hidden');
+      document.getElementById('success-state').classList.remove('hidden');
+    });
+  });
+</script>
+</body>
+</html>
