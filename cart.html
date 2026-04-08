@@ -198,6 +198,7 @@ function renderCart() {
   keys.forEach(key => {
     const item = cart[key];
     const typeLabel = item.type === 'original' ? 'Original Artwork' : 'Giclée Print';
+    const sizeLabel = (item.type === 'print' && item.printSize) ? item.printSize : null;
     const frameLabel = item.frame !== 'none' ? item.frame : 'No Frame';
     html += `
       <div class="bg-surface-container-low rounded-xl p-5 md:p-7 border border-outline-variant/20 flex gap-5 md:gap-7 items-start group hover:shadow-md transition-all">
@@ -216,6 +217,7 @@ function renderCart() {
           </div>
           <div class="flex flex-wrap gap-2 mt-3">
             <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${typeLabel}</span>
+            ${sizeLabel ? `<span class="px-2.5 py-1 bg-primary text-on-primary rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${sizeLabel}</span>` : ''}
             <span class="px-2.5 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-label font-bold uppercase tracking-widest">${frameLabel}</span>
           </div>
           <div class="flex items-center justify-between mt-4">

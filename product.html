@@ -97,6 +97,7 @@
 let artwork = null;
 let selectedType = 'original';
 let selectedFrame = 'Midnight Oak';
+let selectedPrintSize = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
@@ -121,6 +122,11 @@ function renderProduct() {
   const main = document.getElementById('product-main');
   const catLabel = CCS.getCategoryLabel(artwork.category);
 
+  // Prints availability
+  const printSizes = CCS.getPrintSizes(artwork);
+  const hasPrints = printSizes.length > 0;
+  if (hasPrints) selectedPrintSize = printSizes[0];
+
   // Build thumbnails HTML
   let thumbsHtml = '';
   artwork.images.forEach((img, i) => {
@@ -130,6 +136,34 @@ function renderProduct() {
       </div>
     `;
   });
+
+  // Type selector: show print tab only when prints are available
+  const typeSelectorHtml = hasPrints ? `
+    <div class="flex p-1 bg-surface-container-high rounded-lg font-label text-sm font-bold">
+      <button id="tab-original" class="tab-btn active flex-1 py-2 rounded-md transition-all" onclick="selectType('original')">Buy Original</button>
+      <button id="tab-print" class="tab-btn flex-1 py-2 rounded-md text-stone-500 hover:text-stone-700 transition-all" onclick="selectType('print')">Order Print</button>
+    </div>
+  ` : `
+    <div class="flex p-1 bg-surface-container-high rounded-lg font-label text-sm font-bold">
+      <button class="tab-btn active flex-1 py-2 rounded-md transition-all">Buy Original</button>
+      <div class="flex-1 py-2 text-center text-stone-300 text-xs font-label font-bold tracking-wide">Prints Not Available</div>
+    </div>
+  `;
+
+  // Print size pill-buttons (hidden until print tab is selected)
+  const printSizesHtml = hasPrints ? `
+    <div id="print-size-container" class="hidden space-y-3">
+      <label class="block font-label text-xs font-bold text-stone-500 uppercase">Choose Print Size</label>
+      <div class="flex flex-wrap gap-2">
+        ${printSizes.map((sz, i) => `
+          <button class="print-size-btn ${i === 0 ? 'border-primary bg-white' : 'border-transparent bg-surface-container-high'} border-2 px-4 py-2.5 rounded-xl font-label text-xs font-bold transition-all hover:border-outline-variant text-left" onclick="selectPrintSize(${i}, this)">
+            <div class="font-bold text-on-surface">${sz.label}</div>
+            <div class="text-primary mt-0.5">${CCS.formatPrice(sz.price)}</div>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
 
   main.innerHTML = `
     <section class="max-w-7xl mx-auto px-6 md:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
@@ -157,15 +191,15 @@ function renderProduct() {
 
         <div class="bg-surface-container-low p-8 rounded-xl flex flex-col gap-7 border border-outline-variant/20">
           <!-- Type selector -->
-          <div class="flex p-1 bg-surface-container-high rounded-lg font-label text-sm font-bold">
-            <button id="tab-original" class="tab-btn active flex-1 py-2 rounded-md transition-all" onclick="selectType('original')">Buy Original</button>
-            <button id="tab-print" class="tab-btn flex-1 py-2 rounded-md text-stone-500 hover:text-stone-700 transition-all" onclick="selectType('print')">Order Print</button>
-          </div>
+          ${typeSelectorHtml}
 
           <!-- Price -->
           <div class="flex items-baseline gap-3">
             <span id="displayed-price" class="text-4xl font-headline font-bold text-on-surface">${CCS.formatPrice(artwork.originalPrice)}</span>
           </div>
+
+          <!-- Print size selector (shown when Order Print is active) -->
+          ${printSizesHtml}
 
           <!-- Frame selector -->
           <div class="space-y-3">
@@ -247,13 +281,44 @@ function setMainImage(src, thumbEl) {
 
 function selectType(type) {
   selectedType = type;
-  const price = type === 'original' ? artwork.originalPrice : artwork.printPrice;
-  document.getElementById('displayed-price').textContent = CCS.formatPrice(price);
 
-  document.getElementById('tab-original').classList.toggle('active', type === 'original');
-  document.getElementById('tab-print').classList.toggle('active', type === 'print');
-  document.getElementById('tab-original').classList.toggle('text-stone-500', type !== 'original');
-  document.getElementById('tab-print').classList.toggle('text-stone-500', type !== 'print');
+  if (type === 'original') {
+    document.getElementById('displayed-price').textContent = CCS.formatPrice(artwork.originalPrice);
+  } else {
+    // Show first print size price by default
+    const sizes = CCS.getPrintSizes(artwork);
+    if (sizes.length > 0) {
+      selectedPrintSize = sizes[0];
+      document.getElementById('displayed-price').textContent = CCS.formatPrice(sizes[0].price);
+    }
+  }
+
+  const tabOriginal = document.getElementById('tab-original');
+  const tabPrint = document.getElementById('tab-print');
+  if (tabOriginal) {
+    tabOriginal.classList.toggle('active', type === 'original');
+    tabOriginal.classList.toggle('text-stone-500', type !== 'original');
+  }
+  if (tabPrint) {
+    tabPrint.classList.toggle('active', type === 'print');
+    tabPrint.classList.toggle('text-stone-500', type !== 'print');
+  }
+
+  // Show/hide print size picker
+  const sizePicker = document.getElementById('print-size-container');
+  if (sizePicker) sizePicker.classList.toggle('hidden', type !== 'print');
+}
+
+function selectPrintSize(index, btnEl) {
+  const sizes = CCS.getPrintSizes(artwork);
+  selectedPrintSize = sizes[index];
+  document.getElementById('displayed-price').textContent = CCS.formatPrice(selectedPrintSize.price);
+  document.querySelectorAll('.print-size-btn').forEach(b => {
+    b.classList.remove('border-primary', 'bg-white');
+    b.classList.add('border-transparent', 'bg-surface-container-high');
+  });
+  btnEl.classList.add('border-primary', 'bg-white');
+  btnEl.classList.remove('border-transparent', 'bg-surface-container-high');
 }
 
 function selectFrame(frame, btnEl) {
@@ -268,9 +333,14 @@ function selectFrame(frame, btnEl) {
 
 function addToCart() {
   if (!artwork) return;
-  CCS.addToCart(artwork.id, selectedType, selectedFrame);
+  if (selectedType === 'print' && !selectedPrintSize) {
+    showToast('Please select a print size first.');
+    return;
+  }
+  CCS.addToCart(artwork.id, selectedType, selectedFrame, selectedType === 'print' ? selectedPrintSize : null);
   CCS.updateCartBadge();
-  showToast(`"${artwork.title}" added to cart!`);
+  const sizeLabel = (selectedType === 'print' && selectedPrintSize) ? ` (${selectedPrintSize.label})` : '';
+  showToast(`"${artwork.title}"${sizeLabel} added to cart!`);
 }
 
 function renderRelated() {
