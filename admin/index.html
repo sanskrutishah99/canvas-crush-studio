@@ -159,6 +159,42 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Branding -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 lg:col-span-2">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">style</span>
+          Branding &amp; Logo
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Changes apply instantly across the entire site — no code edit needed.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Studio Name *</label>
+            <input id="set-studio-name" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Canvas Crush Studio"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Tagline</label>
+            <input id="set-tagline" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Curating Passion"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Logo Image (optional)</label>
+            <div class="flex gap-2">
+              <input id="set-logo-url" type="url" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://... or upload →"/>
+              <button type="button" onclick="openGitHubUploadForLogo()" class="flex-shrink-0 flex items-center gap-1 px-3 py-3 bg-stone-200 text-stone-700 rounded-lg font-label text-xs font-bold hover:bg-stone-300 transition-all whitespace-nowrap">
+                <span class="material-symbols-outlined text-sm">upload</span>
+              </button>
+            </div>
+            <p class="text-[10px] text-stone-400 font-label mt-1">Leave blank to use text name in the nav. PNG with transparent background works best.</p>
+          </div>
+        </div>
+        <div class="mt-6 flex items-center gap-4">
+          <button onclick="saveBrandingSettings()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save Branding</button>
+          <div id="logo-preview-wrap" class="hidden items-center gap-3 text-xs text-stone-400 font-label">
+            <span>Logo preview:</span>
+            <img id="logo-preview" src="" alt="Logo" class="h-10 object-contain border border-outline-variant/30 rounded-lg px-2 bg-stone-50"/>
+          </div>
+        </div>
+      </div>
+
       <!-- Admin Password -->
       <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8">
         <h2 class="font-headline text-lg font-bold mb-6 flex items-center gap-3">
@@ -485,6 +521,7 @@ function showDashboard() {
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
   loadSettings();
+  loadBranding();
   renderArtworksTab();
 }
 
@@ -802,6 +839,77 @@ function saveGitHubSettings() {
 }
 
 // ─── Settings Tab ────────────────────────────────────────────────────────────
+// ─── Branding ─────────────────────────────────────────────────────────────────
+function getBranding() {
+  try {
+    const saved = localStorage.getItem('ccs_branding');
+    const d = { studioName: 'Canvas Crush Studio', tagline: 'Curating Passion', logoUrl: '' };
+    return saved ? { ...d, ...JSON.parse(saved) } : d;
+  } catch(e) { return { studioName: 'Canvas Crush Studio', tagline: 'Curating Passion', logoUrl: '' }; }
+}
+
+function loadBranding() {
+  const b = getBranding();
+  document.getElementById('set-studio-name').value = b.studioName || '';
+  document.getElementById('set-tagline').value = b.tagline || '';
+  document.getElementById('set-logo-url').value = b.logoUrl || '';
+  if (b.logoUrl) {
+    document.getElementById('logo-preview').src = b.logoUrl;
+    document.getElementById('logo-preview-wrap').classList.remove('hidden');
+    document.getElementById('logo-preview-wrap').classList.add('flex');
+  }
+}
+
+function saveBrandingSettings() {
+  const name = document.getElementById('set-studio-name').value.trim();
+  const tagline = document.getElementById('set-tagline').value.trim();
+  const logoUrl = document.getElementById('set-logo-url').value.trim();
+  if (!name) { showAdminToast('Studio name is required', 'error'); return; }
+  localStorage.setItem('ccs_branding', JSON.stringify({ studioName: name, tagline, logoUrl }));
+  if (logoUrl) {
+    document.getElementById('logo-preview').src = logoUrl;
+    document.getElementById('logo-preview-wrap').classList.remove('hidden');
+    document.getElementById('logo-preview-wrap').classList.add('flex');
+  } else {
+    document.getElementById('logo-preview-wrap').classList.add('hidden');
+    document.getElementById('logo-preview-wrap').classList.remove('flex');
+  }
+  showAdminToast('Branding saved — changes are live on every page now!');
+}
+
+async function openGitHubUploadForLogo() {
+  const s = CCS.getSettings();
+  if (!s.githubToken || !s.githubRepo) {
+    showAdminToast('Set up GitHub Image Upload in Settings first', 'error'); return;
+  }
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    // Reuse the GitHub upload logic, then fill the logo URL field
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = ev => resolve(ev.target.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    const safeName = file.name.replace(/[^a-z0-9._-]/gi, '_').toLowerCase();
+    const path = `images/branding/${Date.now()}-${safeName}`;
+    const res = await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+      body: JSON.stringify({ message: `Upload logo: ${safeName}`, content: base64, branch: 'main' })
+    });
+    if (!res.ok) { const e = await res.json(); showAdminToast(`Upload failed: ${e.message}`, 'error'); return; }
+    const data = await res.json();
+    document.getElementById('set-logo-url').value = data.content.download_url;
+    showAdminToast('Logo uploaded! Click Save Branding to apply.');
+  };
+  input.click();
+}
+
 function loadSettings() {
   const s = CCS.getSettings();
   document.getElementById('set-stripe-link').value = s.stripePaymentLink || '';

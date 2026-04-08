@@ -190,6 +190,41 @@ const CCS = {
     sessionStorage.removeItem('ccs_admin');
   },
 
+  // ─── Branding ────────────────────────────────────────────────────────────────
+
+  getBranding() {
+    try {
+      const saved = localStorage.getItem('ccs_branding');
+      const defaults = { studioName: 'Canvas Crush Studio', tagline: 'Curating Passion', logoUrl: '' };
+      return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+    } catch(e) { return { studioName: 'Canvas Crush Studio', tagline: 'Curating Passion', logoUrl: '' }; }
+  },
+
+  saveBranding(obj) {
+    const current = this.getBranding();
+    localStorage.setItem('ccs_branding', JSON.stringify({ ...current, ...obj }));
+  },
+
+  applyBranding() {
+    const b = this.getBranding();
+    // Studio name in nav and footer
+    document.querySelectorAll('[data-brand="name"]').forEach(el => { el.textContent = b.studioName; });
+    // Copyright line
+    document.querySelectorAll('[data-brand="copyright"]').forEach(el => {
+      el.textContent = `© ${new Date().getFullYear()} ${b.studioName}. ${b.tagline}.`;
+    });
+    // Logo: if a URL is set replace the nav text with an image
+    if (b.logoUrl) {
+      document.querySelectorAll('[data-brand="logo-wrap"]').forEach(wrap => {
+        wrap.innerHTML = `<img src="${b.logoUrl}" alt="${b.studioName}" style="height:38px;object-fit:contain;display:block;"/>`;
+      });
+    }
+    // Page title
+    if (b.studioName && b.studioName !== 'Canvas Crush Studio') {
+      document.title = document.title.replace(/Canvas Crush Studio/g, b.studioName);
+    }
+  },
+
   // ─── Utils ───────────────────────────────────────────────────────────────────
 
   formatPrice(n) {
