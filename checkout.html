@@ -5,17 +5,28 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Checkout | Canvas Crush Studio</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         colors: {
-          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+          "primary":"#003635","on-primary":"#ffffff","primary-container":"#124e4c","on-primary-container":"#87bebb",
+          "primary-fixed":"#b5edea","primary-fixed-dim":"#99d1cd","on-primary-fixed":"#00201f","on-primary-fixed-variant":"#134f4d",
+          "secondary":"#904b36","on-secondary":"#ffffff","secondary-container":"#ffa58b","on-secondary-container":"#793825",
+          "secondary-fixed":"#ffdbd1","secondary-fixed-dim":"#ffb59f","on-secondary-fixed":"#3a0a00","on-secondary-fixed-variant":"#733421",
+          "tertiary":"#1f351b","on-tertiary":"#ffffff","tertiary-container":"#354c30","on-tertiary-container":"#a1bc98",
+          "tertiary-fixed":"#cfeac4","tertiary-fixed-dim":"#b3cea9","on-tertiary-fixed":"#0b2008","on-tertiary-fixed-variant":"#364d30",
+          "surface":"#fef9f0","on-surface":"#1d1c16","surface-variant":"#e7e2d9","on-surface-variant":"#404848",
+          "surface-container-lowest":"#ffffff","surface-container-low":"#f8f3ea","surface-container":"#f2ede4",
+          "surface-container-high":"#ece8df","surface-container-highest":"#e7e2d9","surface-dim":"#ded9d1",
+          "surface-bright":"#fef9f0","surface-tint":"#306765","background":"#fef9f0","on-background":"#1d1c16",
+          "outline":"#707978","outline-variant":"#bfc8c7","inverse-surface":"#32302a","inverse-on-surface":"#f5f0e7",
+          "inverse-primary":"#99d1cd","error":"#ba1a1a","on-error":"#ffffff","error-container":"#ffdad6","on-error-container":"#93000a"
         },
-        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
-        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+        borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Manrope"] }
       }
     }
   }
@@ -23,7 +34,7 @@
 <style>
   body { font-family: 'Manrope', sans-serif; }
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  input:focus, select:focus { outline: none; border-color: #8c4a32 !important; box-shadow: 0 0 0 2px rgba(140,74,50,0.15) !important; }
+  input:focus, select:focus { outline: none; border-color: #003635 !important; box-shadow: 0 0 0 2px rgba(0,54,53,0.15) !important; }
   .field-error { border-color: #ba1a1a !important; }
   .error-msg { color: #ba1a1a; font-size: 0.7rem; font-family: 'Plus Jakarta Sans'; font-weight: 700; display: none; margin-top: 4px; }
   .error-msg.visible { display: block; }
@@ -32,11 +43,11 @@
 <body class="bg-stone-50 text-on-surface selection:bg-primary-fixed selection:text-on-surface">
 
 <!-- Header -->
-<header class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-7xl mx-auto">
     <div class="flex items-center gap-5">
       <a href="cart.html" class="material-symbols-outlined text-stone-500 hover:text-primary transition-colors duration-300">arrow_back</a>
-      <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900 font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
     </div>
     <div class="flex items-center gap-3">
       <span class="hidden md:block font-body text-sm font-light tracking-wide text-stone-500">Secure Transaction</span>
@@ -55,7 +66,7 @@
       <section>
         <div class="flex items-center gap-5 mb-10">
           <span class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-headline font-light text-xl">1</span>
-          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-orange-900">Shipping Address</h2>
+          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Shipping Address</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="md:col-span-2">
@@ -112,7 +123,7 @@
       <section>
         <div class="flex items-center gap-5 mb-10">
           <span class="w-12 h-12 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center font-headline font-light text-xl">2</span>
-          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-orange-900">Payment Method</h2>
+          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Payment Method</h2>
         </div>
 
         <div id="stripe-link-section" class="hidden mb-6">
@@ -130,7 +141,7 @@
             </div>
             <span id="radio-card" class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">radio_button_checked</span>
           </div>
-          <div id="pay-paypal-opt" class="flex items-center justify-between p-6 bg-stone-50/50 rounded-xl border-2 border-transparent hover:bg-stone-100 transition-colors cursor-pointer group" onclick="selectPayment('paypal')">
+          <div id="pay-paypal-opt" class="flex items-center justify-between p-6 bg-stone-50/50 rounded-xl border-2 border-transparent hover:bg-surface-container-low transition-colors cursor-pointer group" onclick="selectPayment('paypal')">
             <div class="flex items-center gap-5">
               <span class="material-symbols-outlined text-stone-400 group-hover:text-primary transition-colors">account_balance_wallet</span>
               <p class="font-bold text-stone-600 group-hover:text-stone-800 transition-colors">PayPal</p>
@@ -161,8 +172,8 @@
 
     <!-- Right: Order Summary -->
     <aside class="lg:col-span-5 sticky top-32">
-      <div class="bg-stone-100/50 rounded-2xl p-8 space-y-8 border border-stone-200/50">
-        <h3 class="text-2xl font-headline font-light tracking-tight text-orange-900">Order Summary</h3>
+      <div class="bg-surface-container-low/50 rounded-2xl p-8 space-y-8 border border-stone-200/50">
+        <h3 class="text-2xl font-headline font-light tracking-tight text-primary">Order Summary</h3>
 
         <div id="checkout-items" class="space-y-6 max-h-80 overflow-y-auto pr-2">
           <!-- dynamically populated -->
@@ -183,7 +194,7 @@
           </div>
           <div class="pt-6 border-t border-stone-200 flex justify-between items-center">
             <span class="text-lg font-headline font-light text-stone-800">Total</span>
-            <span id="co-total" class="text-3xl font-headline font-bold text-orange-900">$0.00</span>
+            <span id="co-total" class="text-3xl font-headline font-bold text-primary">$0.00</span>
           </div>
         </div>
 
@@ -237,15 +248,15 @@
   </div>
 </div>
 
-<footer class="bg-stone-100 w-full mt-20">
+<footer class="bg-surface-container-low w-full mt-20">
   <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-12 max-w-7xl mx-auto">
     <div class="space-y-3">
-      <span class="text-xl font-bold text-stone-900 font-headline" data-brand="name">Canvas Crush Studio</span>
-      <p class="font-body font-light tracking-wide text-stone-500 text-sm" data-brand="copyright">© 2024 Canvas Crush Studio. Curating Passion.</p>
+      <span class="text-xl font-bold text-on-surface font-headline" data-brand="name">Canvas Crush Studio</span>
+      <p class="font-body font-light tracking-wide text-outline text-sm" data-brand="copyright">© 2024 Canvas Crush Studio. Curating Passion.</p>
     </div>
     <div class="flex gap-10 font-body font-light">
-      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info.html">Shipping Info</a>
     </div>
   </div>
 </footer>

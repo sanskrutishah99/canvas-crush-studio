@@ -5,24 +5,35 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Canvas Crush Studio | Curating Passion</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         colors: {
-          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+          "primary":"#003635","on-primary":"#ffffff","primary-container":"#124e4c","on-primary-container":"#87bebb",
+          "primary-fixed":"#b5edea","primary-fixed-dim":"#99d1cd","on-primary-fixed":"#00201f","on-primary-fixed-variant":"#134f4d",
+          "secondary":"#904b36","on-secondary":"#ffffff","secondary-container":"#ffa58b","on-secondary-container":"#793825",
+          "secondary-fixed":"#ffdbd1","secondary-fixed-dim":"#ffb59f","on-secondary-fixed":"#3a0a00","on-secondary-fixed-variant":"#733421",
+          "tertiary":"#1f351b","on-tertiary":"#ffffff","tertiary-container":"#354c30","on-tertiary-container":"#a1bc98",
+          "tertiary-fixed":"#cfeac4","tertiary-fixed-dim":"#b3cea9","on-tertiary-fixed":"#0b2008","on-tertiary-fixed-variant":"#364d30",
+          "surface":"#fef9f0","on-surface":"#1d1c16","surface-variant":"#e7e2d9","on-surface-variant":"#404848",
+          "surface-container-lowest":"#ffffff","surface-container-low":"#f8f3ea","surface-container":"#f2ede4",
+          "surface-container-high":"#ece8df","surface-container-highest":"#e7e2d9","surface-dim":"#ded9d1",
+          "surface-bright":"#fef9f0","surface-tint":"#306765","background":"#fef9f0","on-background":"#1d1c16",
+          "outline":"#707978","outline-variant":"#bfc8c7","inverse-surface":"#32302a","inverse-on-surface":"#f5f0e7",
+          "inverse-primary":"#99d1cd","error":"#ba1a1a","on-error":"#ffffff","error-container":"#ffdad6","on-error-container":"#93000a"
         },
-        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
-        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+        borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Manrope"] }
       }
     }
   }
 </script>
 <style>
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  body { font-family: 'Manrope', sans-serif; background-color: #fbfaf9; color: #1f1b1a; }
+  body { font-family: 'Manrope', sans-serif; background-color: #fef9f0; color: #1f1b1a; }
   #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
   #mobile-menu.open { max-height: 400px; }
 </style>
@@ -53,147 +64,188 @@
 </div>
 
 <!-- Nav -->
-<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
-    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
     <div class="hidden md:flex items-center gap-8">
-      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
-      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
-      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Cultural Art</a>
     </div>
     <div class="flex items-center gap-3">
-      <button class="p-2 text-stone-600 hover:text-orange-800 transition-colors">
+      <button class="p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined">search</span>
       </button>
-      <a href="cart.html" class="relative p-2 text-stone-600 hover:text-orange-800 transition-colors">
+      <a href="cart.html" class="relative p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
-      <button id="hamburger" class="md:hidden p-2 text-stone-600 hover:text-orange-800 transition-colors">
+      <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
   </div>
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Passionate Art</a>
-      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Abstract Emotional Art</a>
-      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cultural Art</a>
-      <a href="cart.html" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cart</a>
+      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cultural Art</a>
+      <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
 
 <main class="pt-28">
   <!-- Hero -->
-  <section class="px-8 py-16 md:py-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-    <div class="md:col-span-7 flex flex-col items-start gap-8">
-      <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-primary-fixed rounded-full">Curated Collections</span>
-      <h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] text-on-surface">
-        Where <span class="text-primary italic font-serif">Emotion</span> Meets the Canvas.
+  <section class="px-8 py-20 md:py-32 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+    <div class="lg:col-span-7 flex flex-col items-start gap-8">
+      <span class="font-label text-secondary font-bold tracking-widest uppercase text-xs">Canvas Crush Studio</span>
+      <h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary">
+        Art that <span class="text-secondary italic">Breathes</span> Purpose.
       </h1>
-      <p class="font-body text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed font-light">
-        Discover a gallery where every brushstroke tells a story. From fierce passion to cultural depths, we curate art that resonates with your soul.
+      <p class="font-body text-xl text-on-surface-variant max-w-xl leading-relaxed">
+        Colour choice isn't just aesthetic — it's a psychological strategy. We curate visual experiences that align your environment with your internal intention.
       </p>
-      <div class="flex flex-wrap gap-4 mt-4">
-        <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Explore Gallery</a>
-        <a href="gallery.html?featured=true" class="px-8 py-4 bg-white text-on-surface font-semibold rounded-DEFAULT border border-outline-variant hover:bg-surface-container-low transition-all">View Featured</a>
+      <div class="flex flex-wrap gap-4 mt-2">
+        <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl hover:bg-primary-container transition-all shadow-lg shadow-primary/10">Explore Collections</a>
+        <a href="gallery.html?featured=true" class="px-8 py-4 text-primary font-headline font-bold text-lg flex items-center gap-2 group">
+          The Curator's Choice <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
       </div>
     </div>
-    <div class="md:col-span-5 relative">
-      <div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
-        <img class="w-full h-full object-cover" alt="vibrant abstract expressionist oil painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHTwQTyNzDGyDI3kjeXrzvY7cjQrHJc3YsctoGikeLrJlbki3KNhyL1aB3XpQBhjd9pA8KfAvcV8fZ5XXXUoKjerbfuMJjKdECCRe_d6ygE_u7Oxl712BDrzTS6MVsixmSwsbStE2_M8E0Y4-jw_eH7P624p3Cn-gkGp8hdYxz2yW4cQIt6wrIYJ7YAfzgjP3rKVBnc61TTb_h2kb7cIMwxLl4ry2wLnZxGpHBRtdEUUnIvMlfm42kGxPwP3ZtObli5On73iWGq4"/>
+    <div class="lg:col-span-5 relative">
+      <div class="aspect-[4/5] bg-surface-container-highest rounded-full overflow-hidden relative z-10 shadow-2xl">
+        <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="vibrant abstract expressionist oil painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHTwQTyNzDGyDI3kjeXrzvY7cjQrHJc3YsctoGikeLrJlbki3KNhyL1aB3XpQBhjd9pA8KfAvcV8fZ5XXXUoKjerbfuMJjKdECCRe_d6ygE_u7Oxl712BDrzTS6MVsixmSwsbStE2_M8E0Y4-jw_eH7P624p3Cn-gkGp8hdYxz2yW4cQIt6wrIYJ7YAfzgjP3rKVBnc61TTb_h2kb7cIMwxLl4ry2wLnZxGpHBRtdEUUnIvMlfm42kGxPwP3ZtObli5On73iWGq4"/>
       </div>
-      <div class="absolute -bottom-6 -left-6 aspect-square w-32 rounded-lg overflow-hidden shadow-xl -rotate-6 hidden md:block">
-        <img class="w-full h-full object-cover" alt="close up paint texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiNh8_K8rf2uDCpxdBRKCMBv4xPoQD6TrhyMb3fGKBBZYvegow80PVjHd2NX6mbhttvRhk4opDmHDOc8w8KW91ZTIZjerpmnr4tk_SprmlkuChQ_LIKEYlY0c5NJpweN_Jbko3-j0IiWEhMEjSKaDoAs0kFRttRMk771H_E3bAElUdiaWsUvQBdt3B8Jbe5g9xh-RDh17_kgsK7-shCH9B0nN3FQMLubK8lTkZ-cirZaNC1_e9WVYVbqlm1gMJxePPNrt2I2fHl50"/>
+      <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
+    </div>
+  </section>
+
+  <!-- Chromatic Strategy Insight Row -->
+  <section class="bg-surface-container-low py-24 px-8">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="space-y-4">
+        <h3 class="text-primary font-headline font-extrabold text-2xl">The Bold Statement</h3>
+        <p class="text-on-surface-variant leading-relaxed">Visual noise is the enemy of clarity. Our canvases act as anchors — centering the human spirit through calculated chromatic resonance.</p>
+      </div>
+      <div class="space-y-4 p-8 bg-tertiary-container rounded-xl">
+        <h3 class="font-headline font-extrabold text-2xl text-on-tertiary">The Insight</h3>
+        <p class="leading-relaxed opacity-90 font-body text-on-tertiary-container">There's a reason warm reds increase energy and deep forest greens lower cortisol. We select each piece based on the emotional objective of your space.</p>
+      </div>
+      <div class="space-y-4">
+        <h3 class="text-secondary font-headline font-extrabold text-2xl">Emotional Grounding</h3>
+        <p class="text-on-surface-variant leading-relaxed">The final layer of our curation is connection. Art should not just be seen — it must be felt as a stable, purposeful presence.</p>
       </div>
     </div>
   </section>
 
-  <!-- Category Bento Grid -->
-  <section class="px-8 py-20 bg-surface-container-low">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-        <div class="max-w-2xl">
-          <h2 class="font-headline text-4xl font-bold mb-4">Curated Narratives</h2>
-          <p class="font-body text-on-surface-variant font-light">Explore our three core pillars of artistic expression, each defined by a unique emotional spectrum and visual language.</p>
+  <!-- Collections Grid -->
+  <section class="px-8 py-32 max-w-[1440px] mx-auto">
+    <h2 class="text-4xl font-headline font-extrabold text-primary mb-16 text-center tracking-tighter">The Curated Collections</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Passionate -->
+      <div class="lg:col-span-7 bg-surface-container rounded-xl overflow-hidden group">
+        <div class="flex flex-col md:flex-row h-full">
+          <div class="flex-1 p-12 flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="text-secondary font-bold tracking-widest text-xs uppercase">Psychology: Energy</span>
+              <h3 class="text-5xl font-headline font-extrabold text-primary italic">Passionate</h3>
+              <p class="text-on-surface-variant leading-relaxed">Vibrant reds and intense terracottas designed to ignite ambition and foster high-energy, spirited environments.</p>
+            </div>
+            <a href="gallery.html?cat=passionate" class="inline-flex items-center gap-2 font-headline font-bold text-primary mt-8 hover:gap-4 transition-all">View Passion <span class="material-symbols-outlined">north_east</span></a>
+          </div>
+          <div class="flex-1 h-64 md:h-auto overflow-hidden">
+            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="passionate abstract painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDQ4w-6qs3AvxgHl-6rNC0dkTdJem_PT4p9NgnY8S1TskMWNCOXkbF9s0-CdcJkvwyd8-YEKWkRhSIeU9ZVOOyGI4Z7-1L4EEvI2MYfAPOOWt68qOW00TopEbvJn_UvjHbdynyowW-0TSec9by_Sd0ZwyB40B13EPN2HhTJ0sGQKCYdup94QTFOPuwpNEUXVPuwrRy1R3BApIGNUafsuRnZyoJQLS3s-QRsw7LIDQWEwOqYdu17xCpIZDm7TYl2sBYOzgeT4oNqc4"/>
+          </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <a href="gallery.html?cat=passionate" class="group relative aspect-[3/4] rounded-xl overflow-hidden p-8 flex flex-col justify-end transition-all duration-500 hover:shadow-2xl">
-          <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.6]" alt="passionate abstract painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDQ4w-6qs3AvxgHl-6rNC0dkTdJem_PT4p9NgnY8S1TskMWNCOXkbF9s0-CdcJkvwyd8-YEKWkRhSIeU9ZVOOyGI4Z7-1L4EEvI2MYfAPOOWt68qOW00TopEbvJn_UvjHbdynyowW-0TSec9by_Sd0ZwyB40B13EPN2HhTJ0sGQKCYdup94QTFOPuwpNEUXVPuwrRy1R3BApIGNUafsuRnZyoJQLS3s-QRsw7LIDQWEwOqYdu17xCpIZDm7TYl2sBYOzgeT4oNqc4"/>
-          <div class="relative z-10">
-            <span class="font-label text-[10px] uppercase tracking-widest text-white/80 mb-2 block">Intensity &amp; Fire</span>
-            <h3 class="font-headline text-3xl font-bold text-white mb-4">Passionate Art</h3>
-            <div class="h-[2px] w-12 bg-primary rounded-full group-hover:w-full transition-all duration-700"></div>
+      <!-- Abstract -->
+      <div class="lg:col-span-5 bg-primary text-on-primary rounded-xl overflow-hidden group relative">
+        <div class="p-12 space-y-6 relative z-10 h-full flex flex-col justify-end min-h-[360px]">
+          <span class="text-on-primary-container font-bold tracking-widest text-xs uppercase">Psychology: Calm</span>
+          <h3 class="text-5xl font-headline font-extrabold italic">Abstract</h3>
+          <p class="opacity-80 leading-relaxed">Deep indigos and forest teals that recede inward, providing a psychological sanctuary for reflection and focus.</p>
+          <a href="gallery.html?cat=abstract" class="inline-flex items-center gap-2 font-headline font-bold text-on-primary-container hover:gap-4 transition-all">Enter the Deep <span class="material-symbols-outlined">north_east</span></a>
+        </div>
+        <div class="absolute inset-0 opacity-40">
+          <img class="w-full h-full object-cover" alt="abstract emotional art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXrX5qT6MFSSVqg61LMANty-A3olHpLoWjv5FlKc_FLxZnb8DwkN8Bmp8jdmweXaWeDKj1zjvtpvFe6Xc6hRmF_XzP_yYd1EIRe-XLcBPtoZJ3JRaz3IP9hu4fKbBO6LjW2FjCJqmgVUfQbIHtZ3Phwi66WxH4oqaQfd_HIYL9ZMKzw4O2wWjNCJS_txeTnyhj0zVljaaFATq-W1STs2gheKxAwKlD6dnSQmbAfM3l0UkyN2Dv0QlcPmUJcjNhPlJAKc9ukqojUdw"/>
+        </div>
+      </div>
+      <!-- Cultural -->
+      <div class="lg:col-span-12 bg-surface-container-high rounded-xl overflow-hidden group">
+        <div class="grid grid-cols-1 md:grid-cols-3">
+          <div class="p-12 flex flex-col justify-center space-y-4">
+            <span class="text-secondary font-bold tracking-widest text-xs uppercase">Psychology: Heritage</span>
+            <h3 class="text-5xl font-headline font-extrabold text-primary italic">Cultural</h3>
+            <p class="text-on-surface-variant leading-relaxed">Earthy ochres and sun-baked clays that connect the modern interior to ancient terrestrial roots.</p>
+            <a href="gallery.html?cat=cultural" class="inline-flex items-center gap-2 font-headline font-bold text-primary pt-4 hover:gap-4 transition-all">Explore Heritage <span class="material-symbols-outlined">north_east</span></a>
           </div>
-        </a>
-        <a href="gallery.html?cat=abstract" class="group relative aspect-[3/4] rounded-xl overflow-hidden p-8 flex flex-col justify-end transition-all duration-500 hover:shadow-2xl">
-          <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.6]" alt="abstract emotional art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXrX5qT6MFSSVqg61LMANty-A3olHpLoWjv5FlKc_FLxZnb8DwkN8Bmp8jdmweXaWeDKj1zjvtpvFe6Xc6hRmF_XzP_yYd1EIRe-XLcBPtoZJ3JRaz3IP9hu4fKbBO6LjW2FjCJqmgVUfQbIHtZ3Phwi66WxH4oqaQfd_HIYL9ZMKzw4O2wWjNCJS_txeTnyhj0zVljaaFATq-W1STs2gheKxAwKlD6dnSQmbAfM3l0UkyN2Dv0QlcPmUJcjNhPlJAKc9ukqojUdw"/>
-          <div class="relative z-10">
-            <span class="font-label text-[10px] uppercase tracking-widest text-white/80 mb-2 block">Fluid Thoughts</span>
-            <h3 class="font-headline text-3xl font-bold text-white mb-4">Abstract Emotional Art</h3>
-            <div class="h-[2px] w-12 bg-secondary rounded-full group-hover:w-full transition-all duration-700"></div>
+          <div class="h-80 md:h-auto overflow-hidden">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="cultural art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6XrxZGUSo_Yt8oF7Y1yuMTFoN6-by9Stwz96Qpt-Wer28xliIGwcumkAOgKXSNNxqmFRdVDeGAzZZ8X0Fu6h9TlYzGoFOzhyZX4BwMOxRZKmdqzCfvLAbk08OrcWKntsxk9ICoxOkX8mDBfXVk017QBjUS0MIxp65WdosI8GuU6Uj55XXfNDEL709J3NDRiju8rc4TGJXtjF68TRox6mYXAYO8Ri7EUFNvOEftYvU1cauZKDfqeyvvFOWEpgJONYtr5ORnivKnM"/>
           </div>
-        </a>
-        <a href="gallery.html?cat=cultural" class="group relative aspect-[3/4] rounded-xl overflow-hidden p-8 flex flex-col justify-end transition-all duration-500 hover:shadow-2xl">
-          <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.6]" alt="cultural art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6XrxZGUSo_Yt8oF7Y1yuMTFoN6-by9Stwz96Qpt-Wer28xliIGwcumkAOgKXSNNxqmFRdVDeGAzZZ8X0Fu6h9TlYzGoFOzhyZX4BwMOxRZKmdqzCfvLAbk08OrcWKntsxk9ICoxOkX8mDBfXVk017QBjUS0MIxp65WdosI8GuU6Uj55XXfNDEL709J3NDRiju8rc4TGJXtjF68TRox6mYXAYO8Ri7EUFNvOEftYvU1cauZKDfqeyvvFOWEpgJONYtr5ORnivKnM"/>
-          <div class="relative z-10">
-            <span class="font-label text-[10px] uppercase tracking-widest text-white/80 mb-2 block">Heritage &amp; Roots</span>
-            <h3 class="font-headline text-3xl font-bold text-white mb-4">Cultural Art</h3>
-            <div class="h-[2px] w-12 bg-tertiary rounded-full group-hover:w-full transition-all duration-700"></div>
+          <div class="p-12 flex items-end">
+            <div class="bg-surface p-8 rounded-xl shadow-sm">
+              <p class="text-primary italic font-headline font-bold text-lg">"The ochre tones brought a warmth to our studio that we didn't know was missing — grounded yet sophisticated."</p>
+              <span class="block mt-4 text-secondary font-body text-sm">— Interior Curator, Melbourne</span>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Featured Showcase - dynamically rendered -->
-  <section class="px-8 py-24 max-w-7xl mx-auto">
-    <div class="flex items-center justify-between mb-16">
-      <h2 class="font-headline text-4xl font-bold">The Curator's Choice</h2>
-      <a href="gallery.html?featured=true" class="text-primary font-label font-bold flex items-center gap-1 hover:gap-2 transition-all">
-        View All Featured <span class="material-symbols-outlined text-sm">arrow_forward</span>
-      </a>
-    </div>
-    <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-12 gap-12">
-      <!-- Dynamically populated -->
+  <section class="px-8 py-24 bg-surface-container-low">
+    <div class="max-w-[1440px] mx-auto">
+      <div class="flex items-center justify-between mb-16">
+        <div>
+          <h2 class="font-headline text-4xl font-extrabold text-primary tracking-tighter">The Curator's Choice</h2>
+          <p class="text-on-surface-variant mt-2 font-body">Pieces selected for their emotional impact and psychological intentionality.</p>
+        </div>
+        <a href="gallery.html" class="text-primary font-label font-bold flex items-center gap-1 hover:gap-2 transition-all">
+          View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <!-- Dynamically populated -->
+      </div>
     </div>
   </section>
 
   <!-- Newsletter -->
-  <section class="mx-8 mb-24">
-    <div class="max-w-7xl mx-auto rounded-3xl bg-[#231f1e] overflow-hidden relative">
-      <div class="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary via-orange-900 to-transparent"></div>
-      <div class="relative z-10 px-8 py-20 md:px-24 flex flex-col items-center text-center">
-        <span class="font-label text-orange-200/60 tracking-[0.3em] uppercase text-[10px] mb-6">Collectors Club</span>
-        <h2 class="font-headline text-3xl md:text-5xl font-bold text-stone-100 mb-8 max-w-3xl leading-tight">
-          Receive art world insights and exclusive first-access to new drops.
-        </h2>
+  <section class="py-24 px-8">
+    <div class="max-w-[1440px] mx-auto">
+      <div class="bg-primary-container rounded-xl p-12 md:p-24 flex flex-col items-center text-center space-y-10">
+        <div class="max-w-2xl space-y-4">
+          <h2 class="text-4xl md:text-5xl font-headline font-extrabold text-white tracking-tighter">Join the Insight List</h2>
+          <p class="text-on-primary-container text-lg font-body">Bi-weekly explorations into the psychology of colour, exclusive artist previews, and curated interior strategies.</p>
+        </div>
         <form id="newsletter-form" class="w-full max-w-lg flex flex-col md:flex-row gap-4">
-          <input id="newsletter-email" class="flex-grow bg-white/10 border-none rounded-DEFAULT px-6 py-4 text-white placeholder:text-stone-500 focus:ring-1 focus:ring-primary transition-all outline-none" placeholder="Enter your email address" type="email" required/>
-          <button class="px-10 py-4 bg-primary text-on-primary font-bold rounded-DEFAULT hover:opacity-90 transition-all whitespace-nowrap" type="submit">Join Now</button>
+          <input id="newsletter-email" class="flex-1 bg-surface/10 border-b border-on-primary-container text-white placeholder:text-on-primary-container/60 px-4 py-4 focus:outline-none transition-all font-body" placeholder="Curate your inbox (email address)" type="email" required/>
+          <button class="bg-secondary text-white px-8 py-4 rounded-xl font-headline font-bold hover:opacity-90 transition-all" type="submit">Subscribe</button>
         </form>
-        <p class="mt-6 text-stone-500 text-[10px] font-label uppercase tracking-widest">No spam, only pure inspiration. Unsubscribe anytime.</p>
+        <p class="text-on-primary-container/60 text-xs font-label uppercase tracking-widest">No spam. Only purposeful insight. Unsubscribe anytime.</p>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="w-full mt-20 bg-stone-100 font-body font-light tracking-wide flex flex-col md:flex-row justify-between items-center px-16 py-20 gap-12">
-  <div class="flex flex-col items-center md:items-start gap-4">
-    <span class="text-xl font-bold text-stone-900" data-brand="name">Canvas Crush Studio</span>
-    <p class="text-stone-500 text-sm opacity-70" data-brand="copyright">© 2024 Canvas Crush Studio. Curating Passion.</p>
-  </div>
-  <div class="flex flex-wrap justify-center gap-8">
-    <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100 underline decoration-orange-800/40 underline-offset-4" href="newsletter.html">Newsletter Signup</a>
-    <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="privacy-policy.html">Privacy Policy</a>
-    <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="shipping-info.html">Shipping Info</a>
-  </div>
-  <div class="flex gap-6">
-    <span class="material-symbols-outlined text-orange-800 cursor-pointer opacity-70 hover:opacity-100">share</span>
-    <span class="material-symbols-outlined text-orange-800 cursor-pointer opacity-70 hover:opacity-100">favorite</span>
+<footer class="bg-surface-container-low w-full py-16 px-8 mt-auto border-t border-outline-variant/20">
+  <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+    <div>
+      <div class="font-headline font-bold text-xl text-primary mb-2" data-brand="name">Canvas Crush Studio</div>
+      <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter.html">Newsletter</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+    </div>
+    <div class="flex gap-4">
+      <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
+      <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">mail</span>
+    </div>
   </div>
 </footer>
 

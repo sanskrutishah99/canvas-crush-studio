@@ -5,10 +5,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Newsletter | Canvas Crush Studio</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <script>
   tailwind.config = {
-    theme: { extend: { colors: { "primary":"#8c4a32","surface-container-low":"#f6f3f0","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-fixed":"#ffdad3","on-primary":"#ffffff" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Plus Jakarta Sans"] } } }
+    theme: { extend: { colors: { "primary":"#003635","surface-container-low":"#f6f3f0","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-fixed":"#ffdad3","on-primary":"#ffffff" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Plus Jakarta Sans"] } } }
   }
 </script>
 <style>
@@ -16,30 +16,30 @@
   body { font-family: 'Manrope', sans-serif; }
   #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
   #mobile-menu.open { max-height: 400px; }
-  input:focus { outline: none; border-color: #8c4a32 !important; box-shadow: 0 0 0 2px rgba(140,74,50,0.15) !important; }
+  input:focus { outline: none; border-color: #003635 !important; box-shadow: 0 0 0 2px rgba(0,54,53,0.15) !important; }
 </style>
 </head>
 <body class="bg-surface text-on-surface">
 
-<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
-    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900">Canvas Crush Studio</a>
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
     <div class="hidden md:flex items-center gap-8">
-      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
-      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
-      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Cultural Art</a>
     </div>
     <div class="flex items-center gap-3">
-      <a href="cart.html" class="relative p-2 text-stone-600 hover:text-orange-800 transition-colors">
+      <a href="cart.html" class="relative p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
       <button id="hamburger" class="md:hidden p-2 text-stone-600">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
       <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2">Passionate Art</a>
       <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2">Abstract Emotional Art</a>
@@ -119,13 +119,13 @@
   </div>
 </main>
 
-<footer class="bg-stone-100 w-full mt-20">
+<footer class="bg-surface-container-low w-full mt-20">
   <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
-    <span class="text-xl font-bold text-stone-900 font-headline">Canvas Crush Studio</span>
+    <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
     <div class="flex gap-8 font-body font-light">
-      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="newsletter.html">Newsletter</a>
-      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-stone-900 opacity-70 hover:opacity-100 transition-opacity" href="shipping-info.html">Shipping Info</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="newsletter.html">Newsletter</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="shipping-info.html">Shipping Info</a>
     </div>
     <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
   </div>

@@ -5,17 +5,28 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Product | Canvas Crush Studio</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         colors: {
-          "primary":"#8c4a32","secondary":"#7c5a4b","surface-container":"#f1ecf4","on-surface-variant":"#5a524e","surface-dim":"#e4e1de","surface-variant":"#ede8e5","primary-fixed-dim":"#ffb4a5","secondary-container":"#f7e8e1","on-primary":"#ffffff","background":"#fbfaf9","on-background":"#1f1b1a","surface":"#fbfaf9","outline-variant":"#d8cfcc","on-secondary":"#ffffff","outline":"#85736e","surface-container-high":"#ede8e5","primary-fixed":"#ffdad3","on-surface":"#1f1b1a","on-primary-container":"#ffffff","surface-container-low":"#f6f3f0","surface-container-highest":"#e6e1e9","tertiary":"#745800","surface-bright":"#fbfaf9","primary-container":"#a65d44","surface-container-lowest":"#ffffff","on-secondary-container":"#4a3328"
+          "primary":"#003635","on-primary":"#ffffff","primary-container":"#124e4c","on-primary-container":"#87bebb",
+          "primary-fixed":"#b5edea","primary-fixed-dim":"#99d1cd","on-primary-fixed":"#00201f","on-primary-fixed-variant":"#134f4d",
+          "secondary":"#904b36","on-secondary":"#ffffff","secondary-container":"#ffa58b","on-secondary-container":"#793825",
+          "secondary-fixed":"#ffdbd1","secondary-fixed-dim":"#ffb59f","on-secondary-fixed":"#3a0a00","on-secondary-fixed-variant":"#733421",
+          "tertiary":"#1f351b","on-tertiary":"#ffffff","tertiary-container":"#354c30","on-tertiary-container":"#a1bc98",
+          "tertiary-fixed":"#cfeac4","tertiary-fixed-dim":"#b3cea9","on-tertiary-fixed":"#0b2008","on-tertiary-fixed-variant":"#364d30",
+          "surface":"#fef9f0","on-surface":"#1d1c16","surface-variant":"#e7e2d9","on-surface-variant":"#404848",
+          "surface-container-lowest":"#ffffff","surface-container-low":"#f8f3ea","surface-container":"#f2ede4",
+          "surface-container-high":"#ece8df","surface-container-highest":"#e7e2d9","surface-dim":"#ded9d1",
+          "surface-bright":"#fef9f0","surface-tint":"#306765","background":"#fef9f0","on-background":"#1d1c16",
+          "outline":"#707978","outline-variant":"#bfc8c7","inverse-surface":"#32302a","inverse-on-surface":"#f5f0e7",
+          "inverse-primary":"#99d1cd","error":"#ba1a1a","on-error":"#ffffff","error-container":"#ffdad6","on-error-container":"#93000a"
         },
-        borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
-        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Plus Jakarta Sans"] }
+        borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+        fontFamily: { "headline": ["Epilogue"], "body": ["Manrope"], "label": ["Manrope"] }
       }
     }
   }
@@ -25,9 +36,9 @@
   body { font-family: 'Manrope', sans-serif; }
   #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
   #mobile-menu.open { max-height: 400px; }
-  .thumb.active { border-color: #8c4a32; opacity: 1; }
-  .tab-btn.active { background-color: #ffffff; color: #8c4a32; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-  .frame-btn.selected { border-color: #8c4a32; background-color: #ffffff; }
+  .thumb.active { border-color: #003635; opacity: 1; }
+  .tab-btn.active { background-color: #ffffff; color: #003635; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .frame-btn.selected { border-color: #003635; background-color: #ffffff; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body">
@@ -39,33 +50,33 @@
 </div>
 
 <!-- Nav -->
-<nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-[0_32px_48px_rgba(49,51,46,0.06)]">
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
-    <a href="index.html" class="text-2xl font-bold tracking-tighter text-orange-900">Canvas Crush Studio</a>
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
     <div class="hidden md:flex items-center gap-10">
-      <a href="gallery.html?cat=passionate" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Passionate Art</a>
-      <a href="gallery.html?cat=abstract" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Abstract Emotional Art</a>
-      <a href="gallery.html?cat=cultural" class="text-stone-500 font-medium hover:text-orange-800 transition-colors duration-300">Cultural Art</a>
+      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Cultural Art</a>
     </div>
     <div class="flex items-center gap-4">
-      <button class="text-stone-500 hover:text-orange-800 transition-colors duration-300">
+      <button class="text-outline hover:text-primary transition-colors duration-300">
         <span class="material-symbols-outlined">search</span>
       </button>
-      <a href="cart.html" class="text-stone-600 hover:text-orange-800 relative p-2">
+      <a href="cart.html" class="text-outline hover:text-primary relative p-2">
         <span class="material-symbols-outlined">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
-      <button id="hamburger" class="md:hidden p-2 text-stone-600 hover:text-orange-800 transition-colors">
+      <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="md:hidden bg-stone-50/95 backdrop-blur-xl border-t border-outline-variant/20">
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Passionate Art</a>
-      <a href="gallery.html?cat=abstract" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Abstract Emotional Art</a>
-      <a href="gallery.html?cat=cultural" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cultural Art</a>
-      <a href="cart.html" class="text-stone-700 font-medium py-2 hover:text-orange-800 transition-colors">Cart</a>
+      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Passionate Art</a>
+      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Abstract Emotional Art</a>
+      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cultural Art</a>
+      <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
@@ -74,20 +85,20 @@
   <!-- dynamically populated -->
 </main>
 
-<footer class="w-full mt-20 bg-stone-100">
-  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-20 gap-12 font-body font-light tracking-wide">
-    <div class="flex flex-col gap-4">
-      <div class="text-xl font-bold text-stone-900">Canvas Crush Studio</div>
-      <div class="text-stone-500 text-sm">© 2024 Canvas Crush Studio. Curating Passion.</div>
+<footer class="bg-surface-container-low w-full py-16 px-8 mt-auto border-t border-outline-variant/20">
+  <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+    <div>
+      <div class="font-headline font-bold text-xl text-primary mb-2" data-brand="name">Canvas Crush Studio</div>
+      <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
-    <div class="flex gap-8">
-      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="newsletter.html">Newsletter Signup</a>
-      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-stone-900 transition-opacity opacity-70 hover:opacity-100" href="shipping-info.html">Shipping Info</a>
+    <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter.html">Newsletter</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy.html">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info.html">Shipping Info</a>
     </div>
-    <div class="flex gap-6">
-      <span class="material-symbols-outlined text-stone-400 hover:text-orange-800 transition-colors duration-500 cursor-pointer">photo_camera</span>
-      <span class="material-symbols-outlined text-stone-400 hover:text-orange-800 transition-colors duration-500 cursor-pointer">push_pin</span>
+    <div class="flex gap-4">
+      <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
+      <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">mail</span>
     </div>
   </div>
 </footer>
@@ -210,7 +221,7 @@ function renderProduct() {
                 <div class="w-full h-8 bg-stone-900 rounded-sm"></div>Midnight Oak
               </button>
               <button class="frame-btn border-2 border-transparent bg-surface-container-high p-2 rounded-lg text-xs font-bold flex flex-col items-center gap-1 hover:border-outline-variant transition-all" onclick="selectFrame('Gallery White', this)">
-                <div class="w-full h-8 bg-stone-100 rounded-sm border border-stone-200"></div>Gallery White
+                <div class="w-full h-8 bg-surface-container-low rounded-sm border border-stone-200"></div>Gallery White
               </button>
               <button class="frame-btn border-2 border-transparent bg-surface-container-high p-2 rounded-lg text-xs font-bold flex flex-col items-center gap-1 hover:border-outline-variant transition-all" onclick="selectFrame('Natural Pine', this)">
                 <div class="w-full h-8 bg-[#e8be8d] rounded-sm"></div>Natural Pine
