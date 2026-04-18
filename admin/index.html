@@ -351,9 +351,9 @@
         <div>
           <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Category *</label>
           <select id="m-category" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all">
-            <option value="passionate">Passionate Art</option>
-            <option value="abstract">Abstract Emotional Art</option>
-            <option value="cultural">Cultural Art</option>
+            <option value="passionate">Passionate</option>
+            <option value="abstract">Emotional</option>
+            <option value="cultural">Cultural</option>
           </select>
         </div>
         <div>
@@ -482,7 +482,7 @@ const CCS = {
   adminLogout() { sessionStorage.removeItem('ccs_admin'); },
   formatPrice(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
   getCategoryLabel(cat) {
-    const m = { passionate:'Passionate Art', abstract:'Abstract Emotional Art', cultural:'Cultural Art' };
+    const m = { passionate:'Passionate', abstract:'Emotional', cultural:'Cultural' };
     return m[cat] || cat;
   }
 };
