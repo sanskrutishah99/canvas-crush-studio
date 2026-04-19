@@ -223,6 +223,77 @@ const CCS = {
     if (b.studioName && b.studioName !== 'Canvas Crush Studio') {
       document.title = document.title.replace(/Canvas Crush Studio/g, b.studioName);
     }
+    // Apply nav icons
+    const icons = this.getNavIcons();
+    document.querySelectorAll('[data-icon="search"]').forEach(el => el.textContent = icons.search);
+    document.querySelectorAll('[data-icon="cart"]').forEach(el => el.textContent = icons.cart);
+    document.querySelectorAll('[data-icon="menu"]').forEach(el => el.textContent = icons.menu);
+  },
+
+  // ─── Nav Icons ───────────────────────────────────────────────────────────────
+
+  getNavIcons() {
+    try {
+      const saved = localStorage.getItem('ccs_nav_icons');
+      const defaults = { search: 'search', cart: 'shopping_cart', menu: 'menu' };
+      return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+    } catch(e) { return { search: 'search', cart: 'shopping_cart', menu: 'menu' }; }
+  },
+
+  saveNavIcons(icons) {
+    localStorage.setItem('ccs_nav_icons', JSON.stringify(icons));
+  },
+
+  // ─── Page Content ────────────────────────────────────────────────────────────
+
+  getPageContent(pageId) {
+    try {
+      const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}');
+      return all[pageId] || null;
+    } catch(e) { return null; }
+  },
+
+  savePageContent(pageId, content) {
+    try {
+      const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}');
+      if (content === null) { delete all[pageId]; } else { all[pageId] = content; }
+      localStorage.setItem('ccs_page_content', JSON.stringify(all));
+    } catch(e) {}
+  },
+
+  applyPageContent(pageId) {
+    const content = this.getPageContent(pageId);
+    if (!content) return;
+    if (content.heroHeading) {
+      document.querySelectorAll('[data-page="hero-heading"]').forEach(el => { el.textContent = content.heroHeading; });
+    }
+    if (content.heroSub) {
+      document.querySelectorAll('[data-page="hero-sub"]').forEach(el => { el.textContent = content.heroSub; });
+    }
+    if (content.ctaLabel) {
+      document.querySelectorAll('[data-page="cta-label"]').forEach(el => { el.textContent = content.ctaLabel; });
+    }
+    if (content.ctaLink) {
+      document.querySelectorAll('[data-page="cta-link"]').forEach(el => { el.href = content.ctaLink; });
+    }
+    if (content.meta) {
+      let meta = document.querySelector('meta[name="description"]');
+      if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
+      meta.content = content.meta;
+    }
+    if (content.title) {
+      document.title = content.title;
+    }
+  },
+
+  // ─── Custom Pages ────────────────────────────────────────────────────────────
+
+  getCustomPages() {
+    try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; }
+  },
+
+  saveCustomPages(pages) {
+    localStorage.setItem('ccs_custom_pages', JSON.stringify(pages));
   },
 
   // ─── Utils ───────────────────────────────────────────────────────────────────

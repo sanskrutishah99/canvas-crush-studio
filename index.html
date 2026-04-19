@@ -75,14 +75,14 @@
     </div>
     <div class="flex items-center gap-3">
       <button class="p-2 text-outline hover:text-primary transition-colors">
-        <span class="material-symbols-outlined">search</span>
+        <span class="material-symbols-outlined" data-icon="search">search</span>
       </button>
       <a href="cart.html" class="relative p-2 text-outline hover:text-primary transition-colors">
-        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
         <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
       <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
-        <span class="material-symbols-outlined">menu</span>
+        <span class="material-symbols-outlined" data-icon="menu">menu</span>
       </button>
     </div>
   </div>
@@ -102,14 +102,14 @@
   <section class="px-8 py-20 md:py-32 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
     <div class="lg:col-span-7 flex flex-col items-start gap-8">
       <span class="font-label text-secondary font-bold tracking-widest uppercase text-xs">Canvas Crush Studio</span>
-      <h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary">
+      <h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary" data-page="hero-heading">
         Art that <span class="text-secondary italic">Breathes</span> Purpose.
       </h1>
-      <p class="font-body text-xl text-on-surface-variant max-w-xl leading-relaxed">
+      <p class="font-body text-xl text-on-surface-variant max-w-xl leading-relaxed" data-page="hero-sub">
         Colour choice isn't just aesthetic — it's a psychological strategy. We curate visual experiences that align your environment with your internal intention.
       </p>
       <div class="flex flex-wrap gap-4 mt-2">
-        <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl hover:bg-primary-container transition-all shadow-lg shadow-primary/10">Explore Collections</a>
+        <a href="gallery.html" data-page="cta-link" class="px-8 py-4 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl hover:bg-primary-container transition-all shadow-lg shadow-primary/10"><span data-page="cta-label">Explore Collections</span></a>
         <a href="gallery.html?featured=true" class="px-8 py-4 text-primary font-headline font-bold text-lg flex items-center gap-2 group">
           The Curator's Choice <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
@@ -270,6 +270,7 @@ function declineCookies() {
 document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
   CCS.applyBranding();
+  CCS.applyPageContent('home');
   initCookieBanner();
 
   // Mobile nav toggle

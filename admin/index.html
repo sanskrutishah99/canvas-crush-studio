@@ -107,6 +107,10 @@
           <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">brush</span>
           <span class="hidden md:block">Artworks</span>
         </button>
+        <button onclick="showTab('pages')" id="nav-pages" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">web</span>
+          <span class="hidden md:block">Pages</span>
+        </button>
         <button onclick="showTab('settings')" id="nav-settings" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
           <span class="material-symbols-outlined text-base">settings</span>
           <span class="hidden md:block">Settings</span>
@@ -158,6 +162,54 @@
           <tbody id="artworks-table-body">
             <!-- dynamically populated -->
           </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGES TAB ── -->
+  <div id="tab-pages" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      <div>
+        <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Pages</h1>
+        <p class="text-on-surface-variant font-body font-light mt-1">Edit content, create and manage pages</p>
+      </div>
+      <button onclick="openPageCreate()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
+        <span class="material-symbols-outlined">add</span> Create Page
+      </button>
+    </div>
+
+    <!-- System Pages -->
+    <div class="mb-8">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3">System Pages</p>
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-surface-container-low border-b border-outline-variant/20">
+              <th class="text-left px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Page</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">URL</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">Status</th>
+              <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="system-pages-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Custom Pages -->
+    <div>
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3">Custom Pages</p>
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm overflow-hidden">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-surface-container-low border-b border-outline-variant/20">
+              <th class="text-left px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Page</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">URL</th>
+              <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="custom-pages-body"></tbody>
         </table>
       </div>
     </div>
@@ -306,6 +358,19 @@
         </div>
       </div>
 
+      <!-- Nav Icons -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 lg:col-span-2">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">ads_click</span>
+          Navigation Icons
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Choose Material Symbols icons for the nav bar. Changes apply instantly across the entire site.</p>
+        <div id="nav-icons-card" class="grid grid-cols-3 gap-4 mb-6">
+          <!-- Rendered by JS -->
+        </div>
+        <button onclick="saveNavIconSettings()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save Icons</button>
+      </div>
+
       <!-- Danger Zone -->
       <div class="bg-white rounded-2xl border-2 border-red-200 p-8 lg:col-span-2">
         <h2 class="font-headline text-lg font-bold mb-2 text-red-600 flex items-center gap-3">
@@ -444,6 +509,129 @@
   </div>
 </div>
 
+<!-- ═══════════════════════ PAGE EDITOR MODAL ═══════════════════════ -->
+<div id="page-editor-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-8">
+    <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
+      <div>
+        <h2 id="page-editor-title" class="font-headline text-2xl font-bold">Edit Page</h2>
+        <p id="page-editor-file" class="text-xs text-on-surface-variant font-label mt-0.5"></p>
+      </div>
+      <button onclick="closePageEditor()" class="p-2 text-stone-400 hover:text-stone-700 hover:bg-surface-container-low rounded-lg transition-all">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="px-8 py-8 space-y-6 max-h-[70vh] overflow-y-auto">
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Browser Tab Title</label>
+        <input id="pe-title" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="e.g. Gallery | Canvas Crush Studio"/>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Hero Heading</label>
+        <input id="pe-hero-heading" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Main headline on the page"/>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Hero Subtext</label>
+        <textarea id="pe-hero-sub" rows="3" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="Supporting text below the headline"></textarea>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">CTA Button Label</label>
+          <input id="pe-cta-label" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Explore Collection"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">CTA Button Link</label>
+          <input id="pe-cta-link" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="gallery.html"/>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Meta Description (SEO)</label>
+        <textarea id="pe-meta" rows="2" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="Short description for search engines (150 chars)"></textarea>
+      </div>
+      <div id="pe-custom-fields" class="hidden space-y-4 pt-4 border-t border-outline-variant/20">
+        <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Custom Page Options</p>
+        <div class="flex items-center gap-3">
+          <input id="pe-show-nav" type="checkbox" class="w-5 h-5 rounded text-primary border-stone-300" checked/>
+          <label for="pe-show-nav" class="font-label font-bold text-sm cursor-pointer">Show in navigation menu</label>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between gap-3 px-8 py-6 border-t border-outline-variant/20">
+      <button id="pe-reset-btn" onclick="resetPageContent()" class="px-5 py-3 border border-outline-variant text-on-surface-variant rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all">Reset to Default</button>
+      <div class="flex gap-3">
+        <button onclick="closePageEditor()" class="px-6 py-3 border border-outline-variant rounded-lg font-label font-bold text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
+        <button onclick="savePageEditorContent()" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
+          <span class="material-symbols-outlined text-base align-middle mr-1">save</span>Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CREATE PAGE MODAL ═══════════════════════ -->
+<div id="create-page-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg my-8">
+    <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
+      <h2 class="font-headline text-2xl font-bold">Create New Page</h2>
+      <button onclick="closePageCreate()" class="p-2 text-stone-400 hover:text-stone-700 hover:bg-surface-container-low rounded-lg transition-all">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="px-8 py-8 space-y-6">
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Page Name *</label>
+        <input id="cp-name" type="text" oninput="autoSlug()" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="e.g. About Us"/>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">URL Slug *</label>
+        <div class="flex items-center gap-2">
+          <span class="text-stone-400 text-sm font-mono">/</span>
+          <input id="cp-slug" type="text" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all font-mono text-sm" placeholder="about-us"/>
+          <span class="text-stone-400 text-sm font-mono">.html</span>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Template</label>
+        <select id="cp-template" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all">
+          <option value="landing">Landing — hero + content area</option>
+          <option value="info">Info — text-focused with sections</option>
+          <option value="contact">Contact — contact form + details</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-3">
+        <input id="cp-show-nav" type="checkbox" class="w-5 h-5 rounded text-primary border-stone-300" checked/>
+        <label for="cp-show-nav" class="font-label font-bold text-sm cursor-pointer">Add to navigation menu</label>
+      </div>
+      <div id="cp-github-warn" class="hidden px-4 py-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-xs font-label leading-relaxed flex items-start gap-2">
+        <span class="material-symbols-outlined text-sm mt-0.5">warning</span>
+        <span>GitHub token not configured — page file cannot be created automatically. Set up GitHub Image Upload in Settings first.</span>
+      </div>
+    </div>
+    <div class="flex justify-end gap-3 px-8 py-6 border-t border-outline-variant/20">
+      <button onclick="closePageCreate()" class="px-6 py-3 border border-outline-variant rounded-lg font-label font-bold text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
+      <button onclick="createCustomPage()" id="cp-create-btn" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all active:scale-[0.98]">
+        <span class="material-symbols-outlined text-base align-middle mr-1">add</span>Create Page
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ICON PICKER MODAL ═══════════════════════ -->
+<div id="icon-picker-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-start justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-8">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-outline-variant/20">
+      <h2 class="font-headline text-xl font-bold">Choose Icon</h2>
+      <button onclick="closeIconPicker()" class="p-2 text-stone-400 hover:text-stone-700 hover:bg-surface-container-low rounded-lg transition-all">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="px-6 py-4 border-b border-outline-variant/20">
+      <input id="icon-search" type="text" oninput="filterIcons(this.value)" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Search icons…"/>
+    </div>
+    <div id="icon-grid" class="px-4 py-4 grid grid-cols-6 gap-2 max-h-96 overflow-y-auto"></div>
+  </div>
+</div>
+
 <!-- INLINE CCS STORE (self-contained copy for admin page) -->
 <script>
 const CCS = {
@@ -485,7 +673,19 @@ const CCS = {
   getCategoryLabel(cat) {
     const m = { passionate:'Passionate', abstract:'Emotional', cultural:'Cultural' };
     return m[cat] || cat;
-  }
+  },
+  getNavIcons() {
+    try { const s = localStorage.getItem('ccs_nav_icons'); const d = { search:'search', cart:'shopping_cart', menu:'menu' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { search:'search', cart:'shopping_cart', menu:'menu' }; }
+  },
+  saveNavIcons(icons) { localStorage.setItem('ccs_nav_icons', JSON.stringify(icons)); },
+  getPageContent(pageId) {
+    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); return all[pageId] || null; } catch(e) { return null; }
+  },
+  savePageContent(pageId, content) {
+    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); } catch(e) {}
+  },
+  getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
+  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); }
 };
 
 // ─── State ──────────────────────────────────────────────────────────────────
@@ -535,11 +735,12 @@ function showDashboard() {
   loadSettings();
   loadBranding();
   renderArtworksTab();
+  loadNavIconSettings();
 }
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
 function showTab(tab) {
-  ['artworks', 'settings'].forEach(t => {
+  ['artworks', 'pages', 'settings'].forEach(t => {
     document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
     document.getElementById(`tab-${t}`).classList.toggle('flex-grow', t === tab);
     const btn = document.getElementById(`nav-${t}`);
@@ -547,6 +748,7 @@ function showTab(tab) {
     if (t !== tab) btn.classList.add('text-on-surface-variant');
     else btn.classList.remove('text-on-surface-variant');
   });
+  if (tab === 'pages') renderPagesTab();
 }
 
 // ─── Artworks Tab ────────────────────────────────────────────────────────────
@@ -997,6 +1199,402 @@ function clearAllData() {
   loadSettings();
   showAdminToast('All data cleared', 'error');
 }
+
+// ─── Pages Tab ───────────────────────────────────────────────────────────────
+const SYSTEM_PAGES = [
+  { id:'home',     name:'Home',          file:'index.html',        icon:'home' },
+  { id:'gallery',  name:'Gallery',       file:'gallery.html',      icon:'photo_library' },
+  { id:'product',  name:'Product',       file:'product.html',      icon:'frame_picture' },
+  { id:'cart',     name:'Cart',          file:'cart.html',         icon:'shopping_cart' },
+  { id:'checkout', name:'Checkout',      file:'checkout.html',     icon:'credit_card' },
+  { id:'newsletter',name:'Newsletter',   file:'newsletter.html',   icon:'mail' },
+  { id:'privacy',  name:'Privacy Policy',file:'privacy-policy.html',icon:'shield' },
+  { id:'shipping', name:'Shipping Info', file:'shipping-info.html',icon:'local_shipping' }
+];
+
+function renderPagesTab() {
+  // System pages
+  let sHtml = '';
+  SYSTEM_PAGES.forEach(p => {
+    const content = CCS.getPageContent(p.id);
+    const edited = content ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-label font-bold rounded-full uppercase tracking-widest"><span class="material-symbols-outlined text-[10px]">edit</span>Customised</span>' : '<span class="text-stone-300 text-xs font-label">Default</span>';
+    sHtml += `<tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
+      <td class="px-6 py-4">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings:'FILL' 1">${p.icon}</span>
+          <span class="font-bold text-sm">${p.name}</span>
+        </div>
+      </td>
+      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">${p.file}</code></td>
+      <td class="px-4 py-4 hidden md:table-cell">${edited}</td>
+      <td class="px-6 py-4 text-right">
+        <button onclick="openPageEditor('${p.id}', false)" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit Content">
+          <span class="material-symbols-outlined text-lg">edit</span>
+        </button>
+        <a href="../${p.file}" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View Page">
+          <span class="material-symbols-outlined text-lg">open_in_new</span>
+        </a>
+      </td>
+    </tr>`;
+  });
+  document.getElementById('system-pages-body').innerHTML = sHtml;
+
+  // Custom pages
+  const customPages = CCS.getCustomPages();
+  let cHtml = '';
+  customPages.forEach(p => {
+    cHtml += `<tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
+      <td class="px-6 py-4"><span class="font-bold text-sm">${p.name}</span></td>
+      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">${p.slug}.html</code></td>
+      <td class="px-6 py-4 text-right flex items-center justify-end gap-1">
+        <button onclick="openPageEditor('${p.slug}', true)" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit">
+          <span class="material-symbols-outlined text-lg">edit</span>
+        </button>
+        <a href="../${p.slug}.html" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View">
+          <span class="material-symbols-outlined text-lg">open_in_new</span>
+        </a>
+        <button onclick="deleteCustomPage('${p.slug}')" class="p-2 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+          <span class="material-symbols-outlined text-lg">delete</span>
+        </button>
+      </td>
+    </tr>`;
+  });
+  document.getElementById('custom-pages-body').innerHTML = cHtml ||
+    '<tr><td colspan="3" class="px-6 py-10 text-center text-on-surface-variant font-body font-light text-sm">No custom pages yet. Click <strong>Create Page</strong> to add one.</td></tr>';
+}
+
+// ─── Page Editor ─────────────────────────────────────────────────────────────
+let editingPageId = null, editingPageIsCustom = false;
+
+function openPageEditor(pageId, isCustom) {
+  editingPageId = pageId;
+  editingPageIsCustom = isCustom;
+  const systemPage = SYSTEM_PAGES.find(p => p.id === pageId);
+  const customPage = isCustom ? CCS.getCustomPages().find(p => p.slug === pageId) : null;
+  const pageName = systemPage ? systemPage.name : (customPage ? customPage.name : pageId);
+  const pageFile = systemPage ? systemPage.file : `${pageId}.html`;
+
+  document.getElementById('page-editor-title').textContent = `Edit: ${pageName}`;
+  document.getElementById('page-editor-file').textContent = pageFile;
+  document.getElementById('pe-custom-fields').classList.toggle('hidden', !isCustom);
+
+  const content = CCS.getPageContent(pageId) || {};
+  document.getElementById('pe-title').value = content.title || '';
+  document.getElementById('pe-hero-heading').value = content.heroHeading || '';
+  document.getElementById('pe-hero-sub').value = content.heroSub || '';
+  document.getElementById('pe-cta-label').value = content.ctaLabel || '';
+  document.getElementById('pe-cta-link').value = content.ctaLink || '';
+  document.getElementById('pe-meta').value = content.meta || '';
+  if (isCustom && customPage) {
+    document.getElementById('pe-show-nav').checked = customPage.showInNav !== false;
+  }
+
+  document.getElementById('page-editor-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePageEditor() {
+  document.getElementById('page-editor-modal').classList.add('hidden');
+  document.body.style.overflow = '';
+  editingPageId = null;
+}
+
+function savePageEditorContent() {
+  const content = {
+    title: document.getElementById('pe-title').value.trim(),
+    heroHeading: document.getElementById('pe-hero-heading').value.trim(),
+    heroSub: document.getElementById('pe-hero-sub').value.trim(),
+    ctaLabel: document.getElementById('pe-cta-label').value.trim(),
+    ctaLink: document.getElementById('pe-cta-link').value.trim(),
+    meta: document.getElementById('pe-meta').value.trim()
+  };
+  // Remove empty keys
+  Object.keys(content).forEach(k => { if (!content[k]) delete content[k]; });
+  CCS.savePageContent(editingPageId, Object.keys(content).length ? content : null);
+
+  // Update custom page nav setting
+  if (editingPageIsCustom) {
+    const pages = CCS.getCustomPages();
+    const pg = pages.find(p => p.slug === editingPageId);
+    if (pg) { pg.showInNav = document.getElementById('pe-show-nav').checked; CCS.saveCustomPages(pages); }
+  }
+
+  closePageEditor();
+  renderPagesTab();
+  showAdminToast('Page content saved — live on the site immediately!');
+}
+
+function resetPageContent() {
+  if (!editingPageId) return;
+  if (!confirm('Reset this page to default content? Your customisations will be lost.')) return;
+  CCS.savePageContent(editingPageId, null);
+  closePageEditor();
+  renderPagesTab();
+  showAdminToast('Page reset to default content');
+}
+
+// ─── Create Custom Page ───────────────────────────────────────────────────────
+function openPageCreate() {
+  document.getElementById('cp-name').value = '';
+  document.getElementById('cp-slug').value = '';
+  document.getElementById('cp-template').value = 'landing';
+  document.getElementById('cp-show-nav').checked = true;
+  const s = CCS.getSettings();
+  document.getElementById('cp-github-warn').classList.toggle('hidden', !!(s.githubToken && s.githubRepo));
+  document.getElementById('create-page-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePageCreate() {
+  document.getElementById('create-page-modal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function autoSlug() {
+  const name = document.getElementById('cp-name').value;
+  document.getElementById('cp-slug').value = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function buildPageHTML(name, slug, template) {
+  const nav = `<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Passionate</a>
+      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Emotional</a>
+      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Cultural</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart.html" class="relative p-2 text-outline hover:text-primary transition-colors">
+        <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
+        <span class="material-symbols-outlined" data-icon="menu">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Passionate</a>
+      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Emotional</a>
+      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cultural</a>
+      <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
+    </div>
+  </div>
+</nav>`;
+
+  const heroSection = template === 'contact'
+    ? `<section class="pt-40 pb-24 px-6 max-w-3xl mx-auto text-center">
+    <h1 class="text-5xl md:text-7xl font-extrabold font-headline tracking-tighter text-on-surface mb-6" data-page="hero-heading">${name}</h1>
+    <p class="text-xl text-on-surface-variant font-body leading-relaxed max-w-2xl mx-auto font-light mb-10" data-page="hero-sub">Get in touch with us.</p>
+    <form class="text-left space-y-5 bg-white rounded-2xl border border-outline-variant/20 p-8 shadow-sm">
+      <div><label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Name</label><input type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3"/></div>
+      <div><label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Email</label><input type="email" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3"/></div>
+      <div><label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Message</label><textarea rows="5" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 resize-none"></textarea></div>
+      <button type="submit" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all" data-page="cta-label">Send Message</button>
+    </form>
+  </section>`
+    : template === 'info'
+    ? `<section class="pt-40 pb-24 px-6 max-w-3xl mx-auto">
+    <h1 class="text-5xl md:text-6xl font-extrabold font-headline tracking-tighter text-on-surface mb-6" data-page="hero-heading">${name}</h1>
+    <p class="text-xl text-on-surface-variant font-body leading-relaxed font-light mb-12" data-page="hero-sub">Edit this text from the admin portal.</p>
+    <div class="prose prose-stone max-w-none space-y-6">
+      <div class="bg-surface-container-low rounded-xl p-8">
+        <h2 class="text-2xl font-headline font-bold text-on-surface mb-4">Section Heading</h2>
+        <p class="text-on-surface-variant font-body leading-relaxed">Add your content here. You can edit this page from the admin portal.</p>
+      </div>
+    </div>
+  </section>`
+    : `<section class="pt-40 pb-24 px-6 max-w-screen-xl mx-auto text-center">
+    <h1 class="text-6xl md:text-8xl font-extrabold font-headline tracking-tighter text-on-surface mb-6" data-page="hero-heading">${name}</h1>
+    <p class="text-xl text-on-surface-variant font-body leading-relaxed max-w-2xl mx-auto font-light mb-10" data-page="hero-sub">Edit this text from the admin portal.</p>
+    <a href="gallery.html" class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10" data-page="cta-link" data-page-href="gallery.html"><span data-page="cta-label">Explore Gallery</span> <span class="material-symbols-outlined">arrow_forward</span></a>
+  </section>`;
+
+  return `<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>${name} | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"><\/script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = { darkMode:"class", theme:{ extend:{ colors:{ "primary":"#003635","on-primary":"#ffffff","primary-container":"#124e4c","on-primary-container":"#87bebb","secondary":"#904b36","on-secondary":"#ffffff","secondary-container":"#ffa58b","tertiary":"#1f351b","on-tertiary":"#ffffff","surface":"#fef9f0","on-surface":"#1d1c16","surface-variant":"#e7e2d9","on-surface-variant":"#404848","surface-container-lowest":"#ffffff","surface-container-low":"#f8f3ea","surface-container":"#f2ede4","surface-container-high":"#ece8df","surface-container-highest":"#e7e2d9","outline":"#707978","outline-variant":"#bfc8c7","background":"#fef9f0","on-background":"#1d1c16","inverse-primary":"#99d1cd" }, borderRadius:{ "DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem" }, fontFamily:{ "headline":["Epilogue"],"body":["Manrope"],"label":["Manrope"] } } } }
+<\/script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; background-color: #fef9f0; }
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #mobile-menu.open { max-height: 400px; }
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+${nav}
+<main>
+${heroSection}
+</main>
+<footer class="border-t border-outline-variant/20 bg-surface-container-low py-10 px-6 text-center">
+  <p class="text-sm text-on-surface-variant font-body font-light" data-brand="copyright">© ${new Date().getFullYear()} Canvas Crush Studio. Curating Passion.</p>
+</footer>
+<script src="js/store.js"><\/script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  CCS.updateCartBadge();
+  CCS.applyBranding();
+  CCS.applyPageContent('${slug}');
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+});
+<\/script>
+</body>
+</html>`;
+}
+
+async function createCustomPage() {
+  const name = document.getElementById('cp-name').value.trim();
+  const slug = document.getElementById('cp-slug').value.trim();
+  const template = document.getElementById('cp-template').value;
+  const showInNav = document.getElementById('cp-show-nav').checked;
+
+  if (!name || !slug) { showAdminToast('Page name and slug are required', 'error'); return; }
+  if (!/^[a-z0-9-]+$/.test(slug)) { showAdminToast('Slug must only contain lowercase letters, numbers, and hyphens', 'error'); return; }
+
+  // Check if slug already exists
+  const existing = CCS.getCustomPages().find(p => p.slug === slug);
+  if (existing) { showAdminToast('A page with that slug already exists', 'error'); return; }
+
+  const html = buildPageHTML(name, slug, template);
+  const s = CCS.getSettings();
+
+  if (s.githubToken && s.githubRepo) {
+    const btn = document.getElementById('cp-create-btn');
+    btn.textContent = 'Creating…'; btn.disabled = true;
+    try {
+      const base64 = btoa(unescape(encodeURIComponent(html)));
+      const res = await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${slug}.html`, {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+        body: JSON.stringify({ message: `Create page: ${name}`, content: base64, branch: 'main' })
+      });
+      if (!res.ok) { const e = await res.json(); showAdminToast(`GitHub error: ${e.message}`, 'error'); btn.innerHTML = '<span class="material-symbols-outlined text-base align-middle mr-1">add</span>Create Page'; btn.disabled = false; return; }
+    } catch(e) { showAdminToast(`Error: ${e.message}`, 'error'); btn.innerHTML = '<span class="material-symbols-outlined text-base align-middle mr-1">add</span>Create Page'; btn.disabled = false; return; }
+    btn.innerHTML = '<span class="material-symbols-outlined text-base align-middle mr-1">add</span>Create Page'; btn.disabled = false;
+  }
+
+  const pages = CCS.getCustomPages();
+  pages.push({ name, slug, template, showInNav });
+  CCS.saveCustomPages(pages);
+
+  closePageCreate();
+  renderPagesTab();
+  showAdminToast(`"${name}" created! ${s.githubToken ? 'It will be live in ~30 seconds.' : 'Note: add your GitHub token to publish the file.'}`);
+}
+
+async function deleteCustomPage(slug) {
+  if (!confirm(`Delete page "${slug}.html"? This cannot be undone.`)) return;
+  const s = CCS.getSettings();
+
+  if (s.githubToken && s.githubRepo) {
+    try {
+      // Get the file SHA first
+      const getRes = await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${slug}.html`, {
+        headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Accept': 'application/vnd.github+json' }
+      });
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${slug}.html`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+          body: JSON.stringify({ message: `Delete page: ${slug}`, sha: fileData.sha, branch: 'main' })
+        });
+      }
+    } catch(e) { /* silently continue to remove from localStorage */ }
+  }
+
+  const pages = CCS.getCustomPages().filter(p => p.slug !== slug);
+  CCS.saveCustomPages(pages);
+  CCS.savePageContent(slug, null);
+  renderPagesTab();
+  showAdminToast(`Page deleted`, 'error');
+}
+
+// ─── Nav Icon Settings ────────────────────────────────────────────────────────
+const ALL_ICONS = ['search','shopping_cart','menu','close','add','edit','delete','save','settings','home','arrow_forward','arrow_back','north_east','check_circle','warning','info','favorite','star','palette','brush','image','photo_camera','upload','download','cloud_upload','open_in_new','logout','lock','visibility','visibility_off','mail','send','phone','location_on','language','share','bookmark','label','category','filter_list','sort','grid_view','view_list','zoom_in','zoom_out','fullscreen','refresh','check','done','cancel','help','notifications','person','people','account_circle','face','work','business','store','storefront','local_shipping','credit_card','payment','receipt','shopping_bag','inventory','museum','format_quote','text_fields','title','notes','description','article','web','dashboard','analytics','bar_chart','trending_up','attach_money','eco','spa','nature','auto_awesome','diamond','water_drop','favorite_border','bookmark_border','star_border','check_box','radio_button_checked','toggle_on','flag','campaign','forum','chat','headphones','music_note','celebration','cake','sports','fitness_center','self_improvement','wb_sunny','nights_stay','cloud','bolt','park','air','agriculture','anchor','architecture','art_track'];
+
+let activeIconSlot = null;
+const ICON_SLOT_LABELS = { search:'Search', cart:'Cart / Bag', menu:'Menu / Hamburger' };
+
+function loadNavIconSettings() {
+  renderNavIconsCard();
+}
+
+function renderNavIconsCard() {
+  const icons = CCS.getNavIcons();
+  const card = document.getElementById('nav-icons-card');
+  if (!card) return;
+  card.innerHTML = Object.entries(icons).map(([slot, iconName]) => `
+    <div class="flex flex-col items-center gap-2 p-4 bg-surface-container-low rounded-xl border border-outline-variant/20">
+      <span class="material-symbols-outlined text-4xl text-primary" id="icon-preview-${slot}" style="font-variation-settings:'FILL' 1">${iconName}</span>
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant text-center">${ICON_SLOT_LABELS[slot] || slot}</p>
+      <p class="text-xs text-outline font-mono">${iconName}</p>
+      <button onclick="openIconPicker('${slot}')" class="mt-1 px-3 py-1.5 bg-white border border-outline-variant rounded-lg text-xs font-label font-bold hover:bg-surface-container transition-all flex items-center gap-1">
+        <span class="material-symbols-outlined text-sm">change_circle</span> Change
+      </button>
+    </div>`).join('');
+}
+
+function saveNavIconSettings() {
+  const icons = CCS.getNavIcons();
+  CCS.saveNavIcons(icons);
+  showAdminToast('Nav icons saved — live on every page now!');
+}
+
+function openIconPicker(slot) {
+  activeIconSlot = slot;
+  document.getElementById('icon-search').value = '';
+  renderIconGrid(ALL_ICONS);
+  document.getElementById('icon-picker-modal').classList.remove('hidden');
+}
+
+function closeIconPicker() {
+  document.getElementById('icon-picker-modal').classList.add('hidden');
+  activeIconSlot = null;
+}
+
+function filterIcons(q) {
+  const filtered = q ? ALL_ICONS.filter(i => i.includes(q.toLowerCase().replace(/\s+/g,'_'))) : ALL_ICONS;
+  renderIconGrid(filtered);
+}
+
+function renderIconGrid(icons) {
+  const grid = document.getElementById('icon-grid');
+  grid.innerHTML = icons.map(name => `
+    <button onclick="selectIcon('${name}')" class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-primary/10 hover:text-primary transition-all text-on-surface-variant group" title="${name}">
+      <span class="material-symbols-outlined text-2xl group-hover:text-primary transition-colors">${name}</span>
+      <span class="text-[8px] font-mono leading-tight text-center break-all">${name}</span>
+    </button>`).join('');
+}
+
+function selectIcon(iconName) {
+  if (!activeIconSlot) return;
+  const icons = CCS.getNavIcons();
+  icons[activeIconSlot] = iconName;
+  CCS.saveNavIcons(icons);
+  // Update preview
+  const preview = document.getElementById(`icon-preview-${activeIconSlot}`);
+  if (preview) preview.textContent = iconName;
+  renderNavIconsCard();
+  closeIconPicker();
+  showAdminToast(`Icon updated to "${iconName}"`);
+}
+
+// Close modals on overlay click
+document.getElementById('page-editor-modal').addEventListener('click', e => { if (e.target === document.getElementById('page-editor-modal')) closePageEditor(); });
+document.getElementById('create-page-modal').addEventListener('click', e => { if (e.target === document.getElementById('create-page-modal')) closePageCreate(); });
+document.getElementById('icon-picker-modal').addEventListener('click', e => { if (e.target === document.getElementById('icon-picker-modal')) closeIconPicker(); });
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 function showAdminToast(msg, type = 'success') {
