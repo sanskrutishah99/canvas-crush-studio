@@ -304,9 +304,9 @@ const CCS = {
 
   getCategoryLabel(cat) {
     const map = {
-      passionate: 'Passionate',
-      abstract: 'Emotional',
-      cultural: 'Cultural'
+      passionate: 'Vitality',
+      abstract: 'Serenity',
+      cultural: 'Culture'
     };
     return map[cat] || cat;
   }

@@ -417,9 +417,9 @@
         <div>
           <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Category *</label>
           <select id="m-category" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all">
-            <option value="passionate">Passionate</option>
-            <option value="abstract">Emotional</option>
-            <option value="cultural">Cultural</option>
+            <option value="passionate">Vitality</option>
+            <option value="abstract">Serenity</option>
+            <option value="cultural">Culture</option>
           </select>
         </div>
         <div>
@@ -671,7 +671,7 @@ const CCS = {
   adminLogout() { sessionStorage.removeItem('ccs_admin'); },
   formatPrice(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
   getCategoryLabel(cat) {
-    const m = { passionate:'Passionate', abstract:'Emotional', cultural:'Cultural' };
+    const m = { passionate:'Vitality', abstract:'Serenity', cultural:'Culture' };
     return m[cat] || cat;
   },
   getNavIcons() {
@@ -1360,9 +1360,9 @@ function buildPageHTML(name, slug, template) {
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
     <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
     <div class="hidden md:flex items-center gap-8">
-      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Passionate</a>
-      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Emotional</a>
-      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Cultural</a>
+      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
     </div>
     <div class="flex items-center gap-3">
       <a href="cart.html" class="relative p-2 text-outline hover:text-primary transition-colors">
@@ -1376,9 +1376,9 @@ function buildPageHTML(name, slug, template) {
   </div>
   <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Passionate</a>
-      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Emotional</a>
-      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cultural</a>
+      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
+      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
+      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
       <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
