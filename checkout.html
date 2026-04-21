@@ -47,8 +47,8 @@
 <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-7xl mx-auto">
     <div class="flex items-center gap-5">
-      <a href="cart.html" class="material-symbols-outlined text-stone-500 hover:text-primary transition-colors duration-300">arrow_back</a>
-      <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+      <a href="cart" class="material-symbols-outlined text-stone-500 hover:text-primary transition-colors duration-300">arrow_back</a>
+      <a href="/" class="text-2xl font-bold tracking-tighter text-primary font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
     </div>
     <div class="flex items-center gap-3">
       <span class="hidden md:block font-body text-sm font-light tracking-wide text-stone-500">Secure Transaction</span>
@@ -243,8 +243,8 @@
     </div>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
-      <a href="index.html" class="px-8 py-4 bg-surface-container-low text-on-surface font-label font-semibold rounded-DEFAULT border border-outline-variant hover:bg-surface-container transition-all">Back to Home</a>
+      <a href="gallery" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
+      <a href="/" class="px-8 py-4 bg-surface-container-low text-on-surface font-label font-semibold rounded-DEFAULT border border-outline-variant hover:bg-surface-container transition-all">Back to Home</a>
     </div>
   </div>
 </div>
@@ -256,8 +256,8 @@
       <p class="font-body font-light tracking-wide text-outline text-sm" data-brand="copyright">© 2024 Canvas Crush Studio. Curating Passion.</p>
     </div>
     <div class="flex gap-10 font-body font-light">
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy">Privacy Policy</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info">Shipping Info</a>
     </div>
   </div>
 </footer>
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
   CCS.applyBranding();
   const cart = CCS.getCart();
   if (Object.keys(cart).length === 0) {
-    window.location.href = 'cart.html';
+    window.location.href = 'cart';
     return;
   }
 

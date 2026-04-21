@@ -81,7 +81,7 @@
     </div>
 
     <p class="text-center mt-8 text-stone-400 text-sm font-body font-light">
-      <a href="../index.html" class="text-primary font-medium hover:underline">← Back to Site</a>
+      <a href="/" class="text-primary font-medium hover:underline">← Back to Site</a>
     </p>
   </div>
 </div>
@@ -115,7 +115,7 @@
           <span class="material-symbols-outlined text-base">settings</span>
           <span class="hidden md:block">Settings</span>
         </button>
-        <a href="../index.html" target="_blank" class="px-4 py-2 rounded-lg font-label font-bold text-sm border border-outline-variant/40 hover:bg-surface-container-low transition-all text-on-surface-variant flex items-center gap-2">
+        <a href="/" target="_blank" class="px-4 py-2 rounded-lg font-label font-bold text-sm border border-outline-variant/40 hover:bg-surface-container-low transition-all text-on-surface-variant flex items-center gap-2">
           <span class="material-symbols-outlined text-base">open_in_new</span>
           <span class="hidden md:block">View Site</span>
         </a>
@@ -198,19 +198,27 @@
     </div>
 
     <!-- Custom Pages -->
-    <div>
+    <div class="mb-8">
       <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3">Custom Pages</p>
       <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm overflow-hidden">
         <table class="w-full">
           <thead>
             <tr class="bg-surface-container-low border-b border-outline-variant/20">
               <th class="text-left px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Page</th>
-              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">URL</th>
+              <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">URL Slug</th>
               <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
             </tr>
           </thead>
           <tbody id="custom-pages-body"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Sitemap -->
+    <div>
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3">Sitemap — Page Links</p>
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-6" id="sitemap-panel">
+        <!-- rendered by JS -->
       </div>
     </div>
   </div>
@@ -505,6 +513,40 @@
       <button onclick="saveArtwork()" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
         <span class="material-symbols-outlined text-base align-middle mr-1">save</span>Save Artwork
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ RENAME SLUG MODAL ═══════════════════════ -->
+<div id="rename-slug-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md my-8">
+    <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
+      <h2 class="font-headline text-xl font-bold">Rename Page URL</h2>
+      <button onclick="closeRenameSlug()" class="p-2 text-stone-400 hover:text-stone-700 hover:bg-surface-container-low rounded-lg transition-all">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="px-8 py-8 space-y-5">
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Current Slug</label>
+        <p id="rs-current" class="font-mono text-sm text-on-surface-variant bg-surface-container-low px-4 py-3 rounded-lg"></p>
+      </div>
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">New Slug *</label>
+        <div class="flex items-center gap-2">
+          <span class="text-stone-400 text-sm font-mono">/</span>
+          <input id="rs-new-slug" type="text" class="flex-grow bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface font-mono text-sm placeholder:text-stone-300 transition-all" placeholder="new-slug"/>
+          <span class="text-stone-400 text-sm font-mono">.html</span>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-xs font-label leading-relaxed flex items-start gap-2">
+        <span class="material-symbols-outlined text-sm mt-0.5">warning</span>
+        <span>This renames the file on GitHub. Any existing links to the old URL will break — update them in your page content too.</span>
+      </div>
+    </div>
+    <div class="flex justify-end gap-3 px-8 py-6 border-t border-outline-variant/20">
+      <button onclick="closeRenameSlug()" class="px-6 py-3 border border-outline-variant rounded-lg font-label font-bold text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
+      <button onclick="saveRenameSlug()" class="px-8 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all active:scale-[0.98]">Rename</button>
     </div>
   </div>
 </div>
@@ -1203,10 +1245,10 @@ function clearAllData() {
 // ─── Pages Tab ───────────────────────────────────────────────────────────────
 const SYSTEM_PAGES = [
   { id:'home',     name:'Home',          file:'index.html',        icon:'home' },
-  { id:'gallery',  name:'Gallery',       file:'gallery.html',      icon:'photo_library' },
+  { id:'gallery',  name:'Gallery',       file:'gallery',      icon:'photo_library' },
   { id:'product',  name:'Product',       file:'product.html',      icon:'frame_picture' },
-  { id:'cart',     name:'Cart',          file:'cart.html',         icon:'shopping_cart' },
-  { id:'checkout', name:'Checkout',      file:'checkout.html',     icon:'credit_card' },
+  { id:'cart',     name:'Cart',          file:'cart',         icon:'shopping_cart' },
+  { id:'checkout', name:'Checkout',      file:'checkout',     icon:'credit_card' },
   { id:'newsletter',name:'Newsletter',   file:'newsletter.html',   icon:'mail' },
   { id:'privacy',  name:'Privacy Policy',file:'privacy-policy.html',icon:'shield' },
   { id:'shipping', name:'Shipping Info', file:'shipping-info.html',icon:'local_shipping' }
@@ -1218,6 +1260,7 @@ function renderPagesTab() {
   SYSTEM_PAGES.forEach(p => {
     const content = CCS.getPageContent(p.id);
     const edited = content ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-label font-bold rounded-full uppercase tracking-widest"><span class="material-symbols-outlined text-[10px]">edit</span>Customised</span>' : '<span class="text-stone-300 text-xs font-label">Default</span>';
+    const cleanSlug = p.id === 'home' ? '/' : '/' + p.file.replace('.html','');
     sHtml += `<tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
       <td class="px-6 py-4">
         <div class="flex items-center gap-3">
@@ -1225,13 +1268,13 @@ function renderPagesTab() {
           <span class="font-bold text-sm">${p.name}</span>
         </div>
       </td>
-      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">${p.file}</code></td>
+      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">${cleanSlug}</code></td>
       <td class="px-4 py-4 hidden md:table-cell">${edited}</td>
       <td class="px-6 py-4 text-right">
         <button onclick="openPageEditor('${p.id}', false)" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit Content">
           <span class="material-symbols-outlined text-lg">edit</span>
         </button>
-        <a href="../${p.file}" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View Page">
+        <a href="${cleanSlug}" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View Page">
           <span class="material-symbols-outlined text-lg">open_in_new</span>
         </a>
       </td>
@@ -1245,12 +1288,15 @@ function renderPagesTab() {
   customPages.forEach(p => {
     cHtml += `<tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
       <td class="px-6 py-4"><span class="font-bold text-sm">${p.name}</span></td>
-      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">${p.slug}.html</code></td>
+      <td class="px-4 py-4 hidden md:table-cell"><code class="text-xs text-on-surface-variant font-mono bg-surface-container-low px-2 py-1 rounded">/${p.slug}</code></td>
       <td class="px-6 py-4 text-right flex items-center justify-end gap-1">
-        <button onclick="openPageEditor('${p.slug}', true)" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit">
+        <button onclick="openRenameSlug('${p.slug}')" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Rename Slug">
+          <span class="material-symbols-outlined text-lg">link</span>
+        </button>
+        <button onclick="openPageEditor('${p.slug}', true)" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit Content">
           <span class="material-symbols-outlined text-lg">edit</span>
         </button>
-        <a href="../${p.slug}.html" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View">
+        <a href="/${p.slug}" target="_blank" class="inline-flex p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="View Page">
           <span class="material-symbols-outlined text-lg">open_in_new</span>
         </a>
         <button onclick="deleteCustomPage('${p.slug}')" class="p-2 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
@@ -1259,6 +1305,7 @@ function renderPagesTab() {
       </td>
     </tr>`;
   });
+  renderSitemap();
   document.getElementById('custom-pages-body').innerHTML = cHtml ||
     '<tr><td colspan="3" class="px-6 py-10 text-center text-on-surface-variant font-body font-light text-sm">No custom pages yet. Click <strong>Create Page</strong> to add one.</td></tr>';
 }
@@ -1591,7 +1638,71 @@ function selectIcon(iconName) {
   showAdminToast(`Icon updated to "${iconName}"`);
 }
 
+// ─── Rename Slug ─────────────────────────────────────────────────────────────
+let renamingSlug = null;
+
+function openRenameSlug(slug) {
+  renamingSlug = slug;
+  document.getElementById('rs-current').textContent = '/' + slug;
+  document.getElementById('rs-new-slug').value = slug;
+  document.getElementById('rename-slug-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRenameSlug() {
+  document.getElementById('rename-slug-modal').classList.add('hidden');
+  document.body.style.overflow = '';
+  renamingSlug = null;
+}
+
+async function saveRenameSlug() {
+  const newSlug = document.getElementById('rs-new-slug').value.trim();
+  if (!newSlug || !/^[a-z0-9-]+$/.test(newSlug)) { showAdminToast('Slug must use lowercase letters, numbers, and hyphens only', 'error'); return; }
+  if (newSlug === renamingSlug) { closeRenameSlug(); return; }
+  const pages = CCS.getCustomPages();
+  if (pages.find(p => p.slug === newSlug)) { showAdminToast('A page with that slug already exists', 'error'); return; }
+  const s = CCS.getSettings();
+  if (s.githubToken && s.githubRepo) {
+    try {
+      const getRes = await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${renamingSlug}.html`, { headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Accept': 'application/vnd.github+json' } });
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${newSlug}.html`, { method: 'PUT', headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' }, body: JSON.stringify({ message: `Rename page: ${renamingSlug} → ${newSlug}`, content: fileData.content.replace(/\n/g,''), branch: 'main' }) });
+        await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${renamingSlug}.html`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${s.githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' }, body: JSON.stringify({ message: `Remove old slug: ${renamingSlug}`, sha: fileData.sha, branch: 'main' }) });
+      }
+    } catch(e) { showAdminToast(`Error: ${e.message}`, 'error'); return; }
+  }
+  const page = pages.find(p => p.slug === renamingSlug);
+  if (page) { page.slug = newSlug; CCS.saveCustomPages(pages); }
+  const cnt = CCS.getPageContent(renamingSlug);
+  if (cnt) { CCS.savePageContent(newSlug, cnt); CCS.savePageContent(renamingSlug, null); }
+  closeRenameSlug();
+  renderPagesTab();
+  showAdminToast(`Slug renamed to /${newSlug}`);
+}
+
+// ─── Sitemap ─────────────────────────────────────────────────────────────────
+const SITE_LINKS = [
+  { from:'Home (/)', to:['Gallery (/gallery)', 'Cart (/cart)', 'Vitality (/gallery?cat=passionate)', 'Serenity (/gallery?cat=abstract)', 'Culture (/gallery?cat=cultural)'] },
+  { from:'Gallery (/gallery)', to:['Product (/product)', 'Cart (/cart)', 'Home (/)'] },
+  { from:'Product (/product)', to:['Cart (/cart)', 'Checkout (/checkout)', 'Gallery (/gallery)'] },
+  { from:'Cart (/cart)', to:['Checkout (/checkout)', 'Gallery (/gallery)', 'Home (/)'] },
+  { from:'Checkout (/checkout)', to:['Home (/)'] },
+  { from:'Footer (all pages)', to:['Newsletter (/newsletter)', 'Privacy Policy (/privacy-policy)', 'Shipping Info (/shipping-info)'] },
+];
+
+function renderSitemap() {
+  const panel = document.getElementById('sitemap-panel');
+  if (!panel) return;
+  const customPages = CCS.getCustomPages();
+  const customLinks = customPages.map(p => ({ from:`${p.name} (/${p.slug})`, to:['Home (/)'] }));
+  const allLinks = [...SITE_LINKS, ...customLinks];
+  panel.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${allLinks.map(link => `<div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/20"><div class="flex items-center gap-2 mb-3"><span class="material-symbols-outlined text-primary text-base" style="font-variation-settings:'FILL' 1">web</span><p class="font-label font-bold text-sm text-on-surface">${link.from}</p></div><div class="space-y-1.5 pl-2 border-l-2 border-outline-variant/40">${link.to.map(t => `<div class="flex items-center gap-2 text-xs text-on-surface-variant font-mono"><span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>${t}</div>`).join('')}</div></div>`).join('')}</div><p class="mt-4 text-[10px] text-stone-400 font-label">Primary navigation links per page. All URLs use clean slugs (no .html) via the custom domain.</p>`;
+}
+
+
 // Close modals on overlay click
+document.getElementById('rename-slug-modal').addEventListener('click', e => { if (e.target === document.getElementById('rename-slug-modal')) closeRenameSlug(); });
 document.getElementById('page-editor-modal').addEventListener('click', e => { if (e.target === document.getElementById('page-editor-modal')) closePageEditor(); });
 document.getElementById('create-page-modal').addEventListener('click', e => { if (e.target === document.getElementById('create-page-modal')) closePageCreate(); });
 document.getElementById('icon-picker-modal').addEventListener('click', e => { if (e.target === document.getElementById('icon-picker-modal')) closeIconPicker(); });

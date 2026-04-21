@@ -53,18 +53,18 @@
 <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full">
     <div class="flex items-center gap-10">
-      <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+      <a href="/" class="text-2xl font-bold tracking-tighter text-primary font-headline" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
       <div class="hidden md:flex items-center gap-8 font-headline tracking-tight font-light">
-        <a id="nav-passionate" href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
-        <a id="nav-abstract" href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
-        <a id="nav-cultural" href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
+        <a id="nav-passionate" href="gallery?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
+        <a id="nav-abstract" href="gallery?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
+        <a id="nav-cultural" href="gallery?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
       </div>
     </div>
     <div class="flex items-center gap-3">
       <button class="p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined" data-icon="search">search</span>
       </button>
-      <a href="cart.html" class="p-2 text-outline hover:text-primary transition-colors relative">
+      <a href="cart" class="p-2 text-outline hover:text-primary transition-colors relative">
         <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
         <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
@@ -75,10 +75,10 @@
   </div>
   <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
-      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
-      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
-      <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
+      <a href="gallery?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
+      <a href="cart" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
@@ -134,9 +134,9 @@
       <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter.html">Newsletter</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -283,7 +283,7 @@ function renderGallery() {
     html += `
       <div class="${spanClass} group">
         <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-outline-variant/10 flex flex-col h-full">
-          <a href="product.html?id=${art.id}" class="${aspectClass} w-full overflow-hidden block">
+          <a href="product?id=${art.id}" class="${aspectClass} w-full overflow-hidden block">
             <img alt="${art.title}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="${art.images[0]}"/>
           </a>
           <div class="p-7 flex-grow flex flex-col justify-between">
@@ -308,7 +308,7 @@ function renderGallery() {
                   <span class="text-lg font-bold font-headline text-on-surface">${CCS.formatPrice(art.printPrice)}</span>
                 </div>
               </div>
-              <a href="product.html?id=${art.id}" class="block w-full mt-6 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
+              <a href="product?id=${art.id}" class="block w-full mt-6 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
                 View Details
               </a>
             </div>

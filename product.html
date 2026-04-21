@@ -53,17 +53,17 @@
 <!-- Nav -->
 <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
-    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
+    <a href="/" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
     <div class="hidden md:flex items-center gap-10">
-      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
-      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
-      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
+      <a href="gallery?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
     </div>
     <div class="flex items-center gap-4">
       <button class="text-outline hover:text-primary transition-colors duration-300">
         <span class="material-symbols-outlined" data-icon="search">search</span>
       </button>
-      <a href="cart.html" class="text-outline hover:text-primary relative p-2">
+      <a href="cart" class="text-outline hover:text-primary relative p-2">
         <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
         <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
@@ -74,10 +74,10 @@
   </div>
   <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
-      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
-      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
-      <a href="cart.html" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
+      <a href="gallery?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
+      <a href="cart" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
@@ -93,9 +93,9 @@
       <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter.html">Newsletter</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  if (!id) { window.location.href = 'gallery.html'; return; }
+  if (!id) { window.location.href = 'gallery'; return; }
 
   artwork = CCS.getArtwork(id);
-  if (!artwork) { window.location.href = 'gallery.html'; return; }
+  if (!artwork) { window.location.href = 'gallery'; return; }
 
   document.title = `${artwork.title} | Canvas Crush Studio`;
   renderProduct();
@@ -235,7 +235,7 @@ function renderProduct() {
             <button onclick="addToCart()" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
               <span class="material-symbols-outlined">add_shopping_cart</span>Add to Cart
             </button>
-            <a href="cart.html" class="w-full py-4 border-2 border-primary text-primary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all active:scale-[0.98]">
+            <a href="cart" class="w-full py-4 border-2 border-primary text-primary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all active:scale-[0.98]">
               <span class="material-symbols-outlined">shopping_bag</span>Secure Checkout
             </a>
             <p class="text-center text-[10px] text-stone-400 font-label">Free Insured Global Shipping • 30-Day Gallery Guarantee</p>
@@ -269,7 +269,7 @@ function renderProduct() {
           <h2 class="font-headline text-3xl font-extrabold tracking-tighter text-on-surface">Complementary Curations</h2>
           <p class="text-stone-500 mt-2">Other works that share the same emotional resonance.</p>
         </div>
-        <a href="gallery.html?cat=${artwork.category}" class="text-primary font-bold font-label flex items-center gap-1 hover:translate-x-1 transition-transform">
+        <a href="gallery?cat=${artwork.category}" class="text-primary font-bold font-label flex items-center gap-1 hover:translate-x-1 transition-transform">
           View Collection <span class="material-symbols-outlined text-sm">arrow_forward</span>
         </a>
       </header>
@@ -370,7 +370,7 @@ function renderRelated() {
   let html = '';
   related.forEach(art => {
     html += `
-      <a href="product.html?id=${art.id}" class="group block">
+      <a href="product?id=${art.id}" class="group block">
         <div class="aspect-square w-full overflow-hidden rounded-xl bg-surface-container border border-outline-variant/20 shadow-sm">
           <img alt="${art.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="${art.images[0]}"/>
         </div>

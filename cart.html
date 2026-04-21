@@ -50,14 +50,14 @@
 <!-- Nav -->
 <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
   <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
-    <a href="index.html" class="text-2xl font-bold tracking-tighter text-primary" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
+    <a href="/" class="text-2xl font-bold tracking-tighter text-primary" data-brand="logo-wrap"><span data-brand="name">Canvas Crush Studio</span></a>
     <div class="hidden md:flex items-center gap-10">
-      <a href="gallery.html?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
-      <a href="gallery.html?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
-      <a href="gallery.html?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
+      <a href="gallery?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
     </div>
     <div class="flex items-center gap-4">
-      <a href="cart.html" class="text-secondary relative p-2">
+      <a href="cart" class="text-secondary relative p-2">
         <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">shopping_cart</span>
         <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
       </a>
@@ -68,9 +68,9 @@
   </div>
   <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
     <div class="flex flex-col px-6 py-4 gap-4">
-      <a href="gallery.html?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
-      <a href="gallery.html?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
-      <a href="gallery.html?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
+      <a href="gallery?cat=passionate" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
     </div>
   </div>
 </nav>
@@ -89,7 +89,7 @@
     </div>
     <h2 class="font-headline text-2xl font-bold mb-3">Your cart is empty</h2>
     <p class="text-on-surface-variant font-body mb-8 max-w-md">Discover our curated collection of original artworks and premium prints. Every piece tells a unique story.</p>
-    <a href="gallery.html" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
+    <a href="gallery" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
   </div>
 
   <!-- Cart with items -->
@@ -100,7 +100,7 @@
         <!-- dynamically populated -->
       </div>
       <div class="mt-8">
-        <a href="gallery.html" class="flex items-center gap-2 text-primary font-label font-bold hover:gap-3 transition-all">
+        <a href="gallery" class="flex items-center gap-2 text-primary font-label font-bold hover:gap-3 transition-all">
           <span class="material-symbols-outlined text-sm">arrow_back</span> Continue Shopping
         </a>
       </div>
@@ -133,7 +133,7 @@
           </div>
         </div>
 
-        <a href="checkout.html" id="checkout-btn" class="block w-full py-5 bg-primary text-on-primary text-center rounded-xl font-headline font-extrabold text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all active:scale-[0.98]">
+        <a href="checkout" id="checkout-btn" class="block w-full py-5 bg-primary text-on-primary text-center rounded-xl font-headline font-extrabold text-lg shadow-xl shadow-primary/20 hover:opacity-90 transition-all active:scale-[0.98]">
           Proceed to Checkout
         </a>
 
@@ -163,9 +163,9 @@
       <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter.html">Newsletter</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy.html">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info.html">Shipping Info</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -220,13 +220,13 @@ function renderCart() {
     const frameLabel = item.frame !== 'none' ? item.frame : 'No Frame';
     html += `
       <div class="bg-surface-container-low rounded-xl p-5 md:p-7 border border-outline-variant/20 flex gap-5 md:gap-7 items-start group hover:shadow-md transition-all">
-        <a href="product.html?id=${item.artworkId}" class="w-24 h-24 md:w-32 md:h-32 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+        <a href="product?id=${item.artworkId}" class="w-24 h-24 md:w-32 md:h-32 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
           <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
         </a>
         <div class="flex-grow min-w-0">
           <div class="flex justify-between items-start gap-3">
             <div>
-              <a href="product.html?id=${item.artworkId}" class="font-headline font-bold text-lg text-on-surface hover:text-primary transition-colors line-clamp-2">${item.title}</a>
+              <a href="product?id=${item.artworkId}" class="font-headline font-bold text-lg text-on-surface hover:text-primary transition-colors line-clamp-2">${item.title}</a>
               <p class="text-on-surface-variant text-sm font-body font-light mt-0.5">${item.artist}</p>
             </div>
             <button onclick="removeItem('${key}')" class="p-2 text-stone-400 hover:text-red-500 transition-colors flex-shrink-0" aria-label="Remove item">
