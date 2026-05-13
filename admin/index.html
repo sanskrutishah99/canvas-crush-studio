@@ -290,8 +290,16 @@
           <input id="sec-vitality-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=passionate"/>
         </div>
         <div class="md:col-span-2">
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
-          <input id="sec-vitality-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Section Image</label>
+          <div class="flex gap-2">
+            <input id="sec-vitality-img" type="url" oninput="refreshSecPreview('vitality')" class="flex-1 border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+            <button type="button" id="sec-vitality-img-btn" onclick="uploadSectionImage('vitality')" class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-label text-xs font-bold hover:opacity-90 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
+          <div id="sec-vitality-img-preview" class="hidden mt-3 relative w-full h-36 rounded-xl overflow-hidden border border-outline-variant/20 bg-surface-container">
+            <img id="sec-vitality-img-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
         </div>
       </div>
     </div>
@@ -325,8 +333,16 @@
           <input id="sec-serenity-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=abstract"/>
         </div>
         <div class="md:col-span-2">
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
-          <input id="sec-serenity-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Section Image</label>
+          <div class="flex gap-2">
+            <input id="sec-serenity-img" type="url" oninput="refreshSecPreview('serenity')" class="flex-1 border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+            <button type="button" id="sec-serenity-img-btn" onclick="uploadSectionImage('serenity')" class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-label text-xs font-bold hover:opacity-90 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
+          <div id="sec-serenity-img-preview" class="hidden mt-3 relative w-full h-36 rounded-xl overflow-hidden border border-outline-variant/20 bg-surface-container">
+            <img id="sec-serenity-img-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
         </div>
       </div>
     </div>
@@ -360,8 +376,16 @@
           <input id="sec-culture-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=cultural"/>
         </div>
         <div class="md:col-span-2">
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
-          <input id="sec-culture-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Section Image</label>
+          <div class="flex gap-2">
+            <input id="sec-culture-img" type="url" oninput="refreshSecPreview('culture')" class="flex-1 border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+            <button type="button" id="sec-culture-img-btn" onclick="uploadSectionImage('culture')" class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-label text-xs font-bold hover:opacity-90 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
+          <div id="sec-culture-img-preview" class="hidden mt-3 relative w-full h-36 rounded-xl overflow-hidden border border-outline-variant/20 bg-surface-container">
+            <img id="sec-culture-img-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
         </div>
         <div class="md:col-span-2">
           <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Quote</label>
@@ -1161,6 +1185,9 @@ function loadSectionsForm() {
   get('sec-culture-quote',        cult.quote);
   get('sec-culture-quote-author', cult.quoteAuthor);
 
+  // Refresh image previews
+  ['vitality', 'serenity', 'culture'].forEach(sec => refreshSecPreview(sec));
+
   document.getElementById('sections-save-banner').classList.add('hidden');
 }
 
@@ -1595,6 +1622,70 @@ async function openGitHubUploadForLogo() {
     const data = await res.json();
     document.getElementById('set-logo-url').value = data.content.download_url;
     showAdminToast('Logo uploaded! Click Save Branding to apply.');
+  };
+  input.click();
+}
+
+// ─── Home Section Image Upload ────────────────────────────────────────────────
+
+function refreshSecPreview(sec) {
+  const url = document.getElementById(`sec-${sec}-img`).value.trim();
+  const wrap = document.getElementById(`sec-${sec}-img-preview`);
+  const img  = document.getElementById(`sec-${sec}-img-preview-img`);
+  if (url) { img.src = url; wrap.classList.remove('hidden'); }
+  else { wrap.classList.add('hidden'); }
+}
+
+async function uploadSectionImage(sec) {
+  const s = CCS.getSettings();
+  if (!s.githubToken || !s.githubRepo) {
+    showAdminToast('Please set up GitHub Image Upload in Settings first', 'error');
+    return;
+  }
+  const btn = document.getElementById(`sec-${sec}-img-btn`);
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">autorenew</span>Uploading…';
+    btn.disabled = true;
+    try {
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = ev => resolve(ev.target.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const safeName = file.name.replace(/[^a-z0-9._-]/gi, '_').toLowerCase();
+      const path = `images/sections/${Date.now()}-${safeName}`;
+      const res = await fetch(`https://api.github.com/repos/${s.githubRepo}/contents/${path}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${s.githubToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github+json'
+        },
+        body: JSON.stringify({ message: `Upload section image: ${safeName}`, content: base64, branch: 'main' })
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        showAdminToast(`Upload failed: ${err.message}`, 'error');
+        return;
+      }
+      const data = await res.json();
+      const url = data.content.download_url;
+      document.getElementById(`sec-${sec}-img`).value = url;
+      refreshSecPreview(sec);
+      showAdminToast('Image uploaded! Click Save Changes to apply.');
+    } catch(err) {
+      showAdminToast(`Upload error: ${err.message}`, 'error');
+    } finally {
+      btn.innerHTML = originalHtml;
+      btn.disabled = false;
+    }
   };
   input.click();
 }
