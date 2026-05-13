@@ -197,22 +197,81 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
-          <input id="hero-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Paintings Alive With…"/>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Label (above heading)</label>
+          <input id="hero-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Canvas Crush Studio"/>
         </div>
         <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading ("Art that Breathes Purpose.")</label>
+          <input id="hero-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Art that Breathes Purpose."/>
+        </div>
+        <div class="md:col-span-2">
           <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Sub-heading</label>
-          <input id="hero-sub" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Where colour speaks…"/>
+          <textarea id="hero-sub" rows="2" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Colour choice isn't just aesthetic…"></textarea>
         </div>
         <div>
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Button Text</label>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Primary CTA Text</label>
           <input id="hero-cta-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Explore Collections"/>
         </div>
         <div>
-          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Link</label>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Primary CTA Link</label>
           <input id="hero-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery"/>
         </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Secondary CTA Text</label>
+          <input id="hero-cta2-text" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="The Curator's Choice"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Secondary CTA Link</label>
+          <input id="hero-cta2-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?featured=true"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Hero Image URL</label>
+          <div class="flex gap-2">
+            <input id="hero-img" type="url" oninput="refreshSecPreview('hero')" class="flex-1 border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+            <button type="button" id="sec-hero-img-btn" onclick="uploadSectionImage('hero')" class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-label text-xs font-bold hover:opacity-90 transition-all whitespace-nowrap">
+              <span class="material-symbols-outlined text-sm">upload</span>Upload
+            </button>
+          </div>
+          <div id="sec-hero-img-preview" class="hidden mt-3 relative w-full h-36 rounded-xl overflow-hidden border border-outline-variant/20 bg-surface-container">
+            <img id="sec-hero-img-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Insight Row -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-outline flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Insight Row</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">3-column strip below hero</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="space-y-3">
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Column 1</p>
+          <input id="sec-insight1-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="The Bold Statement"/>
+          <textarea id="sec-insight1-body" rows="3" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Visual noise is the enemy…"></textarea>
+        </div>
+        <div class="space-y-3">
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Column 2 (highlighted)</p>
+          <input id="sec-insight2-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="The Insight"/>
+          <textarea id="sec-insight2-body" rows="3" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="There's a reason warm reds…"></textarea>
+        </div>
+        <div class="space-y-3">
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Column 3</p>
+          <input id="sec-insight3-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Emotional Grounding"/>
+          <textarea id="sec-insight3-body" rows="3" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="The final layer of our curation…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collections heading -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-outline flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Collections Grid Heading</h2>
+      </div>
+      <input id="sec-collections-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="The Curated Collections"/>
     </div>
 
     <!-- Featured Works -->
@@ -1141,6 +1200,16 @@ function showTab(tab) {
 // ─── Home Sections ───────────────────────────────────────────────────────────
 
 const SECTION_DEFAULTS = {
+  hero: {
+    label: 'Canvas Crush Studio',
+    cta2Text: "The Curator's Choice",
+    cta2Link: 'gallery?featured=true',
+    imgSrc: ''
+  },
+  insight1: { heading: 'The Bold Statement', body: 'Visual noise is the enemy of clarity. Our canvases act as anchors — centering the human spirit through calculated chromatic resonance.' },
+  insight2: { heading: 'The Insight', body: "There's a reason warm reds increase energy and deep forest greens lower cortisol. We select each piece based on the emotional objective of your space." },
+  insight3: { heading: 'Emotional Grounding', body: 'The final layer of our curation is connection. Art should not just be seen — it must be felt as a stable, purposeful presence.' },
+  collectionsHeading: { heading: 'The Curated Collections' },
   featured: {
     heading: "The Curator's Choice",
     sub: 'Pieces selected for their emotional impact and psychological intentionality.'
@@ -1184,11 +1253,29 @@ function loadSectionsForm() {
   const pc = CCS.getPageContent('home') || {};
   const get = (id, val) => { document.getElementById(id).value = val || ''; };
 
-  // Hero (stored in page content)
+  // Hero label, secondary CTA, image (stored in sections)
+  const hero = { ...SECTION_DEFAULTS.hero, ...(saved.hero || {}) };
+  get('hero-label',    hero.label);
+  get('hero-cta2-text', hero.cta2Text);
+  get('hero-cta2-link', hero.cta2Link);
+  get('hero-img',      hero.imgSrc);
+
+  // Hero heading/sub/cta (stored in page content)
   get('hero-heading',   pc.heroHeading);
   get('hero-sub',       pc.heroSub);
   get('hero-cta-label', pc.ctaLabel);
   get('hero-cta-link',  pc.ctaLink);
+
+  // Insight row
+  ['insight1','insight2','insight3'].forEach(k => {
+    const d = { ...SECTION_DEFAULTS[k], ...(saved[k] || {}) };
+    get(`sec-${k}-heading`, d.heading);
+    get(`sec-${k}-body`,    d.body);
+  });
+
+  // Collections heading
+  const ch = { ...SECTION_DEFAULTS.collectionsHeading, ...(saved.collectionsHeading || {}) };
+  get('sec-collections-heading', ch.heading);
 
   // Featured + Newsletter
   const feat = { ...SECTION_DEFAULTS.featured,    ...(saved.featured    || {}) };
@@ -1215,7 +1302,7 @@ function loadSectionsForm() {
   get('sec-culture-quote-author', cult.quoteAuthor);
 
   // Refresh image previews
-  ['vitality', 'serenity', 'culture'].forEach(sec => refreshSecPreview(sec));
+  ['hero', 'vitality', 'serenity', 'culture'].forEach(sec => refreshSecPreview(sec));
 
   document.getElementById('sections-save-banner').classList.add('hidden');
 }
@@ -1239,6 +1326,16 @@ function saveSectionsForm() {
 
   // All sections → home sections
   const obj = {
+    hero: {
+      label:    get('hero-label'),
+      cta2Text: get('hero-cta2-text'),
+      cta2Link: get('hero-cta2-link'),
+      imgSrc:   get('hero-img')
+    },
+    insight1: { heading: get('sec-insight1-heading'), body: get('sec-insight1-body') },
+    insight2: { heading: get('sec-insight2-heading'), body: get('sec-insight2-body') },
+    insight3: { heading: get('sec-insight3-heading'), body: get('sec-insight3-body') },
+    collectionsHeading: { heading: get('sec-collections-heading') },
     featured: {
       heading: get('sec-featured-heading'),
       sub:     get('sec-featured-sub')

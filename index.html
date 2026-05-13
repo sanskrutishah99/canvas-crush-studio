@@ -101,7 +101,7 @@
   <!-- Hero -->
   <section class="px-8 py-20 md:py-32 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
     <div class="lg:col-span-7 flex flex-col items-start gap-8">
-      <span class="font-label text-secondary font-bold tracking-widest uppercase text-xs">Canvas Crush Studio</span>
+      <span data-section="hero-label" class="font-label text-secondary font-bold tracking-widest uppercase text-xs">Canvas Crush Studio</span>
       <h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary" data-page="hero-heading">
         Art that <span class="text-secondary italic">Breathes</span> Purpose.
       </h1>
@@ -110,14 +110,14 @@
       </p>
       <div class="flex flex-wrap gap-4 mt-2">
         <a href="gallery" data-page="cta-link" class="px-8 py-4 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl hover:bg-primary-container transition-all shadow-lg shadow-primary/10"><span data-page="cta-label">Explore Collections</span></a>
-        <a href="gallery?featured=true" class="px-8 py-4 text-primary font-headline font-bold text-lg flex items-center gap-2 group">
-          The Curator's Choice <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <a href="gallery?featured=true" data-section="hero-cta2-link" class="px-8 py-4 text-primary font-headline font-bold text-lg flex items-center gap-2 group">
+          <span data-section="hero-cta2-text">The Curator's Choice</span> <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
       </div>
     </div>
     <div class="lg:col-span-5 relative">
       <div class="aspect-[4/5] bg-surface-container-highest rounded-full overflow-hidden relative z-10 shadow-2xl">
-        <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="vibrant abstract expressionist oil painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHTwQTyNzDGyDI3kjeXrzvY7cjQrHJc3YsctoGikeLrJlbki3KNhyL1aB3XpQBhjd9pA8KfAvcV8fZ5XXXUoKjerbfuMJjKdECCRe_d6ygE_u7Oxl712BDrzTS6MVsixmSwsbStE2_M8E0Y4-jw_eH7P624p3Cn-gkGp8hdYxz2yW4cQIt6wrIYJ7YAfzgjP3rKVBnc61TTb_h2kb7cIMwxLl4ry2wLnZxGpHBRtdEUUnIvMlfm42kGxPwP3ZtObli5On73iWGq4"/>
+        <img data-section="hero-img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="vibrant abstract expressionist oil painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHTwQTyNzDGyDI3kjeXrzvY7cjQrHJc3YsctoGikeLrJlbki3KNhyL1aB3XpQBhjd9pA8KfAvcV8fZ5XXXUoKjerbfuMJjKdECCRe_d6ygE_u7Oxl712BDrzTS6MVsixmSwsbStE2_M8E0Y4-jw_eH7P624p3Cn-gkGp8hdYxz2yW4cQIt6wrIYJ7YAfzgjP3rKVBnc61TTb_h2kb7cIMwxLl4ry2wLnZxGpHBRtdEUUnIvMlfm42kGxPwP3ZtObli5On73iWGq4"/>
       </div>
       <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
     </div>
@@ -127,23 +127,23 @@
   <section class="bg-surface-container-low py-24 px-8">
     <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
       <div class="space-y-4">
-        <h3 class="text-primary font-headline font-extrabold text-2xl">The Bold Statement</h3>
-        <p class="text-on-surface-variant leading-relaxed">Visual noise is the enemy of clarity. Our canvases act as anchors — centering the human spirit through calculated chromatic resonance.</p>
+        <h3 data-section="insight1-heading" class="text-primary font-headline font-extrabold text-2xl">The Bold Statement</h3>
+        <p data-section="insight1-body" class="text-on-surface-variant leading-relaxed">Visual noise is the enemy of clarity. Our canvases act as anchors — centering the human spirit through calculated chromatic resonance.</p>
       </div>
       <div class="space-y-4 p-8 bg-tertiary-container rounded-xl">
-        <h3 class="font-headline font-extrabold text-2xl text-on-tertiary">The Insight</h3>
-        <p class="leading-relaxed opacity-90 font-body text-on-tertiary-container">There's a reason warm reds increase energy and deep forest greens lower cortisol. We select each piece based on the emotional objective of your space.</p>
+        <h3 data-section="insight2-heading" class="font-headline font-extrabold text-2xl text-on-tertiary">The Insight</h3>
+        <p data-section="insight2-body" class="leading-relaxed opacity-90 font-body text-on-tertiary-container">There's a reason warm reds increase energy and deep forest greens lower cortisol. We select each piece based on the emotional objective of your space.</p>
       </div>
       <div class="space-y-4">
-        <h3 class="text-secondary font-headline font-extrabold text-2xl">Emotional Grounding</h3>
-        <p class="text-on-surface-variant leading-relaxed">The final layer of our curation is connection. Art should not just be seen — it must be felt as a stable, purposeful presence.</p>
+        <h3 data-section="insight3-heading" class="text-secondary font-headline font-extrabold text-2xl">Emotional Grounding</h3>
+        <p data-section="insight3-body" class="text-on-surface-variant leading-relaxed">The final layer of our curation is connection. Art should not just be seen — it must be felt as a stable, purposeful presence.</p>
       </div>
     </div>
   </section>
 
   <!-- Collections Grid -->
   <section class="px-8 py-32 max-w-[1440px] mx-auto">
-    <h2 class="text-4xl font-headline font-extrabold text-primary mb-16 text-center tracking-tighter">The Curated Collections</h2>
+    <h2 data-section="collections-heading" class="text-4xl font-headline font-extrabold text-primary mb-16 text-center tracking-tighter">The Curated Collections</h2>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <!-- Passionate -->
       <div class="lg:col-span-7 bg-surface-container rounded-xl overflow-hidden group">
