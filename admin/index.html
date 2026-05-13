@@ -1676,10 +1676,13 @@ async function uploadSectionImage(sec) {
         return;
       }
       const data = await res.json();
-      const url = data.content.download_url;
+      // Use raw URL (available immediately, no Pages rebuild needed)
+      const url = data.content.download_url || `https://raw.githubusercontent.com/${s.githubRepo}/main/${path}`;
       document.getElementById(`sec-${sec}-img`).value = url;
       refreshSecPreview(sec);
-      showAdminToast('Image uploaded! Click Save Changes to apply.');
+      // Auto-save so the user doesn't need to click Save Changes manually
+      saveSectionsForm();
+      showAdminToast('✓ Image uploaded & saved — reload your homepage to see it.');
     } catch(err) {
       showAdminToast(`Upload error: ${err.message}`, 'error');
     } finally {
