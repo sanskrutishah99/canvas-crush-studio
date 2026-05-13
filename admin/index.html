@@ -738,11 +738,11 @@ const CCS = {
   saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); }
 };
 
-// ─── Data version reset (keeps admin in sync with store.js) ─────────────────
+// ─── Hard reset to correct artworks ─────────────────────────────────────────
 (function() {
-  const DATA_VERSION = '2026-v2';
+  const DATA_VERSION = '2026-v3';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
-    localStorage.removeItem('ccs_artworks');
+    localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_data_version', DATA_VERSION);
   }
 })();

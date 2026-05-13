@@ -429,12 +429,12 @@ const CCS = {
 
 };
 
-// ─── Auto data-version reset ─────────────────────────────────────────────────
-// Bumping DATA_VERSION clears saved artworks so everyone sees the latest defaults.
+// ─── Hard reset to correct artworks ─────────────────────────────────────────
+// Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v2';
+  const DATA_VERSION = '2026-v3';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
-    localStorage.removeItem('ccs_artworks');
+    localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_data_version', DATA_VERSION);
   }
 })();
