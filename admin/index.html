@@ -176,21 +176,89 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
       <div>
         <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Home Page</h1>
-        <p class="text-on-surface-variant font-body font-light mt-1">Edit the three collection sections displayed on the homepage</p>
+        <p class="text-on-surface-variant font-body font-light mt-1">Edit every section of the homepage</p>
       </div>
-      <div class="flex gap-3">
-        <button onclick="resetSections()" class="flex items-center gap-2 px-5 py-2.5 border border-outline-variant/40 rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all text-on-surface-variant">
-          <span class="material-symbols-outlined text-base">restart_alt</span> Reset to Defaults
-        </button>
-        <button onclick="saveSectionsForm()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
-          <span class="material-symbols-outlined text-base">save</span> Save Changes
-        </button>
-      </div>
+      <button onclick="saveSectionsForm()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
+        <span class="material-symbols-outlined text-base">save</span> Save Changes
+      </button>
     </div>
 
     <div id="sections-save-banner" class="hidden mb-6 px-5 py-3 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-label font-bold flex items-center gap-2">
       <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">check_circle</span>
       Changes saved — reload the homepage to see them live.
+    </div>
+
+    <!-- Hero -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-primary flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Hero Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Top of page</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
+          <input id="hero-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Paintings Alive With…"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Sub-heading</label>
+          <input id="hero-sub" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Where colour speaks…"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Button Text</label>
+          <input id="hero-cta-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Explore Collections"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Link</label>
+          <input id="hero-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Works -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-outline flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Featured Works Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">The Curator's Choice</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Section Heading</label>
+          <input id="sec-featured-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="The Curator's Choice"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Sub-text</label>
+          <input id="sec-featured-sub" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Pieces selected for their emotional impact…"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-secondary flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Newsletter Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Insight List signup</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
+          <input id="sec-newsletter-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Join the Insight List"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Button Text</label>
+          <input id="sec-newsletter-btn" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Subscribe"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Body Text</label>
+          <textarea id="sec-newsletter-body" rows="2" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Bi-weekly explorations into the psychology of colour…"></textarea>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Disclaimer Note</label>
+          <input id="sec-newsletter-note" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="No spam. Only purposeful insight. Unsubscribe anytime."/>
+        </div>
+      </div>
     </div>
 
     <!-- Vitality -->
@@ -306,11 +374,6 @@
       </div>
     </div>
 
-    <div class="flex justify-end pb-4">
-      <button onclick="saveSectionsForm()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
-        <span class="material-symbols-outlined text-base">save</span> Save Changes
-      </button>
-    </div>
   </div>
 
   <!-- ── PAGES TAB ── -->
@@ -523,6 +586,61 @@
           <!-- Rendered by JS -->
         </div>
         <button onclick="saveNavIconSettings()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save Icons</button>
+      </div>
+
+      <!-- Subscribers -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 lg:col-span-2">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="font-headline text-lg font-bold flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">mail</span>
+              Newsletter Subscribers
+            </h2>
+            <p class="text-stone-400 text-xs font-label mt-1">Everyone who signed up via the homepage or newsletter page.</p>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="exportSubscribersCSV()" class="flex items-center gap-2 px-5 py-2.5 border border-outline-variant/40 rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all text-on-surface-variant">
+              <span class="material-symbols-outlined text-base">download</span> Export CSV
+            </button>
+            <button onclick="copySubscriberEmails()" class="flex items-center gap-2 px-5 py-2.5 border border-outline-variant/40 rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all text-on-surface-variant">
+              <span class="material-symbols-outlined text-base">content_copy</span> Copy Emails
+            </button>
+          </div>
+        </div>
+        <div id="subscribers-table-wrap" class="overflow-x-auto rounded-xl border border-outline-variant/20">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-surface-container-low border-b border-outline-variant/20">
+                <th class="text-left px-5 py-3 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Email</th>
+                <th class="text-left px-5 py-3 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">Source</th>
+                <th class="text-left px-5 py-3 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">Date</th>
+                <th class="text-right px-5 py-3 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Remove</th>
+              </tr>
+            </thead>
+            <tbody id="subscribers-tbody">
+              <tr><td colspan="4" class="px-5 py-8 text-center text-stone-400 text-sm font-label">No subscribers yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="subscriber-count" class="text-xs text-stone-400 font-label mt-3"></p>
+      </div>
+
+      <!-- Data Backup -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 lg:col-span-2">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">backup</span>
+          Data Backup
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6 leading-relaxed">Download all your site data (artworks, settings, page content, sections, branding) as a JSON file. To restore, paste the JSON into your browser console: <code class="bg-surface-container-low px-1 rounded">Object.entries(JSON.parse(backup)).forEach(([k,v]) => localStorage.setItem(k,v))</code></p>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="exportBackup()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined text-base">download</span> Download Backup
+          </button>
+          <label class="flex items-center gap-2 px-6 py-3 border border-outline-variant/40 rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all text-on-surface-variant cursor-pointer">
+            <span class="material-symbols-outlined text-base">upload</span> Restore from Backup
+            <input type="file" accept=".json" class="hidden" onchange="importBackup(event)"/>
+          </label>
+        </div>
       </div>
 
       <!-- Danger Zone -->
@@ -883,7 +1001,15 @@ const CCS = {
   getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
   saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); },
   getSections() { try { const s = localStorage.getItem('ccs_home_sections'); return s ? JSON.parse(s) : null; } catch(e) { return null; } },
-  saveSections(obj) { localStorage.setItem('ccs_home_sections', JSON.stringify(obj)); }
+  saveSections(obj) { localStorage.setItem('ccs_home_sections', JSON.stringify(obj)); },
+  getSubscribers() { try { return JSON.parse(localStorage.getItem('ccs_subscribers') || '[]'); } catch(e) { return []; } },
+  addSubscriber(email, source) {
+    if (!email) return;
+    const list = this.getSubscribers();
+    if (list.some(s => s.email.toLowerCase() === email.toLowerCase())) return;
+    list.push({ email, source: source || 'unknown', date: new Date().toISOString() });
+    localStorage.setItem('ccs_subscribers', JSON.stringify(list));
+  }
 };
 
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
@@ -962,6 +1088,16 @@ function showTab(tab) {
 // ─── Home Sections ───────────────────────────────────────────────────────────
 
 const SECTION_DEFAULTS = {
+  featured: {
+    heading: "The Curator's Choice",
+    sub: 'Pieces selected for their emotional impact and psychological intentionality.'
+  },
+  newsletter: {
+    heading: 'Join the Insight List',
+    body: 'Bi-weekly explorations into the psychology of colour, exclusive artist previews, and curated interior strategies.',
+    btn: 'Subscribe',
+    note: 'No spam. Only purposeful insight. Unsubscribe anytime.'
+  },
   vitality: {
     label: 'Psychology: Energy',
     heading: 'Vitality',
@@ -992,25 +1128,71 @@ const SECTION_DEFAULTS = {
 
 function loadSectionsForm() {
   const saved = CCS.getSections() || {};
+  const pc = CCS.getPageContent('home') || {};
+  const get = (id, val) => { document.getElementById(id).value = val || ''; };
+
+  // Hero (stored in page content)
+  get('hero-heading',   pc.heroHeading);
+  get('hero-sub',       pc.heroSub);
+  get('hero-cta-label', pc.ctaLabel);
+  get('hero-cta-link',  pc.ctaLink);
+
+  // Featured + Newsletter
+  const feat = { ...SECTION_DEFAULTS.featured,    ...(saved.featured    || {}) };
+  const nl   = { ...SECTION_DEFAULTS.newsletter,  ...(saved.newsletter  || {}) };
+  get('sec-featured-heading',   feat.heading);
+  get('sec-featured-sub',       feat.sub);
+  get('sec-newsletter-heading', nl.heading);
+  get('sec-newsletter-body',    nl.body);
+  get('sec-newsletter-btn',     nl.btn);
+  get('sec-newsletter-note',    nl.note);
+
+  // Collection sections
   ['vitality', 'serenity', 'culture'].forEach(sec => {
     const d = { ...SECTION_DEFAULTS[sec], ...(saved[sec] || {}) };
-    document.getElementById(`sec-${sec}-label`).value      = d.label      || '';
-    document.getElementById(`sec-${sec}-heading`).value    = d.heading    || '';
-    document.getElementById(`sec-${sec}-desc`).value       = d.desc       || '';
-    document.getElementById(`sec-${sec}-cta-text`).value   = d.ctaText    || '';
-    document.getElementById(`sec-${sec}-cta-link`).value   = d.ctaLink    || '';
-    document.getElementById(`sec-${sec}-img`).value        = d.imgSrc     || '';
+    get(`sec-${sec}-label`,    d.label);
+    get(`sec-${sec}-heading`,  d.heading);
+    get(`sec-${sec}-desc`,     d.desc);
+    get(`sec-${sec}-cta-text`, d.ctaText);
+    get(`sec-${sec}-cta-link`, d.ctaLink);
+    get(`sec-${sec}-img`,      d.imgSrc);
   });
-  // culture extras
   const cult = { ...SECTION_DEFAULTS.culture, ...(saved.culture || {}) };
-  document.getElementById('sec-culture-quote').value        = cult.quote        || '';
-  document.getElementById('sec-culture-quote-author').value = cult.quoteAuthor  || '';
+  get('sec-culture-quote',        cult.quote);
+  get('sec-culture-quote-author', cult.quoteAuthor);
+
   document.getElementById('sections-save-banner').classList.add('hidden');
 }
 
 function saveSectionsForm() {
   const get = id => document.getElementById(id).value.trim();
+
+  // Hero → page content
+  const pc = CCS.getPageContent('home') || {};
+  const heroHeading = get('hero-heading');
+  const heroSub     = get('hero-sub');
+  const ctaLabel    = get('hero-cta-label');
+  const ctaLink     = get('hero-cta-link');
+  CCS.savePageContent('home', {
+    ...pc,
+    ...(heroHeading && { heroHeading }),
+    ...(heroSub     && { heroSub }),
+    ...(ctaLabel    && { ctaLabel }),
+    ...(ctaLink     && { ctaLink })
+  });
+
+  // All sections → home sections
   const obj = {
+    featured: {
+      heading: get('sec-featured-heading'),
+      sub:     get('sec-featured-sub')
+    },
+    newsletter: {
+      heading: get('sec-newsletter-heading'),
+      body:    get('sec-newsletter-body'),
+      btn:     get('sec-newsletter-btn'),
+      note:    get('sec-newsletter-note')
+    },
     vitality: {
       label:   get('sec-vitality-label'),
       heading: get('sec-vitality-heading'),
@@ -1042,12 +1224,6 @@ function saveSectionsForm() {
   const banner = document.getElementById('sections-save-banner');
   banner.classList.remove('hidden');
   setTimeout(() => banner.classList.add('hidden'), 4000);
-}
-
-function resetSections() {
-  if (!confirm('Reset all home sections to their default text? This cannot be undone.')) return;
-  localStorage.removeItem('ccs_home_sections');
-  loadSectionsForm();
 }
 
 // ─── Artworks Tab ────────────────────────────────────────────────────────────
@@ -1434,6 +1610,95 @@ function loadSettings() {
   document.getElementById('set-formspree-id').value = s.formspreeId || '';
   document.getElementById('set-shipping-rate').value = s.shippingRate;
   document.getElementById('set-tax-rate').value = Math.round(s.taxRate * 100);
+  renderSubscribersTable();
+}
+
+// ─── Subscribers ─────────────────────────────────────────────────────────────
+
+function getSubscribers() {
+  try { return JSON.parse(localStorage.getItem('ccs_subscribers') || '[]'); } catch(e) { return []; }
+}
+
+function renderSubscribersTable() {
+  const list = getSubscribers();
+  const tbody = document.getElementById('subscribers-tbody');
+  const count = document.getElementById('subscriber-count');
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="px-5 py-8 text-center text-stone-400 text-sm font-label">No subscribers yet — signups appear here automatically.</td></tr>';
+    count.textContent = '';
+    return;
+  }
+  count.textContent = `${list.length} subscriber${list.length === 1 ? '' : 's'} total`;
+  tbody.innerHTML = list.map((s, i) => `
+    <tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest/50">
+      <td class="px-5 py-3 font-body text-sm text-on-surface">${s.email}</td>
+      <td class="px-5 py-3 text-xs text-stone-400 font-label hidden md:table-cell">${s.source || '—'}</td>
+      <td class="px-5 py-3 text-xs text-stone-400 font-label hidden md:table-cell">${s.date ? new Date(s.date).toLocaleDateString('en-AU', {day:'numeric',month:'short',year:'numeric'}) : '—'}</td>
+      <td class="px-5 py-3 text-right">
+        <button onclick="removeSubscriber(${i})" class="text-stone-300 hover:text-red-500 transition-colors">
+          <span class="material-symbols-outlined text-base">close</span>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+function removeSubscriber(idx) {
+  const list = getSubscribers();
+  list.splice(idx, 1);
+  localStorage.setItem('ccs_subscribers', JSON.stringify(list));
+  renderSubscribersTable();
+}
+
+function exportSubscribersCSV() {
+  const list = getSubscribers();
+  if (!list.length) { showAdminToast('No subscribers to export'); return; }
+  const rows = [['Email','Source','Date'], ...list.map(s => [s.email, s.source || '', s.date || ''])];
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ccs-subscribers-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+function copySubscriberEmails() {
+  const list = getSubscribers();
+  if (!list.length) { showAdminToast('No subscribers yet'); return; }
+  navigator.clipboard.writeText(list.map(s => s.email).join('\n'));
+  showAdminToast(`${list.length} email${list.length === 1 ? '' : 's'} copied to clipboard`);
+}
+
+// ─── Backup / Restore ────────────────────────────────────────────────────────
+
+function exportBackup() {
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('ccs_'));
+  const data = {};
+  keys.forEach(k => { data[k] = localStorage.getItem(k); });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ccs-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  showAdminToast('Backup downloaded');
+}
+
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm(`This will overwrite your current data with the backup from ${file.name}. Continue?`)) return;
+      Object.entries(data).forEach(([k, v]) => localStorage.setItem(k, v));
+      showAdminToast('Backup restored — reloading…');
+      setTimeout(() => location.reload(), 1200);
+    } catch(err) {
+      showAdminToast('Invalid backup file');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
 }
 
 function savePassword() {

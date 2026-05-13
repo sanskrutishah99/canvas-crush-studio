@@ -155,6 +155,7 @@
       btn.textContent = 'Subscribing...';
       btn.disabled = true;
 
+      CCS.addSubscriber(email, 'newsletter-page');
       const settings = CCS.getSettings();
       if (settings.formspreeId) {
         try {
