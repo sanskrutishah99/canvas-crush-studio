@@ -2,105 +2,140 @@
   "version": "2026-v1",
   "artworks": [
     {
-      "id": 1,
-      "title": "Coral Symphony",
-      "artist": "Canvas Crush Studio",
-      "category": "abstract",
-      "medium": "Acrylic on Canvas",
-      "year": 2025,
-      "dimensions": "TBD",
-      "originalPrice": 0,
-      "printsAvailable": true,
-      "printSizes": [],
-      "featured": true,
-      "badge": null,
-      "description": "An immersive underwater world where sunlight filters through shimmering waves to illuminate a vibrant coral reef.",
-      "images": [
-        "/assets/paintings/coral-symphony.jpg"
-      ]
-    },
-    {
       "id": 2,
-      "title": "Voyager's Dawn",
+      "title": "Crimson Gaze",
       "artist": "Canvas Crush Studio",
       "category": "passionate",
-      "medium": "Acrylic on Canvas",
-      "year": 2025,
-      "dimensions": "TBD",
-      "originalPrice": 0,
-      "printsAvailable": true,
-      "printSizes": [],
-      "featured": true,
+      "medium": "Mixed Media",
+      "year": 2024,
+      "dimensions": "36\"×48\"×1\"",
+      "originalPrice": 1850,
+      "printPrice": 120,
+      "featured": false,
       "badge": null,
-      "description": "A mighty tall ship surges through stormy seas against a blazing amber sunset.",
+      "description": "A study in quiet intensity. Warm terracotta and sand tones layer to create a portrait of emotion that lingers long after first glance.",
       "images": [
-        "/assets/paintings/voyagers-dawn.jpg"
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuCZTJWN2LI9STkmW8ngyyd38DH8q-R_c7E1RCZDAErp0zq90GPbdw2lpFx1uzrjJzSs3aDznvMM4pkmxQkigzPlOYllMxbnzXe26cavgxprq_nV6LRCWQm_W_lD3LbGI-15LzLncW20yGiMsm_9BoBOSrCJCzLG1xmRNg6J0bSlyrn64lPVzs2upmcNZ6XijHYxTKUK-LNrksazYbOiAYynveS4SIKRbMWKBwRRQwcFhbpRS-bNk6UGFfI_ajsbd276FLdteALUb1Y"
       ]
     },
     {
       "id": 3,
-      "title": "Rose Tide I",
+      "title": "Pulse of Earth",
       "artist": "Canvas Crush Studio",
-      "category": "abstract",
-      "medium": "Mixed Media on Canvas",
-      "year": 2025,
-      "dimensions": "TBD",
-      "originalPrice": 0,
-      "printsAvailable": true,
-      "printSizes": [],
+      "category": "passionate",
+      "medium": "Acrylic on Canvas",
+      "year": 2024,
+      "dimensions": "30\"×30\"×1.5\"",
+      "originalPrice": 2100,
+      "printPrice": 145,
       "featured": false,
-      "badge": "Triptych \u00b7 Panel I",
-      "setId": "rose-tide",
-      "setName": "Rose Tide Triptych",
-      "setPrice": 0,
-      "description": "The first panel of the Rose Tide Triptych.",
+      "badge": null,
+      "description": "An abstract explosion of earthy orange and muted terracotta paints colliding on a warm cream background, capturing the primal energy of the natural world.",
       "images": [
-        "/assets/paintings/rose-tide-1.jpg",
-        "/assets/paintings/rose-tide-triptych.jpg"
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBRn4s2j3rixUoFJPWEiV9lbOf-60hgNCBOnCcOztd7MwGj2mQV68To-QPUAKTarMr7tQjkm6TQ8zvKvuex89tbDfFa4TfgJMNb0NolX5DdUP2vVx4MsgEJ1ayItCYs-d2NYgZbJO-97vSiGYTnsKmUWLg-uNQ4jYhAFQNhs_YdzRRvslD63ozjU7ehIT_EQyRNI_ABNiFM5DdDJwyIjGHi3emKMSdXcvn2fTeo6ghFhMk3mYmsI4oMgo6lF_wVTr2BoIEaEXQco4A"
       ]
     },
     {
       "id": 4,
-      "title": "Rose Tide II",
+      "title": "Liquid Calm",
       "artist": "Canvas Crush Studio",
       "category": "abstract",
-      "medium": "Mixed Media on Canvas",
-      "year": 2025,
-      "dimensions": "TBD",
-      "originalPrice": 0,
-      "printsAvailable": true,
-      "printSizes": [],
-      "featured": true,
-      "badge": "Triptych \u00b7 Panel II",
-      "setId": "rose-tide",
-      "setName": "Rose Tide Triptych",
-      "setPrice": 0,
-      "description": "The centrepiece of the Rose Tide Triptych.",
+      "medium": "Ink and Resin",
+      "year": 2024,
+      "dimensions": "24\"×24\"×0.75\"",
+      "originalPrice": 950,
+      "printPrice": 95,
+      "featured": false,
+      "badge": null,
+      "description": "Swirling clouds of sienna and muted burnt orange ink in water create ethereal organic textures. A meditation on stillness within chaos.",
       "images": [
-        "/assets/paintings/rose-tide-2.jpg",
-        "/assets/paintings/rose-tide-triptych.jpg"
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBL2TKvlW2xV6b4jtJLbq_56lpoVVkThWaX5SgvTahek97FWmQKaHCqtLecH2ikjMyMrM5ocNVHpMQRg_ap1q-edgSYEG8c_cE0OT1ZEE95VPJmbyd-4SqwOwRSU4KxBJyZDr4-S82kRHNJjHjmg8x1CsJB23ArK-l067PTR8hPKtUk2LXLsGW6TKhxeO21mFk_pVIx32mt8FlqYwUVWHRgv-d5kfdrBruzk3BRPfiD-XXdzGOtPy70l_Ph58e9S3wSxR9nrvnhunY"
       ]
     },
     {
       "id": 5,
-      "title": "Rose Tide III",
+      "title": "The Heart's Architecture",
       "artist": "Canvas Crush Studio",
+      "category": "passionate",
+      "medium": "Oil on Canvas",
+      "year": 2024,
+      "dimensions": "60\"×72\"×2\"",
+      "originalPrice": 12500,
+      "printPrice": 480,
+      "featured": true,
+      "badge": "Artist Spotlight",
+      "description": "Our signature piece for the season. A study in the geometry of emotion, rendered over six months of intense studio work in our signature terracotta palette.",
+      "images": [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuCbSTR2fjBcNkntOltfcHiw54ivAJ0DaGi3WETuUPooeJOznRMjVrlwZU5dDrUzWWQ5sNxg5PqwYUJRrKXVa69ii_uHJkTQbdZk-VXHFDJ72QTkOfaQKrGB4PvGyNRamiYPhisOS6q9vgbqRlqWhM4pDWUCkZsD04tKDck1jsy3itnb-b_mYJ5SKaPIbA2CI8Qdz-mpPuiLcRbwlmRzmsMymhKtt1yxeFVSSRBHHTp9EKuBo2c2BrXqPg1xJh-4C97tjl7io_igUrA"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Whispers of Crimson Dawn",
+      "artist": "Elena Vance",
       "category": "abstract",
       "medium": "Mixed Media on Canvas",
-      "year": 2025,
-      "dimensions": "TBD",
-      "originalPrice": 0,
-      "printsAvailable": true,
-      "printSizes": [],
-      "featured": false,
-      "badge": "Triptych \u00b7 Panel III",
-      "setId": "rose-tide",
-      "setName": "Rose Tide Triptych",
-      "setPrice": 0,
-      "description": "The closing panel of the Rose Tide Triptych.",
+      "year": 2024,
+      "dimensions": "48\"×60\"×1.5\"",
+      "originalPrice": 2850,
+      "printPrice": 195,
+      "featured": true,
+      "badge": "Signed Original",
+      "description": "An exploration of the quiet turbulence found in the transition between shadow and light. Elena Vance utilizes a palette knife technique to layer raw pigments, creating a physical topography that invites the viewer to touch the emotion.",
       "images": [
-        "/assets/paintings/rose-tide-3.jpg",
-        "/assets/paintings/rose-tide-triptych.jpg"
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuDTJMbQ4j97tb71QNK4lFRYruXunPzz4eXZgNTV8Lo4Z3QS_Q8Kq05a74hOL92_yWB5yRni4sSppZeERQ8MtCyFbmtfd5avSY5SRPb0vDSSIteI0Bz2c0yoOyoPhpC5O9JY7tcUvcIzResLFnYUeUUazHUrPAaNOsWfs1pW4FV-0yErPKhNSqYSG6ssH961WmDlc-lUhjBYkHLmv4m1934u2yDAvUzxPBbFP_Y-UBF7aAL5xiVBDBX4hUGCDCxb6RpR4Sg857kE9cg",
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuARNVnxM_NQZ-0ICHXw7NpNL94GhSA-AEEUROl4hEJtoLiy0oT2XSpvFtCAQB5AvksYjjZ6ZJWtVu-efk5xNNF63QNbIggtegd4zvYa0IbUcXZiDWQiRR6u46_KRar_ua8P-sjqLvE84CiKQDWloQhW7wZ0MSa_NfYHo_AzrQrgLqk8NKDRRzARQhnerEaeOg4YyK_S_YGSF0GbmvLfYokVtiqNw4oOvwNH2FOjtexFsuHqmXN54mjBSwz2FWRalXyKfO2rDMqGG50"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Sahara Gold",
+      "artist": "Canvas Crush Studio",
+      "category": "cultural",
+      "medium": "Oil on Canvas",
+      "year": 2024,
+      "dimensions": "48\"×24\"×1.5\"",
+      "originalPrice": 1200,
+      "printPrice": 95,
+      "featured": false,
+      "badge": null,
+      "description": "A panoramic landscape painting of a desert sunset with warm sand tones and a purple sky. Heritage and memory captured in a single sweeping vista.",
+      "images": [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBU_K2EGRtCWYMIMsZ1G-mICe13OH7UxgGFwjodCmrbBilF-ttXRJgLx6R2NSF1LzhTHkLN-FxSi4-8CBlYVHXKYuPYT5xBeT8BLFMdhvI8aeBO_Mu1UaDWKxjOe4vE0zCgUc7JvkbDxMZCp2phjuPt8W67gx3SuZuku3N8A2fkco9B1-VvJFRQn4m53b0zc-IrcyAvn3VHHGmfKH4yvc5I6BL5e8ZPuZ0auCFHvd92bcZPOA1RETNKP50aHJlpkMOJBjY-dMHT3-g"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Inner Silence",
+      "artist": "Canvas Crush Studio",
+      "category": "abstract",
+      "medium": "Mixed Media",
+      "year": 2024,
+      "dimensions": "24\"×24\"×1\"",
+      "originalPrice": 1400,
+      "printPrice": 110,
+      "featured": false,
+      "badge": null,
+      "description": "Minimalist sculptural painting with layered neutral tones and deep shadow gaps. A study in restraint and the beauty of negative space.",
+      "images": [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuCCqoxOvLjYCHkATYrly2I4vneZcAS_j1Ue-KSPZUABlJd3pHb4TJiqjNSUG8ds9I4tlEghrNpOJYBFAufzD1QjLEgn9_6GkNnxa7MSOB8uyH4WORHQjfv-4FTfrp_9k34f1XaADvamDWydw_GksnoZ4UAZhvyBE7EE-dPteznQzIFw4L86BL0kkAGnwPWDwWr6KXBmIpnlrPHKk93WBGbQBQkR4HOuwcJ5i2iL2LOnAdpCVcvwIRhWYdkGXFJ1iszlqFSLsyAT6Q4"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Ochre Horizon",
+      "artist": "Canvas Crush Studio",
+      "category": "cultural",
+      "medium": "Oil on Belgian Linen",
+      "year": 2024,
+      "dimensions": "60\"×40\"×1.5\"",
+      "originalPrice": 4200,
+      "printPrice": 285,
+      "featured": true,
+      "badge": null,
+      "description": "Dramatic abstract painting with expressive brushstrokes of terracotta, ochre, and soft sand on a textured gallery canvas. The horizon as emotional metaphor.",
+      "images": [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBUOiYJgcYDfhRQPznzXSATXoSpU6S71OC2wOs4RdMfLspVjMOF9RdiLgL04sp_zbQhFU8_dXZdZRxYmB1tLW1ji0XifCZK-W_stYYCHphJVI7RCV5JGxjt0aPAgsPJXHji2ssq1WGE12Ou8GMCRCrUe8IqH6ITUfSHG3R_4mpYIAgAqJ2qVbWOo2zkucJoEugBe496D70nC6DCj6z-B4nytj3hxdXH1aBsnwifzU29wwISILkVDRwZPzybw7cGPzGjDwjPioFQ4AI"
       ]
     }
   ],
