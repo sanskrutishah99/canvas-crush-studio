@@ -110,6 +110,7 @@ const CCS = {
 
   saveArtworks(artworks) {
     localStorage.setItem('ccs_artworks', JSON.stringify(artworks));
+    this.pushSiteData(); // sync to GitHub in background
   },
 
   getArtwork(id) {
@@ -337,6 +338,7 @@ const CCS = {
       const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}');
       if (content === null) { delete all[pageId]; } else { all[pageId] = content; }
       localStorage.setItem('ccs_page_content', JSON.stringify(all));
+      this.pushSiteData(); // sync to GitHub in background
     } catch(e) {}
   },
 
@@ -425,12 +427,55 @@ const CCS = {
     }
     this.saveCart(cart);
     return true;
+  },
+
+  // ─── GitHub-backed Sync ──────────────────────────────────────────────────────
+  // All CMS data lives in data/site-data.json in the GitHub repo so changes
+  // made in the admin panel propagate to the live site regardless of domain.
+
+  _githubDataPath: 'data/site-data.json',
+
+  _collectSiteData() {
+    return {
+      version: '2026-v1',
+      artworks: this.getArtworks(),
+      pageContent: JSON.parse(localStorage.getItem('ccs_page_content') || '{}'),
+      branding: this.getBranding(),
+      navIcons: this.getNavIcons()
+    };
+  },
+
+  async pushSiteData() {
+    const s = this.getSettings();
+    if (!s.githubToken || !s.githubRepo) return false;
+    const url = `https://api.github.com/repos/${s.githubRepo}/contents/${this._githubDataPath}`;
+    const headers = { 'Authorization': `token ${s.githubToken}`, 'Content-Type': 'application/json' };
+    let sha = null;
+    try { const r = await fetch(url, { headers }); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(this._collectSiteData(), null, 2))));
+    const body = JSON.stringify({ message: 'CMS: admin panel update', content, ...(sha ? { sha } : {}) });
+    try { const r = await fetch(url, { method: 'PUT', headers, body }); return r.ok; } catch(e) { return false; }
+  },
+
+  async syncFromGitHub() {
+    const s = this.getSettings();
+    const repo = s.githubRepo || 'sanskrutishah99/canvas-crush-studio';
+    const url = `https://raw.githubusercontent.com/${repo}/main/${this._githubDataPath}?_=${Date.now()}`;
+    try {
+      const r = await fetch(url);
+      if (!r.ok) return false;
+      const data = await r.json();
+      if (data.artworks)    localStorage.setItem('ccs_artworks',      JSON.stringify(data.artworks));
+      if (data.pageContent) localStorage.setItem('ccs_page_content',  JSON.stringify(data.pageContent));
+      if (data.branding)    localStorage.setItem('ccs_branding',      JSON.stringify(data.branding));
+      if (data.navIcons)    localStorage.setItem('ccs_nav_icons',     JSON.stringify(data.navIcons));
+      return true;
+    } catch(e) { return false; }
   }
 
 };
 
 // ─── Auto data-version reset ─────────────────────────────────────────────────
-// Bumping DATA_VERSION clears saved artworks so visitors always see the latest.
 (function() {
   const DATA_VERSION = '2026-v1';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {

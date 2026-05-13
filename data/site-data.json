@@ -1,0 +1,118 @@
+{
+  "version": "2026-v1",
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Coral Symphony",
+      "artist": "Canvas Crush Studio",
+      "category": "abstract",
+      "medium": "Acrylic on Canvas",
+      "year": 2025,
+      "dimensions": "TBD",
+      "originalPrice": 0,
+      "printsAvailable": true,
+      "printSizes": [],
+      "featured": true,
+      "badge": null,
+      "description": "An immersive underwater world where sunlight filters through shimmering waves to illuminate a vibrant coral reef.",
+      "images": [
+        "/assets/paintings/coral-symphony.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Voyager's Dawn",
+      "artist": "Canvas Crush Studio",
+      "category": "passionate",
+      "medium": "Acrylic on Canvas",
+      "year": 2025,
+      "dimensions": "TBD",
+      "originalPrice": 0,
+      "printsAvailable": true,
+      "printSizes": [],
+      "featured": true,
+      "badge": null,
+      "description": "A mighty tall ship surges through stormy seas against a blazing amber sunset.",
+      "images": [
+        "/assets/paintings/voyagers-dawn.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Rose Tide I",
+      "artist": "Canvas Crush Studio",
+      "category": "abstract",
+      "medium": "Mixed Media on Canvas",
+      "year": 2025,
+      "dimensions": "TBD",
+      "originalPrice": 0,
+      "printsAvailable": true,
+      "printSizes": [],
+      "featured": false,
+      "badge": "Triptych \u00b7 Panel I",
+      "setId": "rose-tide",
+      "setName": "Rose Tide Triptych",
+      "setPrice": 0,
+      "description": "The first panel of the Rose Tide Triptych.",
+      "images": [
+        "/assets/paintings/rose-tide-1.jpg",
+        "/assets/paintings/rose-tide-triptych.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Rose Tide II",
+      "artist": "Canvas Crush Studio",
+      "category": "abstract",
+      "medium": "Mixed Media on Canvas",
+      "year": 2025,
+      "dimensions": "TBD",
+      "originalPrice": 0,
+      "printsAvailable": true,
+      "printSizes": [],
+      "featured": true,
+      "badge": "Triptych \u00b7 Panel II",
+      "setId": "rose-tide",
+      "setName": "Rose Tide Triptych",
+      "setPrice": 0,
+      "description": "The centrepiece of the Rose Tide Triptych.",
+      "images": [
+        "/assets/paintings/rose-tide-2.jpg",
+        "/assets/paintings/rose-tide-triptych.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Rose Tide III",
+      "artist": "Canvas Crush Studio",
+      "category": "abstract",
+      "medium": "Mixed Media on Canvas",
+      "year": 2025,
+      "dimensions": "TBD",
+      "originalPrice": 0,
+      "printsAvailable": true,
+      "printSizes": [],
+      "featured": false,
+      "badge": "Triptych \u00b7 Panel III",
+      "setId": "rose-tide",
+      "setName": "Rose Tide Triptych",
+      "setPrice": 0,
+      "description": "The closing panel of the Rose Tide Triptych.",
+      "images": [
+        "/assets/paintings/rose-tide-3.jpg",
+        "/assets/paintings/rose-tide-triptych.jpg"
+      ]
+    }
+  ],
+  "pageContent": {},
+  "branding": {
+    "studioName": "Canvas Crush Studio",
+    "tagline": "Curating Passion",
+    "logoUrl": ""
+  },
+  "navIcons": {
+    "search": "search",
+    "cart": "shopping_cart",
+    "menu": "menu"
+  }
+}

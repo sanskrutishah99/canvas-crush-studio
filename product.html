@@ -145,7 +145,7 @@ function renderProduct() {
   artwork.images.forEach((img, i) => {
     thumbsHtml += `
       <div class="thumb aspect-square rounded-lg overflow-hidden cursor-pointer border-2 ${i===0 ? 'border-primary opacity-100' : 'border-transparent opacity-60 hover:opacity-100'} transition-all" onclick="setMainImage('${img}', this)">
-        <img src="${img}" alt="View ${i+1}" class="w-full h-full object-cover"/>
+        <img src="${img}" alt="View ${i+1}" class="w-full h-full object-contain bg-surface-container"/>
       </div>
     `;
   });
@@ -183,7 +183,7 @@ function renderProduct() {
       <!-- Left: Artwork Visual -->
       <div class="lg:col-span-7 flex flex-col gap-6">
         <div class="aspect-[4/5] w-full overflow-hidden rounded-xl bg-surface-container-low shadow-sm border border-outline-variant/30">
-          <img id="main-image" alt="${artwork.title}" class="w-full h-full object-cover transition-opacity duration-300" src="${artwork.images[0]}"/>
+          <img id="main-image" alt="${artwork.title}" class="w-full h-full object-contain transition-opacity duration-300 bg-surface-container" src="${artwork.images[0]}"/>
         </div>
         ${artwork.images.length > 1 ? `
         <div class="grid grid-cols-4 gap-4">
@@ -381,7 +381,7 @@ function renderRelated() {
     html += `
       <a href="product?id=${art.id}" class="group block">
         <div class="aspect-square w-full overflow-hidden rounded-xl bg-surface-container border border-outline-variant/20 shadow-sm">
-          <img alt="${art.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="${art.images[0]}"/>
+          <img alt="${art.title}" class="w-full h-full object-contain bg-surface-container group-hover:scale-[1.02] transition-transform duration-700" src="${art.images[0]}"/>
         </div>
         <div class="mt-4">
           <h4 class="font-headline font-bold text-on-surface">${art.title}</h4>

@@ -688,7 +688,7 @@ const CCS = {
   getArtworks() {
     try { const s = localStorage.getItem('ccs_artworks'); return s ? JSON.parse(s) : [...this.defaultArtworks]; } catch(e) { return [...this.defaultArtworks]; }
   },
-  saveArtworks(a) { localStorage.setItem('ccs_artworks', JSON.stringify(a)); },
+  saveArtworks(a) { localStorage.setItem('ccs_artworks', JSON.stringify(a)); this.pushSiteData(); },
   getSettings() {
     try {
       const s = localStorage.getItem('ccs_settings');
@@ -714,15 +714,44 @@ const CCS = {
   getNavIcons() {
     try { const s = localStorage.getItem('ccs_nav_icons'); const d = { search:'search', cart:'shopping_cart', menu:'menu' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { search:'search', cart:'shopping_cart', menu:'menu' }; }
   },
-  saveNavIcons(icons) { localStorage.setItem('ccs_nav_icons', JSON.stringify(icons)); },
+  saveNavIcons(icons) { localStorage.setItem('ccs_nav_icons', JSON.stringify(icons)); this.pushSiteData(); },
   getPageContent(pageId) {
     try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); return all[pageId] || null; } catch(e) { return null; }
   },
   savePageContent(pageId, content) {
-    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); } catch(e) {}
+    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); this.pushSiteData(); } catch(e) {}
   },
   getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
-  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); }
+  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); },
+  getBranding() {
+    try { const s = localStorage.getItem('ccs_branding'); const d = { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; }
+  },
+
+  _githubDataPath: 'data/site-data.json',
+  _collectSiteData() {
+    return {
+      version: '2026-v1',
+      artworks: this.getArtworks(),
+      pageContent: JSON.parse(localStorage.getItem('ccs_page_content') || '{}'),
+      branding: this.getBranding(),
+      navIcons: this.getNavIcons()
+    };
+  },
+  async pushSiteData() {
+    const s = this.getSettings();
+    if (!s.githubToken || !s.githubRepo) return false;
+    const url = `https://api.github.com/repos/${s.githubRepo}/contents/${this._githubDataPath}`;
+    const headers = { 'Authorization': `token ${s.githubToken}`, 'Content-Type': 'application/json' };
+    let sha = null;
+    try { const r = await fetch(url, { headers }); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(this._collectSiteData(), null, 2))));
+    const body = JSON.stringify({ message: 'CMS: admin panel update', content, ...(sha ? { sha } : {}) });
+    try {
+      const r = await fetch(url, { method: 'PUT', headers, body });
+      if (r.ok) showAdminToast('✓ Changes synced to live site', 'success');
+      return r.ok;
+    } catch(e) { return false; }
+  }
 };
 
 // ─── Data version reset (keeps admin in sync with store.js) ─────────────────

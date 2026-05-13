@@ -87,8 +87,8 @@
   <header class="mb-12 space-y-4">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
       <div class="max-w-3xl">
-        <h1 id="gallery-title" class="text-5xl md:text-7xl font-extrabold font-headline tracking-tighter text-on-surface mb-6">All Artworks</h1>
-        <p id="gallery-desc" class="text-xl text-on-surface-variant font-body leading-relaxed max-w-2xl font-light">A curated selection of original artworks and premium prints, spanning passion, abstraction, and cultural heritage.</p>
+        <h1 id="gallery-title" data-page="hero-heading" class="text-5xl md:text-7xl font-extrabold font-headline tracking-tighter text-on-surface mb-6">All Artworks</h1>
+        <p id="gallery-desc" data-page="hero-sub" class="text-xl text-on-surface-variant font-body leading-relaxed max-w-2xl font-light">A curated selection of original artworks and premium prints, spanning passion, abstraction, and cultural heritage.</p>
       </div>
       <div class="flex items-center gap-3">
         <span id="artwork-count" class="px-5 py-2.5 bg-surface-container-low text-on-surface-variant border border-outline-variant/30 rounded-full text-xs font-label font-bold uppercase tracking-widest">0 Artworks</span>
@@ -154,6 +154,7 @@ let favorites = {};
 document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
   CCS.applyBranding();
+  CCS.applyPageContent('gallery');
 
   // Load favorites
   try { favorites = JSON.parse(localStorage.getItem('ccs_favorites') || '{}'); } catch(e) {}
@@ -206,6 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderGallery();
+
+  // Sync from GitHub in background — keeps live site up to date with admin changes
+  CCS.syncFromGitHub().then(synced => {
+    if (synced) { renderGallery(); CCS.applyBranding(); }
+  });
 });
 
 function updateHeader() {
@@ -283,8 +289,8 @@ function renderGallery() {
     html += `
       <div class="${spanClass} group">
         <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-outline-variant/10 flex flex-col h-full">
-          <a href="product?id=${art.id}" class="${aspectClass} w-full overflow-hidden block">
-            <img alt="${art.title}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="${art.images[0]}"/>
+          <a href="product?id=${art.id}" class="${aspectClass} w-full overflow-hidden block bg-surface-container flex items-center justify-center">
+            <img alt="${art.title}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]" src="${art.images[0]}"/>
           </a>
           <div class="p-7 flex-grow flex flex-col justify-between">
             <div class="flex justify-between items-start mb-4">
