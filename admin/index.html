@@ -678,17 +678,23 @@
 <script>
 const CCS = {
   defaultArtworks: [
-    { id:1, title:"Coral Symphony", artist:"Canvas Crush Studio", category:"abstract", medium:"Acrylic on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:null, description:"An immersive underwater world where sunlight filters through shimmering waves to illuminate a vibrant coral reef. Schools of orange fish dart between formations of pink, purple, and gold coral.", images:["/assets/paintings/coral-symphony.jpg"] },
-    { id:2, title:"Voyager's Dawn", artist:"Canvas Crush Studio", category:"passionate", medium:"Acrylic on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:null, description:"A mighty tall ship surges through stormy seas against a blazing amber sunset. Bold, expressive brushwork captures the raw power of wind and water.", images:["/assets/paintings/voyagers-dawn.jpg"] },
-    { id:3, title:"Rose Tide I", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:false, badge:"Triptych · Panel I", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The first panel of the Rose Tide Triptych. Luminous rose pink flows across a textured canvas in rhythmic wave forms.", images:["/assets/paintings/rose-tide-1.jpg","/assets/paintings/rose-tide-triptych.jpg"] },
-    { id:4, title:"Rose Tide II", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:"Triptych · Panel II", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The centrepiece of the Rose Tide Triptych. Deeper rose and silver shimmer through undulating waves — the most luminous of the three panels.", images:["/assets/paintings/rose-tide-2.jpg","/assets/paintings/rose-tide-triptych.jpg"] },
-    { id:5, title:"Rose Tide III", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:false, badge:"Triptych · Panel III", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The closing panel of the Rose Tide Triptych. Muted mauve and violet undertones settle into a quieter rhythm.", images:["/assets/paintings/rose-tide-3.jpg","/assets/paintings/rose-tide-triptych.jpg"] }
+    { id:1, title:"Coral Symphony", artist:"Canvas Crush Studio", category:"abstract", medium:"Acrylic on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:null, description:"An immersive underwater world where sunlight filters through shimmering waves to illuminate a vibrant coral reef.", images:["/assets/paintings/coral-symphony.jpg"] },
+    { id:2, title:"Voyager's Dawn", artist:"Canvas Crush Studio", category:"passionate", medium:"Acrylic on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:null, description:"A mighty tall ship surges through stormy seas against a blazing amber sunset.", images:["/assets/paintings/voyagers-dawn.jpg"] },
+    { id:3, title:"Rose Tide I", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:false, badge:"Triptych · Panel I", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The first panel of the Rose Tide Triptych.", images:["/assets/paintings/rose-tide-1.jpg","/assets/paintings/rose-tide-triptych.jpg"] },
+    { id:4, title:"Rose Tide II", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:true, badge:"Triptych · Panel II", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The centrepiece of the Rose Tide Triptych.", images:["/assets/paintings/rose-tide-2.jpg","/assets/paintings/rose-tide-triptych.jpg"] },
+    { id:5, title:"Rose Tide III", artist:"Canvas Crush Studio", category:"abstract", medium:"Mixed Media on Canvas", year:2025, dimensions:'TBD', originalPrice:0, printsAvailable:true, printSizes:[], featured:false, badge:"Triptych · Panel III", setId:"rose-tide", setName:"Rose Tide Triptych", setPrice:0, description:"The closing panel of the Rose Tide Triptych.", images:["/assets/paintings/rose-tide-3.jpg","/assets/paintings/rose-tide-triptych.jpg"] }
   ],
 
   getArtworks() {
     try { const s = localStorage.getItem('ccs_artworks'); return s ? JSON.parse(s) : [...this.defaultArtworks]; } catch(e) { return [...this.defaultArtworks]; }
   },
-  saveArtworks(a) { localStorage.setItem('ccs_artworks', JSON.stringify(a)); this.pushSiteData(); },
+  saveArtworks(a) { localStorage.setItem('ccs_artworks', JSON.stringify(a)); },
+  getPrintSizes(artwork) {
+    if (!artwork || artwork.printsAvailable === false) return [];
+    if (artwork.printSizes && artwork.printSizes.length > 0) return artwork.printSizes;
+    if (artwork.printPrice && artwork.printPrice > 0) return [{ label: 'Standard Print', price: artwork.printPrice }];
+    return [];
+  },
   getSettings() {
     try {
       const s = localStorage.getItem('ccs_settings');
@@ -711,47 +717,25 @@ const CCS = {
     const m = { passionate:'Vitality', abstract:'Serenity', cultural:'Culture' };
     return m[cat] || cat;
   },
+  getBranding() {
+    try { const s = localStorage.getItem('ccs_branding'); const d = { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; }
+  },
+  saveBranding(obj) {
+    const c = this.getBranding();
+    localStorage.setItem('ccs_branding', JSON.stringify({ ...c, ...obj }));
+  },
   getNavIcons() {
     try { const s = localStorage.getItem('ccs_nav_icons'); const d = { search:'search', cart:'shopping_cart', menu:'menu' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { search:'search', cart:'shopping_cart', menu:'menu' }; }
   },
-  saveNavIcons(icons) { localStorage.setItem('ccs_nav_icons', JSON.stringify(icons)); this.pushSiteData(); },
+  saveNavIcons(icons) { localStorage.setItem('ccs_nav_icons', JSON.stringify(icons)); },
   getPageContent(pageId) {
     try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); return all[pageId] || null; } catch(e) { return null; }
   },
   savePageContent(pageId, content) {
-    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); this.pushSiteData(); } catch(e) {}
+    try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); } catch(e) {}
   },
   getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
-  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); },
-  getBranding() {
-    try { const s = localStorage.getItem('ccs_branding'); const d = { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; return s ? { ...d, ...JSON.parse(s) } : d; } catch(e) { return { studioName:'Canvas Crush Studio', tagline:'Curating Passion', logoUrl:'' }; }
-  },
-
-  _githubDataPath: 'data/site-data.json',
-  _collectSiteData() {
-    return {
-      version: '2026-v2',
-      artworks: this.getArtworks(),
-      pageContent: JSON.parse(localStorage.getItem('ccs_page_content') || '{}'),
-      branding: this.getBranding(),
-      navIcons: this.getNavIcons()
-    };
-  },
-  async pushSiteData() {
-    const s = this.getSettings();
-    if (!s.githubToken || !s.githubRepo) return false;
-    const url = `https://api.github.com/repos/${s.githubRepo}/contents/${this._githubDataPath}`;
-    const headers = { 'Authorization': `token ${s.githubToken}`, 'Content-Type': 'application/json' };
-    let sha = null;
-    try { const r = await fetch(url, { headers }); if (r.ok) sha = (await r.json()).sha; } catch(e) {}
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(this._collectSiteData(), null, 2))));
-    const body = JSON.stringify({ message: 'CMS: admin panel update', content, ...(sha ? { sha } : {}) });
-    try {
-      const r = await fetch(url, { method: 'PUT', headers, body });
-      if (r.ok) showAdminToast('✓ Changes synced to live site', 'success');
-      return r.ok;
-    } catch(e) { return false; }
-  }
+  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); }
 };
 
 // ─── Data version reset (keeps admin in sync with store.js) ─────────────────
@@ -811,10 +795,6 @@ function showDashboard() {
   loadBranding();
   renderArtworksTab();
   loadNavIconSettings();
-  // Pull latest data from GitHub so admin always reflects the live site
-  CCS.syncFromGitHub().then(synced => {
-    if (synced) { renderArtworksTab(); loadBranding(); loadNavIconSettings(); }
-  });
 }
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────

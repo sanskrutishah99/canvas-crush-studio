@@ -271,11 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
   CCS.applyBranding();
   CCS.applyPageContent('home');
-
-  // Sync from GitHub so live site reflects admin changes from any device
-  CCS.syncFromGitHub().then(synced => {
-    if (synced) { CCS.applyBranding(); CCS.applyPageContent('home'); }
-  });
   initCookieBanner();
 
   // Mobile nav toggle

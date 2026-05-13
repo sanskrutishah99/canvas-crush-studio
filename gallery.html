@@ -207,11 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderGallery();
-
-  // Sync from GitHub in background — keeps live site up to date with admin changes
-  CCS.syncFromGitHub().then(synced => {
-    if (synced) { renderGallery(); CCS.applyBranding(); }
-  });
 });
 
 function updateHeader() {
