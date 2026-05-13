@@ -426,6 +426,21 @@ const CCS = {
       set('culture-quote',        'text', s.culture.quote);
       set('culture-quote-author', 'text', s.culture.quoteAuthor);
     }
+    // Hero extras
+    if (s.hero) {
+      set('hero-label',    'text', s.hero.label);
+      set('hero-cta2-text','text', s.hero.cta2Text);
+      set('hero-cta2-link','href', s.hero.cta2Link);
+      set('hero-img',      'src',  s.hero.imgSrc);
+    }
+    // Insight row
+    ['insight1','insight2','insight3'].forEach(k => {
+      const d = s[k]; if (!d) return;
+      set(`${k}-heading`, 'text', d.heading);
+      set(`${k}-body`,    'text', d.body);
+    });
+    // Collections heading
+    if (s.collectionsHeading) set('collections-heading', 'text', s.collectionsHeading.heading);
     // Featured Works section
     if (s.featured) {
       set('featured-heading', 'text', s.featured.heading);
