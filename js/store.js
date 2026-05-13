@@ -412,6 +412,33 @@ const CCS = {
       set('culture-quote',        'text', s.culture.quote);
       set('culture-quote-author', 'text', s.culture.quoteAuthor);
     }
+    // Featured Works section
+    if (s.featured) {
+      set('featured-heading', 'text', s.featured.heading);
+      set('featured-sub',     'text', s.featured.sub);
+    }
+    // Newsletter section
+    if (s.newsletter) {
+      set('newsletter-heading', 'text', s.newsletter.heading);
+      set('newsletter-body',    'text', s.newsletter.body);
+      set('newsletter-btn',     'text', s.newsletter.btn);
+      set('newsletter-note',    'text', s.newsletter.note);
+    }
+  },
+
+  // ─── Subscribers ─────────────────────────────────────────────────────────────
+
+  getSubscribers() {
+    try { return JSON.parse(localStorage.getItem('ccs_subscribers') || '[]'); } catch(e) { return []; }
+  },
+
+  addSubscriber(email, source) {
+    if (!email) return;
+    const list = this.getSubscribers();
+    // avoid duplicate emails (case-insensitive)
+    if (list.some(s => s.email.toLowerCase() === email.toLowerCase())) return;
+    list.push({ email, source: source || 'unknown', date: new Date().toISOString() });
+    localStorage.setItem('ccs_subscribers', JSON.stringify(list));
   },
 
   // ─── Utils ───────────────────────────────────────────────────────────────────

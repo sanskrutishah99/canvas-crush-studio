@@ -201,8 +201,8 @@
     <div class="max-w-[1440px] mx-auto">
       <div class="flex items-center justify-between mb-16">
         <div>
-          <h2 class="font-headline text-4xl font-extrabold text-primary tracking-tighter">The Curator's Choice</h2>
-          <p class="text-on-surface-variant mt-2 font-body">Pieces selected for their emotional impact and psychological intentionality.</p>
+          <h2 data-section="featured-heading" class="font-headline text-4xl font-extrabold text-primary tracking-tighter">The Curator's Choice</h2>
+          <p data-section="featured-sub" class="text-on-surface-variant mt-2 font-body">Pieces selected for their emotional impact and psychological intentionality.</p>
         </div>
         <a href="gallery" class="text-primary font-label font-bold flex items-center gap-1 hover:gap-2 transition-all">
           View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -219,14 +219,14 @@
     <div class="max-w-[1440px] mx-auto">
       <div class="bg-primary-container rounded-xl p-12 md:p-24 flex flex-col items-center text-center space-y-10">
         <div class="max-w-2xl space-y-4">
-          <h2 class="text-4xl md:text-5xl font-headline font-extrabold text-white tracking-tighter">Join the Insight List</h2>
-          <p class="text-on-primary-container text-lg font-body">Bi-weekly explorations into the psychology of colour, exclusive artist previews, and curated interior strategies.</p>
+          <h2 data-section="newsletter-heading" class="text-4xl md:text-5xl font-headline font-extrabold text-white tracking-tighter">Join the Insight List</h2>
+          <p data-section="newsletter-body" class="text-on-primary-container text-lg font-body">Bi-weekly explorations into the psychology of colour, exclusive artist previews, and curated interior strategies.</p>
         </div>
         <form id="newsletter-form" class="w-full max-w-lg flex flex-col md:flex-row gap-4">
           <input id="newsletter-email" class="flex-1 bg-surface/10 border-b border-on-primary-container text-white placeholder:text-on-primary-container/60 px-4 py-4 focus:outline-none transition-all font-body" placeholder="Curate your inbox (email address)" type="email" required/>
-          <button class="bg-secondary text-white px-8 py-4 rounded-xl font-headline font-bold hover:opacity-90 transition-all" type="submit">Subscribe</button>
+          <button data-section="newsletter-btn" class="bg-secondary text-white px-8 py-4 rounded-xl font-headline font-bold hover:opacity-90 transition-all" type="submit">Subscribe</button>
         </form>
-        <p class="text-on-primary-container/60 text-xs font-label uppercase tracking-widest">No spam. Only purposeful insight. Unsubscribe anytime.</p>
+        <p data-section="newsletter-note" class="text-on-primary-container/60 text-xs font-label uppercase tracking-widest">No spam. Only purposeful insight. Unsubscribe anytime.</p>
       </div>
     </div>
   </section>
@@ -328,17 +328,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('newsletter-form');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('newsletter-email').value;
+    const email = document.getElementById('newsletter-email').value.trim();
+    if (!email) return;
+    CCS.addSubscriber(email, 'home');
     const settings = CCS.getSettings();
     if (settings.formspreeId) {
       fetch(`https://formspree.io/f/${settings.formspreeId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      }).then(() => showToast('Thanks for subscribing!'));
-    } else {
-      showToast('Thanks for subscribing!');
+        body: JSON.stringify({ email, source: 'home' })
+      });
     }
+    showToast('Thanks for subscribing!');
     form.reset();
   });
 });
