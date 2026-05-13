@@ -405,11 +405,22 @@ const CCS = {
   applySections() {
     const s = this.getSections();
     if (!s) return;
+    const setImg = (key, url) => {
+      document.querySelectorAll(`[data-section="${key}"]`).forEach(el => {
+        if (url) {
+          el.src = url;
+          el.style.display = '';
+          // hide placeholder sibling
+          const ph = document.querySelector(`[data-section-placeholder="${key}"]`);
+          if (ph) ph.style.display = 'none';
+        }
+      });
+    };
     const set = (key, prop, val) => {
       if (!val) return;
+      if (prop === 'src') { setImg(key, val); return; }
       document.querySelectorAll(`[data-section="${key}"]`).forEach(el => {
-        if (prop === 'src') el.src = val;
-        else if (prop === 'href') el.href = val;
+        if (prop === 'href') el.href = val;
         else el.textContent = val;
       });
     };

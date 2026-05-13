@@ -117,7 +117,11 @@
     </div>
     <div class="lg:col-span-5 relative">
       <div class="aspect-[4/5] bg-surface-container-highest rounded-full overflow-hidden relative z-10 shadow-2xl">
-        <img data-section="hero-img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="vibrant abstract expressionist oil painting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHTwQTyNzDGyDI3kjeXrzvY7cjQrHJc3YsctoGikeLrJlbki3KNhyL1aB3XpQBhjd9pA8KfAvcV8fZ5XXXUoKjerbfuMJjKdECCRe_d6ygE_u7Oxl712BDrzTS6MVsixmSwsbStE2_M8E0Y4-jw_eH7P624p3Cn-gkGp8hdYxz2yW4cQIt6wrIYJ7YAfzgjP3rKVBnc61TTb_h2kb7cIMwxLl4ry2wLnZxGpHBRtdEUUnIvMlfm42kGxPwP3ZtObli5On73iWGq4"/>
+        <img data-section="hero-img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="hero image" src="" style="display:none"/>
+        <div data-section-placeholder="hero-img" class="w-full h-full flex flex-col items-center justify-center gap-3 text-on-surface-variant/50">
+          <span class="material-symbols-outlined text-5xl">add_photo_alternate</span>
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-center px-6">Add image<br/>Admin → Home → Hero</p>
+        </div>
       </div>
       <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
     </div>
@@ -156,8 +160,12 @@
             </div>
             <a data-section="vitality-cta-link" href="gallery?cat=passionate" class="inline-flex items-center gap-2 font-headline font-bold text-primary mt-8 hover:gap-4 transition-all"><span data-section="vitality-cta-text">View Passion</span> <span class="material-symbols-outlined">north_east</span></a>
           </div>
-          <div class="flex-1 h-64 md:h-auto overflow-hidden">
-            <img data-section="vitality-img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Vitality collection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDQ4w-6qs3AvxgHl-6rNC0dkTdJem_PT4p9NgnY8S1TskMWNCOXkbF9s0-CdcJkvwyd8-YEKWkRhSIeU9ZVOOyGI4Z7-1L4EEvI2MYfAPOOWt68qOW00TopEbvJn_UvjHbdynyowW-0TSec9by_Sd0ZwyB40B13EPN2HhTJ0sGQKCYdup94QTFOPuwpNEUXVPuwrRy1R3BApIGNUafsuRnZyoJQLS3s-QRsw7LIDQWEwOqYdu17xCpIZDm7TYl2sBYOzgeT4oNqc4"/>
+          <div class="flex-1 h-64 md:h-auto overflow-hidden bg-surface-container-high relative">
+            <img data-section="vitality-img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 absolute inset-0" alt="Vitality collection" src="" style="display:none"/>
+            <div data-section-placeholder="vitality-img" class="w-full h-full flex flex-col items-center justify-center gap-3 text-on-surface-variant/50 min-h-[256px]">
+              <span class="material-symbols-outlined text-5xl">add_photo_alternate</span>
+              <p class="text-[10px] font-label font-bold uppercase tracking-widest text-center px-6">Add image<br/>Admin → Home → Vitality</p>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +178,11 @@
           <a data-section="serenity-cta-link" href="gallery?cat=abstract" class="inline-flex items-center gap-2 font-headline font-bold text-on-primary-container hover:gap-4 transition-all"><span data-section="serenity-cta-text">Enter the Deep</span> <span class="material-symbols-outlined">north_east</span></a>
         </div>
         <div class="absolute inset-0 opacity-40">
-          <img data-section="serenity-img" class="w-full h-full object-cover" alt="Serenity collection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXrX5qT6MFSSVqg61LMANty-A3olHpLoWjv5FlKc_FLxZnb8DwkN8Bmp8jdmweXaWeDKj1zjvtpvFe6Xc6hRmF_XzP_yYd1EIRe-XLcBPtoZJ3JRaz3IP9hu4fKbBO6LjW2FjCJqmgVUfQbIHtZ3Phwi66WxH4oqaQfd_HIYL9ZMKzw4O2wWjNCJS_txeTnyhj0zVljaaFATq-W1STs2gheKxAwKlD6dnSQmbAfM3l0UkyN2Dv0QlcPmUJcjNhPlJAKc9ukqojUdw"/>
+          <img data-section="serenity-img" class="w-full h-full object-cover" alt="Serenity collection" src="" style="display:none"/>
+          <div data-section-placeholder="serenity-img" class="w-full h-full flex flex-col items-center justify-center gap-3 text-white/60">
+            <span class="material-symbols-outlined text-5xl">add_photo_alternate</span>
+            <p class="text-[10px] font-label font-bold uppercase tracking-widest text-center px-6">Add image<br/>Admin → Home → Serenity</p>
+          </div>
         </div>
       </div>
       <!-- Cultural -->
@@ -182,8 +194,12 @@
             <p data-section="culture-desc" class="text-on-surface-variant leading-relaxed">Earthy ochres and sun-baked clays that connect the modern interior to ancient terrestrial roots.</p>
             <a data-section="culture-cta-link" href="gallery?cat=cultural" class="inline-flex items-center gap-2 font-headline font-bold text-primary pt-4 hover:gap-4 transition-all"><span data-section="culture-cta-text">Explore Culture</span> <span class="material-symbols-outlined">north_east</span></a>
           </div>
-          <div class="h-80 md:h-auto overflow-hidden">
-            <img data-section="culture-img" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Culture collection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6XrxZGUSo_Yt8oF7Y1yuMTFoN6-by9Stwz96Qpt-Wer28xliIGwcumkAOgKXSNNxqmFRdVDeGAzZZ8X0Fu6h9TlYzGoFOzhyZX4BwMOxRZKmdqzCfvLAbk08OrcWKntsxk9ICoxOkX8mDBfXVk017QBjUS0MIxp65WdosI8GuU6Uj55XXfNDEL709J3NDRiju8rc4TGJXtjF68TRox6mYXAYO8Ri7EUFNvOEftYvU1cauZKDfqeyvvFOWEpgJONYtr5ORnivKnM"/>
+          <div class="h-80 md:h-auto overflow-hidden bg-surface-container relative">
+            <img data-section="culture-img" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 absolute inset-0" alt="Culture collection" src="" style="display:none"/>
+            <div data-section-placeholder="culture-img" class="w-full h-full flex flex-col items-center justify-center gap-3 text-on-surface-variant/50 min-h-[320px]">
+              <span class="material-symbols-outlined text-5xl">add_photo_alternate</span>
+              <p class="text-[10px] font-label font-bold uppercase tracking-widest text-center px-6">Add image<br/>Admin → Home → Culture</p>
+            </div>
           </div>
           <div class="p-12 flex items-end">
             <div class="bg-surface p-8 rounded-xl shadow-sm">
