@@ -343,26 +343,40 @@ const CCS = {
   applyPageContent(pageId) {
     const content = this.getPageContent(pageId);
     if (!content) return;
-    if (content.heroHeading) {
-      document.querySelectorAll('[data-page="hero-heading"]').forEach(el => { el.textContent = content.heroHeading; });
-    }
-    if (content.heroSub) {
-      document.querySelectorAll('[data-page="hero-sub"]').forEach(el => { el.textContent = content.heroSub; });
-    }
-    if (content.ctaLabel) {
-      document.querySelectorAll('[data-page="cta-label"]').forEach(el => { el.textContent = content.ctaLabel; });
-    }
-    if (content.ctaLink) {
-      document.querySelectorAll('[data-page="cta-link"]').forEach(el => { el.href = content.ctaLink; });
-    }
-    if (content.meta) {
-      let meta = document.querySelector('meta[name="description"]');
-      if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-      meta.content = content.meta;
-    }
-    if (content.title) {
-      document.title = content.title;
-    }
+    Object.entries(content).forEach(([key, val]) => {
+      if (!val && val !== 0) return;
+      if (key === 'meta') {
+        let meta = document.querySelector('meta[name="description"]');
+        if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
+        meta.content = val; return;
+      }
+      if (key === 'title') { document.title = val; return; }
+      document.querySelectorAll(`[data-page="${key}"]`).forEach(el => {
+        if (key === 'richContent') el.innerHTML = val;
+        else if (el.tagName === 'A') el.href = val;
+        else el.textContent = val;
+      });
+    });
+  },
+
+  getGlobalContent() {
+    try { return JSON.parse(localStorage.getItem('ccs_global') || '{}'); } catch(e) { return {}; }
+  },
+
+  saveGlobalContent(obj) {
+    const cur = this.getGlobalContent();
+    localStorage.setItem('ccs_global', JSON.stringify({ ...cur, ...obj }));
+  },
+
+  applyGlobalContent() {
+    const g = this.getGlobalContent();
+    Object.entries(g).forEach(([key, val]) => {
+      if (!val) return;
+      document.querySelectorAll(`[data-global="${key}"]`).forEach(el => {
+        if (el.tagName === 'A') el.href = val;
+        else el.textContent = val;
+      });
+    });
   },
 
   // ─── Custom Pages ────────────────────────────────────────────────────────────
