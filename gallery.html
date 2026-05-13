@@ -301,14 +301,17 @@ function renderGallery() {
               <div class="grid grid-cols-2 gap-4 mt-4">
                 <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
                   <span class="block text-[11px] font-label font-bold text-primary uppercase tracking-widest mb-1">Original</span>
-                  <span class="text-lg font-bold font-headline text-on-surface">${CCS.formatPrice(art.originalPrice)}</span>
+                  <span class="text-lg font-bold font-headline text-on-surface">${art.originalPrice > 0 ? CCS.formatPrice(art.originalPrice) : 'Price TBD'}</span>
                 </div>
                 <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
                   <span class="block text-[11px] font-label font-bold text-secondary uppercase tracking-widest mb-1">Print</span>
-                  <span class="text-lg font-bold font-headline text-on-surface">${CCS.formatPrice(art.printPrice)}</span>
+                  <span class="text-lg font-bold font-headline text-on-surface">${(() => { const ps = CCS.getPrintSizes(art); return ps.length ? CCS.formatPrice(ps[0].price) + '+' : 'TBD'; })()}</span>
                 </div>
               </div>
-              <a href="product?id=${art.id}" class="block w-full mt-6 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
+              ${art.setId ? `<button onclick="addSetToCart('${art.setId}', '${art.setName}', event)" class="block w-full mt-4 py-3 bg-secondary text-on-secondary font-label font-bold rounded-lg hover:bg-secondary-container transition-all active:scale-[0.98] text-sm text-center">
+                <span class="material-symbols-outlined text-sm align-middle mr-1">collections</span>Buy Full Set — ${art.setPrice > 0 ? CCS.formatPrice(art.setPrice) : 'Price TBD'}
+              </button>` : ''}
+              <a href="product?id=${art.id}" class="block w-full mt-3 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
                 View Details
               </a>
             </div>
@@ -319,6 +322,13 @@ function renderGallery() {
   });
 
   grid.innerHTML = html;
+}
+
+function addSetToCart(setId, setName, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  CCS.addSetToCart(setId);
+  showToast(`${setName} added to cart!`);
 }
 
 function toggleFavorite(id, event) {

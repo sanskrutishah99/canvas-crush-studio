@@ -208,7 +208,7 @@ function renderProduct() {
 
           <!-- Price -->
           <div class="flex items-baseline gap-3">
-            <span id="displayed-price" class="text-4xl font-headline font-bold text-on-surface">${CCS.formatPrice(artwork.originalPrice)}</span>
+            <span id="displayed-price" class="text-4xl font-headline font-bold text-on-surface">${artwork.originalPrice > 0 ? CCS.formatPrice(artwork.originalPrice) : 'Price TBD'}</span>
           </div>
 
           <!-- Print size selector (shown when Order Print is active) -->
@@ -235,6 +235,9 @@ function renderProduct() {
             <button onclick="addToCart()" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
               <span class="material-symbols-outlined">add_shopping_cart</span>Add to Cart
             </button>
+            ${artwork.setId ? `<button onclick="addSetToCart('${artwork.setId}','${artwork.setName}')" class="w-full py-4 bg-secondary text-on-secondary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-secondary-container transition-all active:scale-[0.98]">
+              <span class="material-symbols-outlined">collections</span>Buy Full Set — ${artwork.setPrice > 0 ? CCS.formatPrice(artwork.setPrice) : 'Price TBD'}
+            </button>` : ''}
             <a href="cart" class="w-full py-4 border-2 border-primary text-primary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all active:scale-[0.98]">
               <span class="material-symbols-outlined">shopping_bag</span>Secure Checkout
             </a>
@@ -296,7 +299,7 @@ function selectType(type) {
   selectedType = type;
 
   if (type === 'original') {
-    document.getElementById('displayed-price').textContent = CCS.formatPrice(artwork.originalPrice);
+    document.getElementById('displayed-price').textContent = artwork.originalPrice > 0 ? CCS.formatPrice(artwork.originalPrice) : 'Price TBD';
   } else {
     // Show first print size price by default
     const sizes = CCS.getPrintSizes(artwork);
@@ -354,6 +357,12 @@ function addToCart() {
   CCS.updateCartBadge();
   const sizeLabel = (selectedType === 'print' && selectedPrintSize) ? ` (${selectedPrintSize.label})` : '';
   showToast(`"${artwork.title}"${sizeLabel} added to cart!`);
+}
+
+function addSetToCart(setId, setName) {
+  CCS.addSetToCart(setId);
+  CCS.updateCartBadge();
+  showToast(`${setName} added to cart!`);
 }
 
 function renderRelated() {
