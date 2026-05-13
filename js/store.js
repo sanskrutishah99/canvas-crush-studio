@@ -437,7 +437,7 @@ const CCS = {
 
   _collectSiteData() {
     return {
-      version: '2026-v1',
+      version: '2026-v2',
       artworks: this.getArtworks(),
       pageContent: JSON.parse(localStorage.getItem('ccs_page_content') || '{}'),
       branding: this.getBranding(),
@@ -477,7 +477,7 @@ const CCS = {
 
 // ─── Auto data-version reset ─────────────────────────────────────────────────
 (function() {
-  const DATA_VERSION = '2026-v1';
+  const DATA_VERSION = '2026-v2';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.removeItem('ccs_artworks');
     localStorage.setItem('ccs_data_version', DATA_VERSION);
