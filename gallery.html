@@ -122,7 +122,7 @@
 
   <div id="empty-state" class="hidden text-center py-24">
     <span class="material-symbols-outlined text-6xl text-on-surface-variant/30 mb-4 block">brush</span>
-    <p class="text-on-surface-variant font-body text-lg">No artworks found for this filter.</p>
+    <p data-page="emptyMsg" class="text-on-surface-variant font-body text-lg">No artworks found for this filter.</p>
     <button onclick="setFilter('all')" class="mt-6 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">View All Artworks</button>
   </div>
 </main>
@@ -134,9 +134,9 @@
       <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
+      <a data-global="footer-link1-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
+      <a data-global="footer-link2-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a data-global="footer-link3-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
   CCS.applyBranding();
   CCS.applyPageContent('gallery');
+  CCS.applyGlobalContent();
 
   // Load favorites
   try { favorites = JSON.parse(localStorage.getItem('ccs_favorites') || '{}'); } catch(e) {}

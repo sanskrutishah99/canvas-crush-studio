@@ -78,7 +78,7 @@
 <main class="pt-32 pb-24 px-4 md:px-8 max-w-7xl mx-auto">
   <!-- Cart Header -->
   <div class="mb-10">
-    <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter">Your Cart</h1>
+    <h1 data-page="heroHeading" class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter">Your Cart</h1>
     <p id="cart-subtitle" class="text-on-surface-variant font-body mt-2"></p>
   </div>
 
@@ -87,7 +87,7 @@
     <div class="w-24 h-24 rounded-full bg-surface-container-low flex items-center justify-center mb-8">
       <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">shopping_cart</span>
     </div>
-    <h2 class="font-headline text-2xl font-bold mb-3">Your cart is empty</h2>
+    <h2 data-page="emptyHeading" class="font-headline text-2xl font-bold mb-3">Your cart is empty</h2>
     <p class="text-on-surface-variant font-body mb-8 max-w-md">Discover our curated collection of original artworks and premium prints. Every piece tells a unique story.</p>
     <a href="gallery" class="px-8 py-4 bg-primary text-on-primary font-label font-bold rounded-DEFAULT hover:opacity-90 transition-all shadow-xl shadow-primary/10">Continue Shopping</a>
   </div>
@@ -163,9 +163,9 @@
       <p class="text-outline text-sm max-w-xs font-body" data-brand="copyright">Curating purposeful environments through the psychology of colour. © 2025</p>
     </div>
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
+      <a data-global="footer-link1-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
+      <a data-global="footer-link2-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a data-global="footer-link3-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -179,6 +179,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   CCS.updateCartBadge();
   CCS.applyBranding();
+  CCS.applyPageContent('cart');
+  CCS.applyGlobalContent();
 
   document.getElementById('hamburger').addEventListener('click', () => {
     document.getElementById('mobile-menu').classList.toggle('open');

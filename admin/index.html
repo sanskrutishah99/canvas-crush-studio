@@ -667,6 +667,48 @@
         </div>
       </div>
 
+      <!-- Global Content -->
+      <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 lg:col-span-2">
+        <h2 class="font-headline text-lg font-bold mb-2 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">language</span>
+          Global Content
+        </h2>
+        <p class="text-stone-400 text-xs font-label mb-6">These appear on every page — footer links, contact email, etc.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Contact Email</label>
+            <input id="gc-contact-email" type="email" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="hello@canvascrushstudio.com"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 1 Text</label>
+            <input id="gc-footer-link1-text" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Newsletter"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 1 URL</label>
+            <input id="gc-footer-link1-href" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="newsletter"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 2 Text</label>
+            <input id="gc-footer-link2-text" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Privacy Policy"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 2 URL</label>
+            <input id="gc-footer-link2-href" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="privacy-policy"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 3 Text</label>
+            <input id="gc-footer-link3-text" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Shipping Info"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Footer Link 3 URL</label>
+            <input id="gc-footer-link3-href" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="shipping-info"/>
+          </div>
+        </div>
+        <div class="mt-6">
+          <button onclick="saveGlobalContent()" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all">Save Global Content</button>
+        </div>
+      </div>
+
       <!-- Danger Zone -->
       <div class="bg-white rounded-2xl border-2 border-red-200 p-8 lg:col-span-2">
         <h2 class="font-headline text-lg font-bold mb-2 text-red-600 flex items-center gap-3">
@@ -851,39 +893,9 @@
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
-    <div class="px-8 py-8 space-y-6 max-h-[70vh] overflow-y-auto">
-      <div>
-        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Browser Tab Title</label>
-        <input id="pe-title" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="e.g. Gallery | Canvas Crush Studio"/>
-      </div>
-      <div>
-        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Hero Heading</label>
-        <input id="pe-hero-heading" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Main headline on the page"/>
-      </div>
-      <div>
-        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Hero Subtext</label>
-        <textarea id="pe-hero-sub" rows="3" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="Supporting text below the headline"></textarea>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">CTA Button Label</label>
-          <input id="pe-cta-label" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Explore Collection"/>
-        </div>
-        <div>
-          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">CTA Button Link</label>
-          <input id="pe-cta-link" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="gallery.html"/>
-        </div>
-      </div>
-      <div>
-        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Meta Description (SEO)</label>
-        <textarea id="pe-meta" rows="2" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="Short description for search engines (150 chars)"></textarea>
-      </div>
-      <div id="pe-custom-fields" class="hidden space-y-4 pt-4 border-t border-outline-variant/20">
-        <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Custom Page Options</p>
-        <div class="flex items-center gap-3">
-          <input id="pe-show-nav" type="checkbox" class="w-5 h-5 rounded text-primary border-stone-300" checked/>
-          <label for="pe-show-nav" class="font-label font-bold text-sm cursor-pointer">Show in navigation menu</label>
-        </div>
+    <div class="px-8 py-8 max-h-[70vh] overflow-y-auto">
+      <div id="pe-fields-container" class="space-y-6">
+        <!-- dynamically populated -->
       </div>
     </div>
     <div class="flex justify-between gap-3 px-8 py-6 border-t border-outline-variant/20">
@@ -1021,6 +1033,23 @@ const CCS = {
   },
   savePageContent(pageId, content) {
     try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); } catch(e) {}
+  },
+  getGlobalContent() {
+    try { return JSON.parse(localStorage.getItem('ccs_global') || '{}'); } catch(e) { return {}; }
+  },
+  saveGlobalContent(obj) {
+    const cur = this.getGlobalContent();
+    localStorage.setItem('ccs_global', JSON.stringify({ ...cur, ...obj }));
+  },
+  applyGlobalContent() {
+    const g = this.getGlobalContent();
+    Object.entries(g).forEach(([key, val]) => {
+      if (!val) return;
+      document.querySelectorAll(`[data-global="${key}"]`).forEach(el => {
+        if (el.tagName === 'A') el.href = val;
+        else el.textContent = val;
+      });
+    });
   },
   getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
   saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); },
@@ -1705,6 +1734,29 @@ function loadSettings() {
   document.getElementById('set-shipping-rate').value = s.shippingRate;
   document.getElementById('set-tax-rate').value = Math.round(s.taxRate * 100);
   renderSubscribersTable();
+  loadGlobalContent();
+}
+
+function loadGlobalContent() {
+  const g = CCS.getGlobalContent();
+  ['contact-email','footer-link1-text','footer-link1-href','footer-link2-text','footer-link2-href','footer-link3-text','footer-link3-href'].forEach(k => {
+    const el = document.getElementById(`gc-${k}`);
+    if (el) el.value = g[k] || '';
+  });
+}
+
+function saveGlobalContent() {
+  const get = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  CCS.saveGlobalContent({
+    'contact-email': get('gc-contact-email'),
+    'footer-link1-text': get('gc-footer-link1-text'),
+    'footer-link1-href': get('gc-footer-link1-href'),
+    'footer-link2-text': get('gc-footer-link2-text'),
+    'footer-link2-href': get('gc-footer-link2-href'),
+    'footer-link3-text': get('gc-footer-link3-text'),
+    'footer-link3-href': get('gc-footer-link3-href'),
+  });
+  showAdminToast('Global content saved!');
 }
 
 // ─── Subscribers ─────────────────────────────────────────────────────────────
@@ -1870,6 +1922,57 @@ const SYSTEM_PAGES = [
   { id:'shipping', name:'Shipping Info', file:'shipping-info.html',icon:'local_shipping' }
 ];
 
+const PAGE_FIELD_DEFS = {
+  home: [],
+  gallery: [
+    { key:'heroHeading', label:'Hero Heading', type:'input', ph:'Explore the Collection' },
+    { key:'heroSub', label:'Hero Subtext', type:'textarea', ph:'Browse the full catalogue…' },
+    { key:'emptyMsg', label:'No Results Message', type:'input', ph:'No artworks found in this category.' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Gallery | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'Browse original paintings…' },
+  ],
+  newsletter: [
+    { key:'heroHeading', label:'Page Heading', type:'input', ph:'Stay Inspired.' },
+    { key:'heroSub', label:'Intro Paragraph', type:'textarea', ph:'Join the studio community…' },
+    { key:'ctaLabel', label:'Subscribe Button Text', type:'input', ph:'Subscribe' },
+    { key:'successHeading', label:'Success Heading', type:'input', ph:"You're In!" },
+    { key:'successBody', label:'Success Message', type:'textarea', ph:'Thank you for subscribing…' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Newsletter | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'' },
+  ],
+  cart: [
+    { key:'heroHeading', label:'Page Heading', type:'input', ph:'Your Cart' },
+    { key:'emptyHeading', label:'Empty Cart Heading', type:'input', ph:'Your cart is empty' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Cart | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'' },
+  ],
+  checkout: [
+    { key:'heroHeading', label:'Shipping Section Label', type:'input', ph:'Shipping Address' },
+    { key:'paymentLabel', label:'Payment Section Label', type:'input', ph:'Payment Method' },
+    { key:'confirmHeading', label:'Order Confirmed Heading', type:'input', ph:'Order Confirmed!' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Checkout | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'' },
+  ],
+  privacy: [
+    { key:'heroHeading', label:'Page Title', type:'input', ph:'Privacy Policy' },
+    { key:'lastUpdated', label:'Last Updated Text', type:'input', ph:'Last updated: April 2024' },
+    { key:'richContent', label:'Full Page Content (HTML supported)', type:'richtext', ph:'<section>…</section>' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Privacy Policy | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'' },
+  ],
+  shipping: [
+    { key:'heroHeading', label:'Page Title', type:'input', ph:'Shipping Information' },
+    { key:'heroSub', label:'Subtitle', type:'input', ph:'Every piece is handled with the care it deserves.' },
+    { key:'richContent', label:'Full Page Content (HTML supported)', type:'richtext', ph:'<section>…</section>' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Shipping Info | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'' },
+  ],
+  product: [
+    { key:'title', label:'Browser Tab Title Template', type:'input', ph:'${artwork} | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description', type:'textarea', ph:'' },
+  ],
+};
+
 function renderPagesTab() {
   // System pages
   let sHtml = '';
@@ -1933,25 +2036,50 @@ function openPageEditor(pageId, isCustom) {
   editingPageId = pageId;
   editingPageIsCustom = isCustom;
   const systemPage = SYSTEM_PAGES.find(p => p.id === pageId);
-  const customPage = isCustom ? CCS.getCustomPages().find(p => p.slug === pageId) : null;
+  const customPage = !isCustom ? null : CCS.getCustomPages().find(p => p.slug === pageId);
   const pageName = systemPage ? systemPage.name : (customPage ? customPage.name : pageId);
   const pageFile = systemPage ? systemPage.file : `${pageId}.html`;
 
   document.getElementById('page-editor-title').textContent = `Edit: ${pageName}`;
   document.getElementById('page-editor-file').textContent = pageFile;
-  document.getElementById('pe-custom-fields').classList.toggle('hidden', !isCustom);
 
   const content = CCS.getPageContent(pageId) || {};
-  document.getElementById('pe-title').value = content.title || '';
-  document.getElementById('pe-hero-heading').value = content.heroHeading || '';
-  document.getElementById('pe-hero-sub').value = content.heroSub || '';
-  document.getElementById('pe-cta-label').value = content.ctaLabel || '';
-  document.getElementById('pe-cta-link').value = content.ctaLink || '';
-  document.getElementById('pe-meta').value = content.meta || '';
-  if (isCustom && customPage) {
-    document.getElementById('pe-show-nav').checked = customPage.showInNav !== false;
+  const fields = (!isCustom && PAGE_FIELD_DEFS[pageId]) ? PAGE_FIELD_DEFS[pageId] : [
+    { key:'heroHeading', label:'Hero Heading', type:'input', ph:'Main headline' },
+    { key:'heroSub', label:'Hero Subtext', type:'textarea', ph:'Supporting text' },
+    { key:'ctaLabel', label:'CTA Button Label', type:'input', ph:'Explore' },
+    { key:'ctaLink', label:'CTA Button Link', type:'input', ph:'gallery' },
+    { key:'title', label:'Browser Tab Title', type:'input', ph:'Page | Canvas Crush Studio' },
+    { key:'meta', label:'Meta Description (SEO)', type:'textarea', ph:'Short description for search engines' },
+    { key:'showInNav', label:'Show in navigation', type:'checkbox' },
+  ];
+
+  let fieldsHtml = '';
+  if (pageId === 'home') {
+    fieldsHtml = `<div class="px-6 py-10 text-center">
+      <span class="material-symbols-outlined text-4xl text-primary mb-4 block">home</span>
+      <p class="font-headline font-bold text-lg mb-2">Home page is edited in the Home tab</p>
+      <p class="text-stone-400 text-sm font-body">Click the <strong>Home</strong> tab in the top navigation to edit the hero, collection sections, featured works and newsletter.</p>
+    </div>`;
+  } else {
+    fields.forEach(f => {
+      const val = content[f.key] || '';
+      if (f.type === 'checkbox') {
+        const checked = content[f.key] !== false ? 'checked' : '';
+        fieldsHtml += `<div class="flex items-center gap-3"><input id="pef-${f.key}" type="checkbox" class="w-5 h-5 rounded text-primary border-stone-300" ${checked}/><label for="pef-${f.key}" class="font-label font-bold text-sm cursor-pointer">${f.label}</label></div>`;
+      } else if (f.type === 'richtext') {
+        fieldsHtml += `<div><label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">${f.label}</label><p class="text-[10px] text-stone-400 font-label mb-2">You can use HTML tags like &lt;strong&gt;, &lt;em&gt;, &lt;a href=""&gt;, &lt;ul&gt;, &lt;li&gt;, etc.</p><textarea id="pef-${f.key}" rows="12" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all font-mono text-xs resize-y" placeholder="${f.ph || ''}">${val}</textarea></div>`;
+      } else if (f.type === 'textarea') {
+        fieldsHtml += `<div><label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">${f.label}</label><textarea id="pef-${f.key}" rows="3" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all resize-none" placeholder="${f.ph || ''}">${val}</textarea></div>`;
+      } else {
+        fieldsHtml += `<div><label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">${f.label}</label><input id="pef-${f.key}" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all" placeholder="${f.ph || ''}" value="${val.replace(/"/g,'&quot;')}"/></div>`;
+      }
+    });
   }
 
+  document.getElementById('pe-fields-container').innerHTML = fieldsHtml;
+  document.getElementById('pe-fields-container').dataset.fields = fields.map(f => f.key + ':' + f.type).join(',');
+  document.getElementById('pe-reset-btn').classList.toggle('hidden', pageId === 'home');
   document.getElementById('page-editor-modal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -1963,28 +2091,33 @@ function closePageEditor() {
 }
 
 function savePageEditorContent() {
-  const content = {
-    title: document.getElementById('pe-title').value.trim(),
-    heroHeading: document.getElementById('pe-hero-heading').value.trim(),
-    heroSub: document.getElementById('pe-hero-sub').value.trim(),
-    ctaLabel: document.getElementById('pe-cta-label').value.trim(),
-    ctaLink: document.getElementById('pe-cta-link').value.trim(),
-    meta: document.getElementById('pe-meta').value.trim()
-  };
-  // Remove empty keys
-  Object.keys(content).forEach(k => { if (!content[k]) delete content[k]; });
-  CCS.savePageContent(editingPageId, Object.keys(content).length ? content : null);
+  if (!editingPageId) return;
+  if (editingPageId === 'home') { closePageEditor(); return; }
 
-  // Update custom page nav setting
+  const fieldsData = (document.getElementById('pe-fields-container').dataset.fields || '').split(',');
+  const content = {};
+  fieldsData.forEach(fd => {
+    const [key, type] = fd.split(':');
+    if (!key) return;
+    const el = document.getElementById(`pef-${key}`);
+    if (!el) return;
+    if (type === 'checkbox') content[key] = el.checked;
+    else content[key] = el.value.trim();
+  });
+
+  // Filter empty values
+  const filtered = Object.fromEntries(Object.entries(content).filter(([,v]) => v !== '' && v !== null && v !== undefined));
+  CCS.savePageContent(editingPageId, Object.keys(filtered).length ? filtered : null);
+
   if (editingPageIsCustom) {
     const pages = CCS.getCustomPages();
     const pg = pages.find(p => p.slug === editingPageId);
-    if (pg) { pg.showInNav = document.getElementById('pe-show-nav').checked; CCS.saveCustomPages(pages); }
+    if (pg) { pg.showInNav = content.showInNav !== false; CCS.saveCustomPages(pages); }
   }
 
   closePageEditor();
   renderPagesTab();
-  showAdminToast('Page content saved — live on the site immediately!');
+  showAdminToast('Page content saved!');
 }
 
 function resetPageContent() {

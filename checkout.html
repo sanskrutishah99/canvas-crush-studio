@@ -67,7 +67,7 @@
       <section>
         <div class="flex items-center gap-5 mb-10">
           <span class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-headline font-light text-xl">1</span>
-          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Shipping Address</h2>
+          <h2 data-page="heroHeading" class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Shipping Address</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="md:col-span-2">
@@ -124,7 +124,7 @@
       <section>
         <div class="flex items-center gap-5 mb-10">
           <span class="w-12 h-12 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center font-headline font-light text-xl">2</span>
-          <h2 class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Payment Method</h2>
+          <h2 data-page="paymentLabel" class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Payment Method</h2>
         </div>
 
         <div id="stripe-link-section" class="hidden mb-6">
@@ -233,7 +233,7 @@
     <div class="w-24 h-24 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-8">
       <span class="material-symbols-outlined text-5xl text-green-500" style="font-variation-settings:'FILL' 1">check_circle</span>
     </div>
-    <h1 class="font-headline text-4xl font-extrabold text-on-surface tracking-tighter mb-3">Order Confirmed!</h1>
+    <h1 data-page="confirmHeading" class="font-headline text-4xl font-extrabold text-on-surface tracking-tighter mb-3">Order Confirmed!</h1>
     <p id="success-name-msg" class="text-on-surface-variant font-body text-lg mb-2"></p>
     <p id="success-order-num" class="font-label text-sm font-bold text-primary mb-2"></p>
     <p id="success-email-msg" class="text-stone-500 font-body font-light text-sm mb-10"></p>
@@ -256,8 +256,8 @@
       <p class="font-body font-light tracking-wide text-outline text-sm" data-brand="copyright">© 2024 Canvas Crush Studio. Curating Passion.</p>
     </div>
     <div class="flex gap-10 font-body font-light">
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info">Shipping Info</a>
+      <a data-global="footer-link2-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a data-global="footer-link3-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity underline decoration-orange-800/40 underline-offset-4" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
   </div>
 </footer>
@@ -268,6 +268,8 @@ let selectedPaymentMethod = 'card';
 
 document.addEventListener('DOMContentLoaded', () => {
   CCS.applyBranding();
+  CCS.applyPageContent('checkout');
+  CCS.applyGlobalContent();
   const cart = CCS.getCart();
   if (Object.keys(cart).length === 0) {
     window.location.href = 'cart';

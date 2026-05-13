@@ -52,8 +52,8 @@
 <main class="pt-36 pb-24 px-6 max-w-4xl mx-auto">
   <div class="mb-12">
     <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-orange-50 rounded-full">Delivery</span>
-    <h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Shipping Information</h1>
-    <p class="text-on-surface-variant font-light text-lg">Every piece is handled with the care it deserves.</p>
+    <h1 data-page="heroHeading" class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Shipping Information</h1>
+    <p data-page="heroSub" class="text-on-surface-variant font-light text-lg">Every piece is handled with the care it deserves.</p>
   </div>
 
   <!-- Key info cards -->
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="space-y-10 font-body font-light leading-relaxed">
+  <div data-page="richContent" class="space-y-10 font-body font-light leading-relaxed">
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">Processing Time</h2>
@@ -149,7 +149,7 @@
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">Questions?</h2>
-      <p>Email us at <strong>hello@canvascrushstudio.com</strong> — we typically respond within 24 hours.</p>
+      <p>Email us at <strong data-global="contact-email">hello@canvascrushstudio.com</strong> — we typically respond within 24 hours.</p>
     </section>
   </div>
 
@@ -164,9 +164,9 @@
   <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
     <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
     <div class="flex gap-8 font-body font-light">
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="newsletter">Newsletter</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="shipping-info">Shipping Info</a>
+      <a data-global="footer-link1-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
+      <a data-global="footer-link2-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a data-global="footer-link3-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
     <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
   </div>
@@ -176,6 +176,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     CCS.updateCartBadge();
+    CCS.applyPageContent('shipping');
+    CCS.applyGlobalContent();
     document.getElementById('hamburger').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.toggle('open');
     });

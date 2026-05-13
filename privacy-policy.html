@@ -52,11 +52,11 @@
 <main class="pt-36 pb-24 px-6 max-w-3xl mx-auto">
   <div class="mb-12">
     <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-orange-50 rounded-full">Legal</span>
-    <h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Privacy Policy</h1>
-    <p class="text-on-surface-variant font-light">Last updated: April 2024</p>
+    <h1 data-page="heroHeading" class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Privacy Policy</h1>
+    <p data-page="lastUpdated" class="text-on-surface-variant font-light">Last updated: April 2024</p>
   </div>
 
-  <div class="prose prose-stone max-w-none space-y-10 font-body font-light leading-relaxed text-on-surface">
+  <div data-page="richContent" class="prose prose-stone max-w-none space-y-10 font-body font-light leading-relaxed text-on-surface">
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">1. Who We Are</h2>
@@ -110,7 +110,7 @@
         <li>Opt out of marketing emails at any time</li>
         <li>Request a copy of your data in a portable format</li>
       </ul>
-      <p>To exercise any of these rights, email us at <strong>hello@canvascrushstudio.com</strong>.</p>
+      <p>To exercise any of these rights, email us at <strong data-global="contact-email">hello@canvascrushstudio.com</strong>.</p>
     </section>
 
     <section class="space-y-4">
@@ -126,7 +126,7 @@
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">9. Contact</h2>
       <p>For any privacy-related questions, contact us at:<br/>
-      <strong>Email:</strong> hello@canvascrushstudio.com<br/>
+      <strong>Email:</strong> <span data-global="contact-email">hello@canvascrushstudio.com</span><br/>
       <strong>Website:</strong> canvascrushstudio.com</p>
     </section>
   </div>
@@ -142,9 +142,9 @@
   <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
     <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
     <div class="flex gap-8 font-body font-light">
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="newsletter">Newsletter</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="privacy-policy">Privacy Policy</a>
-      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="shipping-info">Shipping Info</a>
+      <a data-global="footer-link1-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
+      <a data-global="footer-link2-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a data-global="footer-link3-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
     <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
   </div>
@@ -154,6 +154,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     CCS.updateCartBadge();
+    CCS.applyPageContent('privacy');
+    CCS.applyGlobalContent();
     document.getElementById('hamburger').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.toggle('open');
     });
