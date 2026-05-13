@@ -375,6 +375,45 @@ const CCS = {
     localStorage.setItem('ccs_custom_pages', JSON.stringify(pages));
   },
 
+  // ─── Home Sections ───────────────────────────────────────────────────────────
+
+  getSections() {
+    try {
+      const saved = localStorage.getItem('ccs_home_sections');
+      return saved ? JSON.parse(saved) : null;
+    } catch(e) { return null; }
+  },
+
+  saveSections(obj) {
+    localStorage.setItem('ccs_home_sections', JSON.stringify(obj));
+  },
+
+  applySections() {
+    const s = this.getSections();
+    if (!s) return;
+    const set = (key, prop, val) => {
+      if (!val) return;
+      document.querySelectorAll(`[data-section="${key}"]`).forEach(el => {
+        if (prop === 'src') el.src = val;
+        else if (prop === 'href') el.href = val;
+        else el.textContent = val;
+      });
+    };
+    ['vitality', 'serenity', 'culture'].forEach(sec => {
+      const d = s[sec]; if (!d) return;
+      set(`${sec}-label`,    'text', d.label);
+      set(`${sec}-heading`,  'text', d.heading);
+      set(`${sec}-desc`,     'text', d.desc);
+      set(`${sec}-cta-text`, 'text', d.ctaText);
+      set(`${sec}-cta-link`, 'href', d.ctaLink);
+      set(`${sec}-img`,      'src',  d.imgSrc);
+    });
+    if (s.culture) {
+      set('culture-quote',        'text', s.culture.quote);
+      set('culture-quote-author', 'text', s.culture.quoteAuthor);
+    }
+  },
+
   // ─── Utils ───────────────────────────────────────────────────────────────────
 
   formatPrice(n) {

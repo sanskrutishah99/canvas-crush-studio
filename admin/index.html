@@ -107,6 +107,10 @@
           <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">brush</span>
           <span class="hidden md:block">Artworks</span>
         </button>
+        <button onclick="showTab('home')" id="nav-home" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">home</span>
+          <span class="hidden md:block">Home</span>
+        </button>
         <button onclick="showTab('pages')" id="nav-pages" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
           <span class="material-symbols-outlined text-base">web</span>
           <span class="hidden md:block">Pages</span>
@@ -164,6 +168,148 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- ── HOME SECTIONS TAB ── -->
+  <div id="tab-home" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      <div>
+        <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Home Page</h1>
+        <p class="text-on-surface-variant font-body font-light mt-1">Edit the three collection sections displayed on the homepage</p>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="resetSections()" class="flex items-center gap-2 px-5 py-2.5 border border-outline-variant/40 rounded-lg font-label font-bold text-sm hover:bg-surface-container-low transition-all text-on-surface-variant">
+          <span class="material-symbols-outlined text-base">restart_alt</span> Reset to Defaults
+        </button>
+        <button onclick="saveSectionsForm()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
+          <span class="material-symbols-outlined text-base">save</span> Save Changes
+        </button>
+      </div>
+    </div>
+
+    <div id="sections-save-banner" class="hidden mb-6 px-5 py-3 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-label font-bold flex items-center gap-2">
+      <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">check_circle</span>
+      Changes saved — reload the homepage to see them live.
+    </div>
+
+    <!-- Vitality -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-secondary flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Vitality Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Passion / Reds</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Label (e.g. "Psychology: Energy")</label>
+          <input id="sec-vitality-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Psychology: Energy"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
+          <input id="sec-vitality-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Vitality"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Description</label>
+          <textarea id="sec-vitality-desc" rows="2" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Vibrant reds and intense terracottas…"></textarea>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Button Text</label>
+          <input id="sec-vitality-cta-text" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="View Passion"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Link (URL or path)</label>
+          <input id="sec-vitality-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=passionate"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
+          <input id="sec-vitality-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Serenity -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-primary flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Serenity Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Abstract / Teals</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Label</label>
+          <input id="sec-serenity-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Psychology: Calm"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
+          <input id="sec-serenity-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Serenity"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Description</label>
+          <textarea id="sec-serenity-desc" rows="2" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Deep indigos and forest teals…"></textarea>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Button Text</label>
+          <input id="sec-serenity-cta-text" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Enter the Deep"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Link</label>
+          <input id="sec-serenity-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=abstract"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
+          <input id="sec-serenity-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Culture -->
+    <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-8 mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-3 h-3 rounded-full bg-tertiary flex-shrink-0"></div>
+        <h2 class="font-headline text-lg font-bold">Culture Section</h2>
+        <span class="text-xs font-label font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Cultural / Ochres</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Label</label>
+          <input id="sec-culture-label" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Psychology: Culture"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Heading</label>
+          <input id="sec-culture-heading" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Culture"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Description</label>
+          <textarea id="sec-culture-desc" rows="2" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest resize-none" placeholder="Earthy ochres and sun-baked clays…"></textarea>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Button Text</label>
+          <input id="sec-culture-cta-text" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="Explore Culture"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">CTA Link</label>
+          <input id="sec-culture-cta-link" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="gallery?cat=cultural"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Image URL</label>
+          <input id="sec-culture-img" type="url" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="https://… or /assets/paintings/…"/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Quote</label>
+          <input id="sec-culture-quote" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder='"The ochre tones brought a warmth…"'/>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1.5">Quote Author</label>
+          <input id="sec-culture-quote-author" type="text" class="w-full border border-outline-variant/40 rounded-lg px-4 py-2.5 text-sm font-body focus:outline-none focus:border-primary/60 bg-surface-container-lowest" placeholder="— Interior Curator, Melbourne"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end pb-4">
+      <button onclick="saveSectionsForm()" class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10 active:scale-[0.98]">
+        <span class="material-symbols-outlined text-base">save</span> Save Changes
+      </button>
     </div>
   </div>
 
@@ -735,7 +881,9 @@ const CCS = {
     try { const all = JSON.parse(localStorage.getItem('ccs_page_content') || '{}'); if (content === null) { delete all[pageId]; } else { all[pageId] = content; } localStorage.setItem('ccs_page_content', JSON.stringify(all)); } catch(e) {}
   },
   getCustomPages() { try { return JSON.parse(localStorage.getItem('ccs_custom_pages') || '[]'); } catch(e) { return []; } },
-  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); }
+  saveCustomPages(pages) { localStorage.setItem('ccs_custom_pages', JSON.stringify(pages)); },
+  getSections() { try { const s = localStorage.getItem('ccs_home_sections'); return s ? JSON.parse(s) : null; } catch(e) { return null; } },
+  saveSections(obj) { localStorage.setItem('ccs_home_sections', JSON.stringify(obj)); }
 };
 
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
@@ -799,7 +947,7 @@ function showDashboard() {
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
 function showTab(tab) {
-  ['artworks', 'pages', 'settings'].forEach(t => {
+  ['artworks', 'home', 'pages', 'settings'].forEach(t => {
     document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
     document.getElementById(`tab-${t}`).classList.toggle('flex-grow', t === tab);
     const btn = document.getElementById(`nav-${t}`);
@@ -808,6 +956,98 @@ function showTab(tab) {
     else btn.classList.remove('text-on-surface-variant');
   });
   if (tab === 'pages') renderPagesTab();
+  if (tab === 'home') loadSectionsForm();
+}
+
+// ─── Home Sections ───────────────────────────────────────────────────────────
+
+const SECTION_DEFAULTS = {
+  vitality: {
+    label: 'Psychology: Energy',
+    heading: 'Vitality',
+    desc: 'Vibrant reds and intense terracottas designed to ignite ambition and foster high-energy, spirited environments.',
+    ctaText: 'View Passion',
+    ctaLink: 'gallery?cat=passionate',
+    imgSrc: ''
+  },
+  serenity: {
+    label: 'Psychology: Calm',
+    heading: 'Serenity',
+    desc: 'Deep indigos and forest teals that recede inward, providing a psychological sanctuary for reflection and focus.',
+    ctaText: 'Enter the Deep',
+    ctaLink: 'gallery?cat=abstract',
+    imgSrc: ''
+  },
+  culture: {
+    label: 'Psychology: Culture',
+    heading: 'Culture',
+    desc: 'Earthy ochres and sun-baked clays that connect the modern interior to ancient terrestrial roots.',
+    ctaText: 'Explore Culture',
+    ctaLink: 'gallery?cat=cultural',
+    imgSrc: '',
+    quote: '"The ochre tones brought a warmth to our studio that we didn\'t know was missing — grounded yet sophisticated."',
+    quoteAuthor: '— Interior Curator, Melbourne'
+  }
+};
+
+function loadSectionsForm() {
+  const saved = CCS.getSections() || {};
+  ['vitality', 'serenity', 'culture'].forEach(sec => {
+    const d = { ...SECTION_DEFAULTS[sec], ...(saved[sec] || {}) };
+    document.getElementById(`sec-${sec}-label`).value      = d.label      || '';
+    document.getElementById(`sec-${sec}-heading`).value    = d.heading    || '';
+    document.getElementById(`sec-${sec}-desc`).value       = d.desc       || '';
+    document.getElementById(`sec-${sec}-cta-text`).value   = d.ctaText    || '';
+    document.getElementById(`sec-${sec}-cta-link`).value   = d.ctaLink    || '';
+    document.getElementById(`sec-${sec}-img`).value        = d.imgSrc     || '';
+  });
+  // culture extras
+  const cult = { ...SECTION_DEFAULTS.culture, ...(saved.culture || {}) };
+  document.getElementById('sec-culture-quote').value        = cult.quote        || '';
+  document.getElementById('sec-culture-quote-author').value = cult.quoteAuthor  || '';
+  document.getElementById('sections-save-banner').classList.add('hidden');
+}
+
+function saveSectionsForm() {
+  const get = id => document.getElementById(id).value.trim();
+  const obj = {
+    vitality: {
+      label:   get('sec-vitality-label'),
+      heading: get('sec-vitality-heading'),
+      desc:    get('sec-vitality-desc'),
+      ctaText: get('sec-vitality-cta-text'),
+      ctaLink: get('sec-vitality-cta-link'),
+      imgSrc:  get('sec-vitality-img')
+    },
+    serenity: {
+      label:   get('sec-serenity-label'),
+      heading: get('sec-serenity-heading'),
+      desc:    get('sec-serenity-desc'),
+      ctaText: get('sec-serenity-cta-text'),
+      ctaLink: get('sec-serenity-cta-link'),
+      imgSrc:  get('sec-serenity-img')
+    },
+    culture: {
+      label:       get('sec-culture-label'),
+      heading:     get('sec-culture-heading'),
+      desc:        get('sec-culture-desc'),
+      ctaText:     get('sec-culture-cta-text'),
+      ctaLink:     get('sec-culture-cta-link'),
+      imgSrc:      get('sec-culture-img'),
+      quote:       get('sec-culture-quote'),
+      quoteAuthor: get('sec-culture-quote-author')
+    }
+  };
+  CCS.saveSections(obj);
+  const banner = document.getElementById('sections-save-banner');
+  banner.classList.remove('hidden');
+  setTimeout(() => banner.classList.add('hidden'), 4000);
+}
+
+function resetSections() {
+  if (!confirm('Reset all home sections to their default text? This cannot be undone.')) return;
+  localStorage.removeItem('ccs_home_sections');
+  loadSectionsForm();
 }
 
 // ─── Artworks Tab ────────────────────────────────────────────────────────────
