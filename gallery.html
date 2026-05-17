@@ -302,9 +302,12 @@ function renderGallery() {
                     : `<span class="text-lg font-bold font-headline text-on-surface">${art.originalPrice > 0 ? CCS.formatPrice(art.originalPrice) : 'Price TBD'}</span>`
                   }
                 </div>
-                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
+                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 ${art.printsAvailable === false ? 'opacity-50' : ''}">
                   <span class="block text-[11px] font-label font-bold text-secondary uppercase tracking-widest mb-1">Print</span>
-                  <span class="text-lg font-bold font-headline text-on-surface">${(() => { const ps = CCS.getPrintSizes(art); return ps.length ? CCS.formatPrice(ps[0].price) + '+' : 'TBD'; })()}</span>
+                  ${art.printsAvailable === false
+                    ? `<span class="text-sm font-bold font-headline text-stone-400">Not Available</span>`
+                    : `<span class="text-lg font-bold font-headline text-on-surface">${(() => { const ps = CCS.getPrintSizes(art); return ps.length ? CCS.formatPrice(ps[0].price) + '+' : 'TBD'; })()}</span>`
+                  }
                 </div>
               </div>
               ${art.setId ? `<button onclick="addSetToCart('${art.setId}', '${art.setName}', event)" class="block w-full mt-4 py-3 bg-secondary text-on-secondary font-label font-bold rounded-lg hover:bg-secondary-container transition-all active:scale-[0.98] text-sm text-center">
