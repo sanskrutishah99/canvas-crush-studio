@@ -124,48 +124,31 @@
       <section>
         <div class="flex items-center gap-5 mb-10">
           <span class="w-12 h-12 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center font-headline font-light text-xl">2</span>
-          <h2 data-page="paymentLabel" class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Payment Method</h2>
+          <h2 data-page="paymentLabel" class="text-3xl md:text-4xl font-headline font-light tracking-tight text-primary">Payment</h2>
         </div>
 
-        <div id="stripe-link-section" class="hidden mb-6">
-          <!-- shown when stripe payment link is configured -->
+        <!-- Stripe configured: show redirect notice -->
+        <div id="stripe-configured" class="hidden">
+          <div class="bg-[#f0f4ff] border border-[#6772e5]/30 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="material-symbols-outlined text-[#6772e5]" style="font-variation-settings:'FILL' 1">credit_card</span>
+              <p class="font-bold text-stone-800">Secure Payment via Stripe</p>
+            </div>
+            <p class="text-sm text-stone-600 font-light leading-relaxed">After confirming your shipping details, you'll be redirected to Stripe's secure hosted checkout to complete payment. Your order details are saved first.</p>
+          </div>
         </div>
 
-        <div class="space-y-4 mb-8">
-          <div id="pay-card-opt" class="flex items-center justify-between p-6 bg-white rounded-xl border-2 border-primary shadow-sm cursor-pointer" onclick="selectPayment('card')">
-            <div class="flex items-center gap-5">
-              <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">credit_card</span>
+        <!-- No processor configured: email/invoice notice -->
+        <div id="no-payment-processor">
+          <div class="bg-orange-50 border border-orange-200/60 rounded-xl p-6">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary mt-0.5" style="font-variation-settings:'FILL' 1">mail</span>
               <div>
-                <p class="font-bold text-stone-800">Credit / Debit Card</p>
-                <p class="text-sm text-stone-500 font-light">Secure encrypted payment</p>
+                <p class="font-bold text-stone-800 mb-1">Payment by Invoice</p>
+                <p class="text-sm text-stone-600 font-light leading-relaxed">Submit your order and we'll email you a payment link within 24 hours. Your artwork is reserved while payment is pending.</p>
+                <p class="text-[10px] text-stone-400 font-label font-bold uppercase tracking-widest mt-3">To enable card checkout → Admin → Settings → Stripe Payment Link</p>
               </div>
             </div>
-            <span id="radio-card" class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">radio_button_checked</span>
-          </div>
-          <div id="pay-paypal-opt" class="flex items-center justify-between p-6 bg-stone-50/50 rounded-xl border-2 border-transparent hover:bg-surface-container-low transition-colors cursor-pointer group" onclick="selectPayment('paypal')">
-            <div class="flex items-center gap-5">
-              <span class="material-symbols-outlined text-stone-400 group-hover:text-primary transition-colors">account_balance_wallet</span>
-              <p class="font-bold text-stone-600 group-hover:text-stone-800 transition-colors">PayPal</p>
-            </div>
-            <span id="radio-paypal" class="material-symbols-outlined text-stone-300">radio_button_unchecked</span>
-          </div>
-        </div>
-
-        <div id="card-fields" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="md:col-span-2">
-            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Card Number</label>
-            <input id="field-card" class="w-full bg-white border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="0000 0000 0000 0000" type="text" maxlength="19"/>
-            <p class="error-msg" id="err-card">Card number is required.</p>
-          </div>
-          <div>
-            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Expiry Date</label>
-            <input id="field-expiry" class="w-full bg-white border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="MM / YY" type="text" maxlength="7"/>
-            <p class="error-msg" id="err-expiry">Expiry is required.</p>
-          </div>
-          <div>
-            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">CVC</label>
-            <input id="field-cvc" class="w-full bg-white border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="123" type="text" maxlength="4"/>
-            <p class="error-msg" id="err-cvc">CVC is required.</p>
           </div>
         </div>
       </section>
@@ -264,8 +247,6 @@
 
 <script src="js/store.js"></script>
 <script>
-let selectedPaymentMethod = 'card';
-
 document.addEventListener('DOMContentLoaded', () => {
   CCS.applyBranding();
   CCS.applyPageContent('checkout');
@@ -280,34 +261,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const settings = CCS.getSettings();
   if (settings.stripePaymentLink) {
-    const stripeSection = document.getElementById('stripe-link-section');
-    stripeSection.classList.remove('hidden');
-    stripeSection.innerHTML = `
-      <a href="${settings.stripePaymentLink}" target="_blank" rel="noopener" class="flex items-center justify-center gap-3 w-full py-4 bg-[#6772e5] text-white rounded-xl font-label font-bold hover:opacity-90 transition-all shadow-lg">
-        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">credit_card</span>
-        Pay Securely with Stripe
-      </a>
-      <div class="flex items-center gap-3 my-4">
-        <div class="flex-grow h-px bg-stone-200"></div>
-        <span class="text-stone-400 text-xs font-label font-bold uppercase tracking-widest">Or fill below</span>
-        <div class="flex-grow h-px bg-stone-200"></div>
-      </div>
-    `;
+    document.getElementById('stripe-configured').classList.remove('hidden');
+    document.getElementById('no-payment-processor').classList.add('hidden');
+    // Update Place Order button label
+    const btn = document.getElementById('place-order-btn');
+    btn.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings:'wght' 600">verified_user</span>Confirm & Pay with Stripe`;
   }
-
-  // Card number formatting
-  document.getElementById('field-card').addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '').substring(0, 16);
-    val = val.replace(/(.{4})/g, '$1 ').trim();
-    e.target.value = val;
-  });
-
-  // Expiry formatting
-  document.getElementById('field-expiry').addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '').substring(0, 4);
-    if (val.length >= 3) val = val.substring(0, 2) + ' / ' + val.substring(2);
-    e.target.value = val;
-  });
 });
 
 function renderOrderSummary() {
@@ -350,33 +309,6 @@ function renderOrderSummary() {
   document.getElementById('co-total').textContent = CCS.formatPrice(total);
 }
 
-function selectPayment(method) {
-  selectedPaymentMethod = method;
-  const cardFields = document.getElementById('card-fields');
-
-  if (method === 'card') {
-    document.getElementById('pay-card-opt').classList.add('border-primary');
-    document.getElementById('pay-card-opt').classList.remove('border-transparent');
-    document.getElementById('pay-paypal-opt').classList.remove('border-primary', 'bg-white');
-    document.getElementById('pay-paypal-opt').classList.add('border-transparent');
-    document.getElementById('radio-card').textContent = 'radio_button_checked';
-    document.getElementById('radio-card').style.fontVariationSettings = "'FILL' 1";
-    document.getElementById('radio-paypal').textContent = 'radio_button_unchecked';
-    document.getElementById('radio-paypal').style.fontVariationSettings = "'FILL' 0";
-    cardFields.classList.remove('hidden');
-  } else {
-    document.getElementById('pay-paypal-opt').classList.add('border-primary', 'bg-white');
-    document.getElementById('pay-paypal-opt').classList.remove('border-transparent');
-    document.getElementById('pay-card-opt').classList.remove('border-primary');
-    document.getElementById('pay-card-opt').classList.add('border-transparent');
-    document.getElementById('radio-paypal').textContent = 'radio_button_checked';
-    document.getElementById('radio-paypal').style.fontVariationSettings = "'FILL' 1";
-    document.getElementById('radio-card').textContent = 'radio_button_unchecked';
-    document.getElementById('radio-card').style.fontVariationSettings = "'FILL' 0";
-    cardFields.classList.add('hidden');
-  }
-}
-
 function validateForm() {
   let valid = true;
 
@@ -400,20 +332,26 @@ function validateForm() {
   validateField('field-state', 'err-state', v => v.trim().length >= 1);
   validateField('field-zip', 'err-zip', v => v.trim().length >= 3);
 
-  if (selectedPaymentMethod === 'card') {
-    validateField('field-card', 'err-card', v => v.replace(/\s/g, '').length >= 13);
-    validateField('field-expiry', 'err-expiry', v => v.replace(/\s/g, '').length >= 4);
-    validateField('field-cvc', 'err-cvc', v => v.trim().length >= 3);
-  }
-
   return valid;
 }
 
 function placeOrder() {
   if (!validateForm()) return;
 
-  const name = document.getElementById('field-name').value;
-  const email = document.getElementById('field-email').value;
+  const btn = document.getElementById('place-order-btn');
+  btn.disabled = true;
+  btn.textContent = 'Processing…';
+
+  const name  = document.getElementById('field-name').value.trim();
+  const email = document.getElementById('field-email').value.trim();
+  const address = [
+    document.getElementById('field-address').value,
+    document.getElementById('field-city').value,
+    document.getElementById('field-state').value,
+    document.getElementById('field-zip').value,
+    document.getElementById('field-country').value
+  ].filter(Boolean).join(', ');
+
   const settings = CCS.getSettings();
   const cart = CCS.getCart();
   const keys = Object.keys(cart);
@@ -425,32 +363,65 @@ function placeOrder() {
 
   const orderNum = 'CCS-' + Date.now().toString().slice(-6);
 
-  // Submit to Formspree if configured
+  // ── 1. Save order to localStorage ─────────────────────────────────
+  const orderObj = {
+    orderNum,
+    date: new Date().toISOString(),
+    status: 'pending',
+    name, email, address,
+    items: keys.map(k => ({
+      title: cart[k].title,
+      type: cart[k].type,
+      quantity: cart[k].quantity,
+      price: cart[k].price,
+      artworkId: cart[k].artworkId || null,
+      printSize: cart[k].printSize || null,
+      isSet: cart[k].isSet || false,
+      artworkIds: cart[k].artworkIds || null
+    })),
+    subtotal, shipping, tax, total
+  };
+  CCS.saveOrder(orderObj);
+
+  // ── 2. Mark originals sold / decrement print stock ─────────────────
+  keys.forEach(k => {
+    const item = cart[k];
+    if (item.isSet && item.artworkIds) {
+      item.artworkIds.forEach(id => CCS.markOriginalSold(id));
+    } else if (item.type === 'original' && item.artworkId) {
+      CCS.markOriginalSold(item.artworkId);
+    } else if (item.type === 'print' && item.artworkId && item.printSize) {
+      CCS.decrementPrintStock(item.artworkId, item.printSize, item.quantity);
+    }
+  });
+
+  // ── 3. Send to Formspree ───────────────────────────────────────────
   if (settings.formspreeId) {
-    const formData = {
-      name,
-      email,
-      address: document.getElementById('field-address').value,
-      city: document.getElementById('field-city').value,
-      state: document.getElementById('field-state').value,
-      zip: document.getElementById('field-zip').value,
-      country: document.getElementById('field-country').value,
-      orderNumber: orderNum,
-      total: CCS.formatPrice(total),
-      items: keys.map(k => `${cart[k].title} (${cart[k].type}) x${cart[k].quantity}`).join(', ')
-    };
     fetch(`https://formspree.io/f/${settings.formspreeId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    }).catch(() => {}); // silent fail
+      body: JSON.stringify({
+        orderNumber: orderNum, name, email, address,
+        total: CCS.formatPrice(total),
+        items: keys.map(k => `${cart[k].title} (${cart[k].type}) ×${cart[k].quantity}`).join(', ')
+      })
+    }).catch(() => {});
   }
 
-  // Show success screen
+  // ── 4. Clear cart ──────────────────────────────────────────────────
+  CCS.clearCart();
+
+  // ── 5. Redirect to Stripe OR show success screen ───────────────────
+  if (settings.stripePaymentLink) {
+    window.location.href = settings.stripePaymentLink;
+    return;
+  }
+
+  // No Stripe — show on-page success
   const successScreen = document.getElementById('success-screen');
   document.getElementById('success-name-msg').textContent = `Thank you, ${name.split(' ')[0]}! Your order has been received.`;
   document.getElementById('success-order-num').textContent = `Order #${orderNum}`;
-  document.getElementById('success-email-msg').textContent = `A confirmation will be sent to ${email}`;
+  document.getElementById('success-email-msg').textContent = `We'll be in touch at ${email} with a payment link within 24 hours.`;
 
   let successItemsHtml = '';
   keys.forEach(key => {
@@ -465,13 +436,11 @@ function placeOrder() {
   });
   successItemsHtml += `
     <div class="pt-4 border-t border-stone-200 flex justify-between">
-      <span class="font-headline font-bold">Total Charged</span>
+      <span class="font-headline font-bold">Order Total</span>
       <span class="font-headline font-extrabold text-primary text-lg">${CCS.formatPrice(total)}</span>
     </div>
   `;
   document.getElementById('success-items').innerHTML = successItemsHtml;
-
-  CCS.clearCart();
   successScreen.classList.remove('hidden');
 }
 </script>

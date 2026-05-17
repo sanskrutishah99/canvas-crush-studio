@@ -285,8 +285,9 @@ function renderGallery() {
     html += `
       <div class="${spanClass} group">
         <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-outline-variant/10 flex flex-col h-full">
-          <a href="product?id=${art.id}" class="${aspectClass} w-full overflow-hidden block bg-surface-container flex items-center justify-center">
+          <a href="product?id=${art.id}" class="${aspectClass} w-full overflow-hidden block bg-surface-container flex items-center justify-center relative">
             <img alt="${art.title}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]" src="${art.images[0]}"/>
+            ${art.sold ? `<div class="absolute inset-0 bg-stone-900/50 flex items-center justify-center"><span class="bg-red-600 text-white font-headline font-bold text-sm px-4 py-1.5 rounded-full tracking-widest uppercase">Sold</span></div>` : ''}
           </a>
           <div class="p-7 flex-grow flex flex-col justify-between">
             <div class="flex justify-between items-start mb-4">
@@ -301,9 +302,12 @@ function renderGallery() {
             </div>
             <div>
               <div class="grid grid-cols-2 gap-4 mt-4">
-                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
+                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 ${art.sold ? 'opacity-60' : ''}">
                   <span class="block text-[11px] font-label font-bold text-primary uppercase tracking-widest mb-1">Original</span>
-                  <span class="text-lg font-bold font-headline text-on-surface">${art.originalPrice > 0 ? CCS.formatPrice(art.originalPrice) : 'Price TBD'}</span>
+                  ${art.sold
+                    ? `<span class="text-lg font-bold font-headline text-red-600">Sold</span>`
+                    : `<span class="text-lg font-bold font-headline text-on-surface">${art.originalPrice > 0 ? CCS.formatPrice(art.originalPrice) : 'Price TBD'}</span>`
+                  }
                 </div>
                 <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20">
                   <span class="block text-[11px] font-label font-bold text-secondary uppercase tracking-widest mb-1">Print</span>

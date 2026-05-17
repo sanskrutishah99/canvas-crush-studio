@@ -115,6 +115,10 @@
           <span class="material-symbols-outlined text-base">web</span>
           <span class="hidden md:block">Pages</span>
         </button>
+        <button onclick="showTab('orders')" id="nav-orders" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">receipt_long</span>
+          <span class="hidden md:block">Orders</span>
+        </button>
         <button onclick="showTab('settings')" id="nav-settings" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
           <span class="material-symbols-outlined text-base">settings</span>
           <span class="hidden md:block">Settings</span>
@@ -160,6 +164,7 @@
               <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Original</th>
               <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Print</th>
               <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Featured</th>
+              <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Sold</th>
               <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
             </tr>
           </thead>
@@ -512,6 +517,43 @@
       <div class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm p-6" id="sitemap-panel">
         <!-- rendered by JS -->
       </div>
+    </div>
+  </div>
+
+  <!-- ── ORDERS TAB ── -->
+  <div id="tab-orders" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Orders</h1>
+        <p class="text-on-surface-variant font-body font-light mt-1">All orders placed through your site</p>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="exportOrdersCSV()" class="flex items-center gap-2 px-4 py-2 bg-surface-container-high text-on-surface rounded-lg font-label font-bold text-sm hover:bg-surface-container transition-all">
+          <span class="material-symbols-outlined text-base">download</span>Export CSV
+        </button>
+      </div>
+    </div>
+
+    <div id="orders-empty" class="hidden text-center py-24">
+      <span class="material-symbols-outlined text-5xl text-stone-300 mb-4 block">receipt_long</span>
+      <p class="font-headline text-xl font-bold text-stone-400">No orders yet</p>
+      <p class="text-stone-400 text-sm font-body font-light mt-2">Orders placed through checkout will appear here automatically.</p>
+    </div>
+
+    <div id="orders-table-wrap" class="bg-white rounded-2xl border border-outline-variant/20 shadow-sm overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-container-low">
+          <tr>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant">Order #</th>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant hidden md:table-cell">Date</th>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant">Customer</th>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant hidden lg:table-cell">Items</th>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant">Total</th>
+            <th class="text-left px-6 py-4 font-label font-bold text-[11px] uppercase tracking-wider text-on-surface-variant">Status</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody" class="divide-y divide-outline-variant/20"></tbody>
+      </table>
     </div>
   </div>
 
@@ -1121,6 +1163,23 @@ const CCS = {
     if (list.some(s => s.email.toLowerCase() === email.toLowerCase())) return;
     list.push({ email, source: source || 'unknown', date: new Date().toISOString() });
     localStorage.setItem('ccs_subscribers', JSON.stringify(list));
+  },
+  getOrders() { try { return JSON.parse(localStorage.getItem('ccs_orders') || '[]'); } catch(e) { return []; } },
+  updateOrderStatus(orderNum, status) {
+    const orders = this.getOrders();
+    const o = orders.find(x => x.orderNum === orderNum);
+    if (o) { o.status = status; localStorage.setItem('ccs_orders', JSON.stringify(orders)); }
+  },
+  markOriginalSold(artworkId) {
+    const artworks = this.getArtworks();
+    const art = artworks.find(a => a.id === parseInt(artworkId));
+    if (art) { art.sold = true; this.saveArtworks(artworks); }
+  },
+  toggleSold(artworkId) {
+    const artworks = this.getArtworks();
+    const art = artworks.find(a => a.id === parseInt(artworkId));
+    if (art) { art.sold = !art.sold; this.saveArtworks(artworks); return art.sold; }
+    return false;
   }
 };
 
@@ -1185,7 +1244,7 @@ function showDashboard() {
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
 function showTab(tab) {
-  ['artworks', 'home', 'pages', 'settings'].forEach(t => {
+  ['artworks', 'home', 'pages', 'orders', 'settings'].forEach(t => {
     document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
     document.getElementById(`tab-${t}`).classList.toggle('flex-grow', t === tab);
     const btn = document.getElementById(`nav-${t}`);
@@ -1195,6 +1254,8 @@ function showTab(tab) {
   });
   if (tab === 'pages') renderPagesTab();
   if (tab === 'home') loadSectionsForm();
+  if (tab === 'orders') renderOrdersTab();
+  if (tab === 'settings') { loadSettings(); loadGlobalContent(); renderSubscribersTable(); }
 }
 
 // ─── Home Sections ───────────────────────────────────────────────────────────
@@ -1402,6 +1463,10 @@ function renderArtworksTab() {
       <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Avg. Original Price</p>
       <p class="text-3xl font-headline font-extrabold text-on-surface">${CCS.formatPrice(artworks.reduce((s,a) => s + a.originalPrice, 0) / artworks.length || 0)}</p>
     </div>
+    <div class="bg-white rounded-xl border border-outline-variant/20 p-5 shadow-sm">
+      <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-1">Sold</p>
+      <p class="text-3xl font-headline font-extrabold text-red-600">${artworks.filter(a => a.sold).length}</p>
+    </div>
   `;
   document.getElementById('stats-row').innerHTML = statsHtml;
 
@@ -1444,6 +1509,12 @@ function renderArtworksTab() {
             <div class="w-10 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           </label>
         </td>
+        <td class="px-4 py-4 text-center">
+          <label class="relative inline-flex items-center cursor-pointer" title="${art.sold ? 'Mark as Available' : 'Mark as Sold'}">
+            <input type="checkbox" ${art.sold ? 'checked' : ''} onchange="toggleSoldAdmin(${art.id}, this)" class="sr-only peer"/>
+            <div class="w-10 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
+          </label>
+        </td>
         <td class="px-6 py-4 text-right">
           <div class="flex items-center justify-end gap-2">
             <button onclick="openModal(${art.id})" class="p-2 text-stone-400 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all" title="Edit">
@@ -1458,7 +1529,7 @@ function renderArtworksTab() {
     `;
   });
 
-  document.getElementById('artworks-table-body').innerHTML = tableHtml || '<tr><td colspan="6" class="px-6 py-12 text-center text-on-surface-variant font-body font-light">No artworks found.</td></tr>';
+  document.getElementById('artworks-table-body').innerHTML = tableHtml || '<tr><td colspan="7" class="px-6 py-12 text-center text-on-surface-variant font-body font-light">No artworks found.</td></tr>';
 }
 
 function toggleFeatured(id, value) {
@@ -1469,6 +1540,17 @@ function toggleFeatured(id, value) {
     CCS.saveArtworks(artworks);
     renderArtworksTab();
     showAdminToast(`"${art.title}" ${value ? 'marked as featured' : 'removed from featured'}`);
+  }
+}
+
+function toggleSoldAdmin(id, checkbox) {
+  const artworks = CCS.getArtworks();
+  const art = artworks.find(a => a.id === id);
+  if (art) {
+    art.sold = checkbox.checked;
+    CCS.saveArtworks(artworks);
+    renderArtworksTab();
+    showAdminToast(`"${art.title}" marked as ${art.sold ? '🔴 SOLD' : '✅ Available'}`);
   }
 }
 
@@ -1854,6 +1936,86 @@ function saveGlobalContent() {
     'footer-link3-href': get('gc-footer-link3-href'),
   });
   showAdminToast('Global content saved!');
+}
+
+// ─── Orders ──────────────────────────────────────────────────────────────────
+
+const STATUS_COLORS = {
+  pending:   'bg-yellow-100 text-yellow-800',
+  paid:      'bg-blue-100 text-blue-800',
+  fulfilled: 'bg-green-100 text-green-800',
+  cancelled: 'bg-red-100 text-red-800'
+};
+
+function renderOrdersTab() {
+  const orders = CCS.getOrders();
+  const emptyEl = document.getElementById('orders-empty');
+  const tableWrap = document.getElementById('orders-table-wrap');
+  const tbody = document.getElementById('orders-tbody');
+
+  if (!orders.length) {
+    emptyEl.classList.remove('hidden');
+    tableWrap.classList.add('hidden');
+    return;
+  }
+  emptyEl.classList.add('hidden');
+  tableWrap.classList.remove('hidden');
+
+  tbody.innerHTML = orders.map(o => {
+    const d = new Date(o.date);
+    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const itemsSummary = (o.items || []).map(i => `${i.title} (${i.type}${i.quantity > 1 ? ' ×' + i.quantity : ''})`).join(', ');
+    const color = STATUS_COLORS[o.status] || STATUS_COLORS.pending;
+    return `
+      <tr class="hover:bg-surface-container-low/40 transition-colors">
+        <td class="px-6 py-4">
+          <span class="font-label font-bold text-primary text-xs">${o.orderNum}</span>
+        </td>
+        <td class="px-6 py-4 text-stone-500 text-xs hidden md:table-cell">${dateStr}</td>
+        <td class="px-6 py-4">
+          <p class="font-bold text-stone-800 text-sm">${o.name}</p>
+          <p class="text-stone-400 text-xs font-body">${o.email}</p>
+        </td>
+        <td class="px-6 py-4 text-stone-600 text-xs hidden lg:table-cell max-w-xs truncate">${itemsSummary}</td>
+        <td class="px-6 py-4 font-bold text-on-surface">${CCS.formatPrice(o.total)}</td>
+        <td class="px-6 py-4">
+          <select onchange="updateOrderStatus('${o.orderNum}', this.value)" class="text-xs font-label font-bold px-2 py-1 rounded-lg border border-outline-variant/30 ${color}">
+            <option value="pending"   ${o.status==='pending'  ?'selected':''}>Pending</option>
+            <option value="paid"      ${o.status==='paid'     ?'selected':''}>Paid</option>
+            <option value="fulfilled" ${o.status==='fulfilled'?'selected':''}>Fulfilled</option>
+            <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelled</option>
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function updateOrderStatus(orderNum, status) {
+  CCS.updateOrderStatus(orderNum, status);
+  renderOrdersTab();
+  showAdminToast(`Order ${orderNum} marked ${status}`);
+}
+
+function exportOrdersCSV() {
+  const orders = CCS.getOrders();
+  if (!orders.length) { showAdminToast('No orders to export', true); return; }
+  const rows = [['Order #','Date','Name','Email','Address','Items','Subtotal','Shipping','Tax','Total','Status']];
+  orders.forEach(o => {
+    rows.push([
+      o.orderNum,
+      new Date(o.date).toLocaleDateString(),
+      o.name, o.email, o.address || '',
+      (o.items||[]).map(i=>`${i.title}(${i.type}×${i.quantity})`).join('; '),
+      (o.subtotal||0).toFixed(2), (o.shipping||0).toFixed(2), (o.tax||0).toFixed(2), (o.total||0).toFixed(2),
+      o.status
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `orders-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
 }
 
 // ─── Subscribers ─────────────────────────────────────────────────────────────
