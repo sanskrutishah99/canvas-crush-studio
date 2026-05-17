@@ -157,6 +157,7 @@
               <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Original</th>
               <th class="text-left px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">Print</th>
               <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Featured</th>
+              <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Prints</th>
               <th class="text-center px-4 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Sold</th>
               <th class="text-right px-6 py-4 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
             </tr>
@@ -1503,6 +1504,12 @@ function renderArtworksTab() {
           </label>
         </td>
         <td class="px-4 py-4 text-center">
+          <label class="relative inline-flex items-center cursor-pointer" title="${art.printsAvailable !== false ? 'Disable prints' : 'Enable prints'}">
+            <input type="checkbox" ${art.printsAvailable !== false ? 'checked' : ''} onchange="togglePrintsAdmin(${art.id}, this)" class="sr-only peer"/>
+            <div class="w-10 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+          </label>
+        </td>
+        <td class="px-4 py-4 text-center">
           <label class="relative inline-flex items-center cursor-pointer" title="${art.sold ? 'Mark as Available' : 'Mark as Sold'}">
             <input type="checkbox" ${art.sold ? 'checked' : ''} onchange="toggleSoldAdmin(${art.id}, this)" class="sr-only peer"/>
             <div class="w-10 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
@@ -1522,7 +1529,7 @@ function renderArtworksTab() {
     `;
   });
 
-  document.getElementById('artworks-table-body').innerHTML = tableHtml || '<tr><td colspan="7" class="px-6 py-12 text-center text-on-surface-variant font-body font-light">No artworks found.</td></tr>';
+  document.getElementById('artworks-table-body').innerHTML = tableHtml || '<tr><td colspan="8" class="px-6 py-12 text-center text-on-surface-variant font-body font-light">No artworks found.</td></tr>';
 }
 
 function toggleFeatured(id, value) {
@@ -1533,6 +1540,17 @@ function toggleFeatured(id, value) {
     CCS.saveArtworks(artworks);
     renderArtworksTab();
     showAdminToast(`"${art.title}" ${value ? 'marked as featured' : 'removed from featured'}`);
+  }
+}
+
+function togglePrintsAdmin(id, checkbox) {
+  const artworks = CCS.getArtworks();
+  const art = artworks.find(a => a.id === id);
+  if (art) {
+    art.printsAvailable = checkbox.checked;
+    CCS.saveArtworks(artworks);
+    renderArtworksTab();
+    showAdminToast(`"${art.title}" prints ${art.printsAvailable ? '✅ enabled' : '⛔ disabled'}`);
   }
 }
 
