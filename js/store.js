@@ -466,6 +466,51 @@ const CCS = {
     }
   },
 
+  // ─── Orders ──────────────────────────────────────────────────────────────────
+
+  getOrders() {
+    try { return JSON.parse(localStorage.getItem('ccs_orders') || '[]'); } catch(e) { return []; }
+  },
+
+  saveOrder(order) {
+    const orders = this.getOrders();
+    orders.unshift(order); // newest first
+    localStorage.setItem('ccs_orders', JSON.stringify(orders));
+  },
+
+  updateOrderStatus(orderNum, status) {
+    const orders = this.getOrders();
+    const o = orders.find(x => x.orderNum === orderNum);
+    if (o) { o.status = status; localStorage.setItem('ccs_orders', JSON.stringify(orders)); }
+  },
+
+  // Mark an original artwork as sold (auto-called after purchase)
+  markOriginalSold(artworkId) {
+    const artworks = this.getArtworks();
+    const art = artworks.find(a => a.id === parseInt(artworkId));
+    if (art) { art.sold = true; this.saveArtworks(artworks); }
+  },
+
+  // Toggle sold status manually (admin use)
+  toggleSold(artworkId) {
+    const artworks = this.getArtworks();
+    const art = artworks.find(a => a.id === parseInt(artworkId));
+    if (art) { art.sold = !art.sold; this.saveArtworks(artworks); return art.sold; }
+    return false;
+  },
+
+  // Decrement print stock after purchase
+  decrementPrintStock(artworkId, sizeLabel, qty) {
+    const artworks = this.getArtworks();
+    const art = artworks.find(a => a.id === parseInt(artworkId));
+    if (!art || !art.printSizes) return;
+    const size = art.printSizes.find(s => s.label === sizeLabel);
+    if (size && size.stock !== undefined && size.stock !== null) {
+      size.stock = Math.max(0, size.stock - (qty || 1));
+      this.saveArtworks(artworks);
+    }
+  },
+
   // ─── Subscribers ─────────────────────────────────────────────────────────────
 
   getSubscribers() {
