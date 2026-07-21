@@ -621,7 +621,7 @@ const CCS = {
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
 // Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v4';
+  const DATA_VERSION = '2026-v5';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_blog_posts', JSON.stringify(CCS.defaultBlogPosts));
