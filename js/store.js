@@ -530,19 +530,6 @@ const CCS = {
 
   defaultBlogPosts: [
     {
-      id: 1,
-      title: "Why the Ship Moves Against the Current",
-      slug: "ship-against-the-current",
-      excerpt: "Every brushstroke on Voyager's Dawn was shaped by a single idea from a book the artist couldn't put down — that disruption isn't destruction, it's direction.",
-      content: `Sometimes a painting starts with a feeling you can't name yet.\n\nVoyager's Dawn began while the artist was deep in a book about disruption — not the Silicon Valley kind, but the older, quieter kind. The kind that happens when someone decides to move against the current not because they have to, but because standing still stopped making sense.\n\nThe ship in the painting isn't escaping anything. It's choosing something.\n\nThe storm in the background isn't a threat — it's the context. The amber light breaking through isn't hope in a clichéd sense; it's evidence. Proof that something is on the other side, even if you can't see it clearly yet.\n\nThe book talked about how the most meaningful disruptions don't announce themselves loudly. They begin with a single vessel changing direction, and everyone watching from shore wondering why — until they understand.\n\nThat's what this piece is about. Not the destination. The decision to move.`,
-      author: "Canvas Crush Studio",
-      date: "2026-05-10",
-      category: "Artist Story",
-      coverImage: "/assets/paintings/voyagers-dawn.jpg",
-      published: true,
-      tags: ["artist story", "inspiration", "voyager's dawn"]
-    },
-    {
       id: 2,
       title: "Red Makes You Precise. Blue Makes You Free.",
       slug: "red-makes-you-precise-blue-makes-you-free",
@@ -551,7 +538,7 @@ const CCS = {
       author: "Canvas Crush Studio",
       date: "2026-05-17",
       category: "Art Theory",
-      coverImage: "",
+      coverImage: "/images/blog/colour-psychology.svg",
       published: true,
       tags: ["colour theory", "psychology", "research", "interior design"]
     }
