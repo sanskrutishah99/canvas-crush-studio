@@ -273,7 +273,7 @@ function renderGallery() {
     const isFav = favorites[art.id] || false;
     // Make first artwork of list span 2 cols if there are more than 2 items
     const spanClass = (i === 0 && artworks.length > 2) ? 'lg:col-span-2' : '';
-    const aspectClass = (i === 0 && artworks.length > 2) ? 'aspect-[12/5]' : 'aspect-[6/5]';
+    const aspectClass = (i === 0 && artworks.length > 2) ? 'aspect-[16/10]' : 'aspect-[4/5]';
 
     html += `
       <div class="${spanClass} group">
