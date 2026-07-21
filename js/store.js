@@ -526,6 +526,57 @@ const CCS = {
     localStorage.setItem('ccs_subscribers', JSON.stringify(list));
   },
 
+  // ─── Blog ────────────────────────────────────────────────────────────────────
+
+  defaultBlogPosts: [
+    {
+      id: 1,
+      title: "Why the Ship Moves Against the Current",
+      slug: "ship-against-the-current",
+      excerpt: "Every brushstroke on Voyager's Dawn was shaped by a single idea from a book the artist couldn't put down — that disruption isn't destruction, it's direction.",
+      content: `Sometimes a painting starts with a feeling you can't name yet.\n\nVoyager's Dawn began while the artist was deep in a book about disruption — not the Silicon Valley kind, but the older, quieter kind. The kind that happens when someone decides to move against the current not because they have to, but because standing still stopped making sense.\n\nThe ship in the painting isn't escaping anything. It's choosing something.\n\nThe storm in the background isn't a threat — it's the context. The amber light breaking through isn't hope in a clichéd sense; it's evidence. Proof that something is on the other side, even if you can't see it clearly yet.\n\nThe book talked about how the most meaningful disruptions don't announce themselves loudly. They begin with a single vessel changing direction, and everyone watching from shore wondering why — until they understand.\n\nThat's what this piece is about. Not the destination. The decision to move.`,
+      author: "Canvas Crush Studio",
+      date: "2026-05-10",
+      category: "Artist Story",
+      coverImage: "/assets/paintings/voyagers-dawn.jpg",
+      published: true,
+      tags: ["artist story", "inspiration", "voyager's dawn"]
+    },
+    {
+      id: 2,
+      title: "The Psychology of Colour in Living Spaces",
+      slug: "psychology-of-colour-living-spaces",
+      excerpt: "Colour isn't decoration. It's the silent architecture of how a room makes you feel the moment you walk in.",
+      content: `Before you notice the furniture, before you register the light, you feel the colour.\n\nThis isn't metaphor — it's physiology. Colour reaches the brain faster than conscious thought. It primes you. A room painted in deep teal activates a different nervous system response than one washed in warm ochre, and the artwork you choose amplifies that signal or contradicts it.\n\nAt Canvas Crush Studio, every collection is anchored in colour psychology.\n\nVitality — our warm reds, corals, and siennas — is designed for spaces that need energy. Dining rooms. Studios. Entrance halls where the first impression matters.\n\nSerenity — deep blues, watery greens, cool neutrals — belongs in bedrooms, reading corners, anywhere the goal is to slow the mind down.\n\nCulture — the ochres, terracottas, and earth tones — grounds a space. It connects interior to landscape, modern to ancient.\n\nChoosing art isn't just about what you love. It's about what you want to feel every time you walk through the door.`,
+      author: "Canvas Crush Studio",
+      date: "2026-04-28",
+      category: "Art Theory",
+      coverImage: "",
+      published: true,
+      tags: ["colour theory", "interior design", "psychology"]
+    }
+  ],
+
+  getBlogPosts() {
+    try { return JSON.parse(localStorage.getItem('ccs_blog_posts') || 'null') || this.defaultBlogPosts; } catch(e) { return this.defaultBlogPosts; }
+  },
+
+  saveBlogPosts(posts) {
+    localStorage.setItem('ccs_blog_posts', JSON.stringify(posts));
+  },
+
+  getPublishedPosts() {
+    return this.getBlogPosts().filter(p => p.published).sort((a, b) => new Date(b.date) - new Date(a.date));
+  },
+
+  getBlogPostBySlug(slug) {
+    return this.getBlogPosts().find(p => p.slug === slug);
+  },
+
+  formatBlogDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  },
+
   // ─── Utils ───────────────────────────────────────────────────────────────────
 
   formatPrice(n) {
