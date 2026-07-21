@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Journal | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: { "primary":"#003635","secondary":"#904b36","surface-container-low":"#f6f3f0","surface-container-high":"#ede8e5","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","on-primary":"#ffffff","secondary-container":"#ffdad3","on-secondary-container":"#904b36" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Manrope"] } } }
+  }
+</script>
+<style>
+  .prose p { margin-bottom: 1.5rem; line-height: 1.9; color: #3a3330; }
+  .prose h2 { font-family: 'Epilogue', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1rem; color: #1f1b1a; }
+  .prose h3 { font-family: 'Epilogue', sans-serif; font-size: 1.2rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #1f1b1a; }
+  .prose strong { font-weight: 700; color: #1f1b1a; }
+  .prose em { font-style: italic; }
+  .prose blockquote { border-left: 3px solid #003635; padding-left: 1.5rem; margin: 2rem 0; color: #5a524e; font-style: italic; }
+</style>
+</head>
+<body class="bg-surface text-on-surface">
+
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="/" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery?cat=passionate" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Culture</a>
+      <a href="blog" class="text-primary font-bold">Journal</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart" class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery?cat=passionate" class="text-stone-700 font-medium py-2">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-stone-700 font-medium py-2">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-stone-700 font-medium py-2">Culture</a>
+      <a href="blog" class="text-primary font-bold py-2">Journal</a>
+      <a href="cart" class="text-stone-700 font-medium py-2">Cart</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content" class="pt-28 pb-24">
+  <div id="loading" class="flex items-center justify-center py-40">
+    <span class="material-symbols-outlined text-4xl text-outline-variant animate-spin">progress_activity</span>
+  </div>
+</main>
+
+<footer class="bg-surface-container-low w-full border-t border-outline-variant/20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
+    <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
+    <div class="flex gap-8 font-body font-light">
+      <a href="newsletter" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Newsletter</a>
+      <a href="privacy-policy" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Privacy Policy</a>
+      <a href="shipping-info" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Shipping Info</a>
+    </div>
+    <p class="text-stone-400 text-sm font-body font-light">© 2025 Canvas Crush Studio.</p>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  CCS.updateCartBadge();
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  const slug = new URLSearchParams(location.search).get('slug');
+  const post = slug ? CCS.getBlogPostBySlug(slug) : null;
+  const main = document.getElementById('main-content');
+
+  if (!post || !post.published) {
+    main.innerHTML = `
+      <div class="max-w-2xl mx-auto px-6 py-32 text-center">
+        <h1 class="font-headline text-4xl font-bold mb-4">Post not found</h1>
+        <p class="text-on-surface-variant mb-8">This post may have been moved or isn't published yet.</p>
+        <a href="blog" class="ccs-btn-primary">Back to Journal</a>
+      </div>`;
+    return;
+  }
+
+  document.title = `${post.title} | Canvas Crush Studio`;
+
+  // Convert plain text to HTML paragraphs (supports \n\n as paragraph break)
+  function renderContent(text) {
+    if (/<[a-z][\s\S]*>/i.test(text)) return text; // already HTML
+    return text.split(/\n\n+/).map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
+  }
+
+  // Related posts (same category, exclude current)
+  const related = CCS.getPublishedPosts().filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3);
+
+  main.innerHTML = `
+    <!-- Back -->
+    <div class="max-w-3xl mx-auto px-6 md:px-12 mb-10">
+      <a href="blog" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-label font-bold text-sm transition-colors">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>Back to Journal
+      </a>
+    </div>
+
+    <!-- Cover image -->
+    ${post.coverImage ? `
+    <div class="max-w-3xl mx-auto px-6 md:px-12 mb-12">
+      <div class="aspect-[16/7] rounded-2xl overflow-hidden bg-surface-container-low flex items-center justify-center">
+        <img src="${post.coverImage}" alt="${post.title}" class="w-full h-full object-contain p-6"/>
+      </div>
+    </div>` : ''}
+
+    <!-- Header -->
+    <header class="max-w-3xl mx-auto px-6 md:px-12 mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="ccs-badge ccs-badge--secondary">${post.category}</span>
+        <span class="text-stone-400 text-sm font-label">${CCS.formatBlogDate(post.date)}</span>
+        <span class="text-stone-300">·</span>
+        <span class="text-stone-400 text-sm font-label">${post.author}</span>
+      </div>
+      <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface leading-tight mb-6">${post.title}</h1>
+      <p class="text-xl text-on-surface-variant font-light leading-relaxed border-l-4 border-secondary pl-5">${post.excerpt}</p>
+    </header>
+
+    <!-- Body -->
+    <article class="max-w-3xl mx-auto px-6 md:px-12 mb-20 prose font-body text-[1.05rem]">
+      ${renderContent(post.content)}
+    </article>
+
+    <!-- Tags -->
+    ${post.tags && post.tags.length ? `
+    <div class="max-w-3xl mx-auto px-6 md:px-12 mb-16 pt-8 border-t border-outline-variant/30 flex flex-wrap gap-2">
+      ${post.tags.map(t => `<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-label font-bold text-on-surface-variant">#${t}</span>`).join('')}
+    </div>` : ''}
+
+    <!-- Related -->
+    ${related.length ? `
+    <section class="max-w-5xl mx-auto px-6 md:px-12">
+      <h2 class="font-headline text-2xl font-bold mb-8">More from the Journal</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        ${related.map(p => `
+          <a href="blog-post?slug=${p.slug}" class="group flex flex-col gap-0 rounded-2xl overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-all duration-300 bg-white">
+            <div class="h-40 bg-surface-container-low flex items-center justify-center overflow-hidden">
+              ${p.coverImage
+                ? `<img src="${p.coverImage}" alt="${p.title}" class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"/>`
+                : `<span class="material-symbols-outlined text-4xl text-primary/20" style="font-variation-settings:'FILL' 1">article</span>`}
+            </div>
+            <div class="p-5 flex flex-col gap-2">
+              <span class="ccs-badge ccs-badge--secondary">${p.category}</span>
+              <h3 class="font-headline font-bold leading-tight">${p.title}</h3>
+              <span class="text-xs text-stone-400 font-label">${CCS.formatBlogDate(p.date)}</span>
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    </section>` : ''}
+  `;
+});
+</script>
+</body>
+</html>

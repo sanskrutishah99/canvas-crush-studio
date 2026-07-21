@@ -108,6 +108,10 @@
           <span class="material-symbols-outlined text-base">web</span>
           <span class="hidden md:block">Pages</span>
         </button>
+        <button onclick="showTab('blog')" id="nav-blog" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">article</span>
+          <span class="hidden md:block">Blog</span>
+        </button>
         <button onclick="showTab('orders')" id="nav-orders" class="tab-nav-item px-4 py-2 rounded-lg font-label font-bold text-sm transition-all hover:bg-surface-container-high text-on-surface-variant flex items-center gap-2">
           <span class="material-symbols-outlined text-base">receipt_long</span>
           <span class="hidden md:block">Orders</span>
@@ -515,6 +519,82 @@
   </div>
 
   <!-- ── ORDERS TAB ── -->
+  <!-- ── Blog Tab ─────────────────────────────────────────────────────────── -->
+  <div id="tab-blog" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-headline text-3xl font-extrabold tracking-tighter">Blog / Journal</h1>
+        <p class="text-on-surface-variant font-light mt-1">Write and manage your studio's stories, inspirations, and ideas.</p>
+      </div>
+      <button onclick="openBlogEditor(null)" class="flex items-center gap-2 px-5 py-3 bg-primary text-white font-label font-bold rounded-xl hover:opacity-90 transition-all">
+        <span class="material-symbols-outlined text-lg">add</span>New Post
+      </button>
+    </div>
+
+    <div id="blog-posts-list" class="space-y-3"></div>
+
+    <!-- Blog editor modal -->
+    <div id="blog-modal-overlay" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeBlogEditor()">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/30">
+          <h2 id="blog-modal-title" class="font-headline text-xl font-bold">New Post</h2>
+          <button onclick="closeBlogEditor()" class="p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="px-8 py-6 space-y-5">
+          <input type="hidden" id="blog-edit-id"/>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Title *</label>
+            <input id="blog-title" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="Post title…" oninput="autoSlug()"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Slug (URL)</label>
+            <input id="blog-slug" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface font-label text-sm transition-all" placeholder="post-url-slug"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Category</label>
+            <select id="blog-category" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all">
+              <option>Artist Story</option>
+              <option>Art Theory</option>
+              <option>Interior Design</option>
+              <option>Collection Notes</option>
+              <option>Studio Life</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Date</label>
+            <input id="blog-date" type="date" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Excerpt (1–2 sentences shown on listing)</label>
+            <textarea id="blog-excerpt" rows="2" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all resize-none" placeholder="Short teaser…"></textarea>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Content (plain text — separate paragraphs with a blank line)</label>
+            <textarea id="blog-content" rows="12" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all resize-y font-body text-sm leading-relaxed" placeholder="Write your post here…&#10;&#10;Separate paragraphs with a blank line.&#10;&#10;Basic HTML also works: &lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt;, &lt;blockquote&gt;quote&lt;/blockquote&gt;"></textarea>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Cover Image URL</label>
+            <input id="blog-cover" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="https://… or leave blank"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-widest text-stone-400 mb-2">Tags (comma-separated)</label>
+            <input id="blog-tags" type="text" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="colour theory, interior, inspiration"/>
+          </div>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" id="blog-published" class="accent-primary w-4 h-4"/>
+            <span class="font-label font-bold text-sm">Published (visible on site)</span>
+          </label>
+        </div>
+        <div class="flex gap-3 px-8 py-6 border-t border-outline-variant/30">
+          <button onclick="saveBlogPost()" class="flex-1 py-3 bg-primary text-white font-label font-bold rounded-xl hover:opacity-90 transition-all">Save Post</button>
+          <button onclick="closeBlogEditor()" class="px-6 py-3 border border-stone-200 rounded-xl font-label font-bold text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="tab-orders" class="hidden flex-grow px-4 md:px-8 py-8 max-w-screen-xl mx-auto w-full">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
       <div>
@@ -1238,7 +1318,7 @@ function showDashboard() {
 
 // ─── Tabs ────────────────────────────────────────────────────────────────────
 function showTab(tab) {
-  ['artworks', 'home', 'pages', 'orders', 'settings'].forEach(t => {
+  ['artworks', 'home', 'pages', 'blog', 'orders', 'settings'].forEach(t => {
     document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
     document.getElementById(`tab-${t}`).classList.toggle('flex-grow', t === tab);
     const btn = document.getElementById(`nav-${t}`);
@@ -1248,8 +1328,132 @@ function showTab(tab) {
   });
   if (tab === 'pages') renderPagesTab();
   if (tab === 'home') loadSectionsForm();
+  if (tab === 'blog') renderBlogTab();
   if (tab === 'orders') renderOrdersTab();
   if (tab === 'settings') { loadSettings(); loadGlobalContent(); renderSubscribersTable(); }
+}
+
+// ─── Blog ─────────────────────────────────────────────────────────────────────
+
+function getBlogPosts() {
+  try { return JSON.parse(localStorage.getItem('ccs_blog_posts') || 'null') || CCS.defaultBlogPosts; } catch(e) { return CCS.defaultBlogPosts; }
+}
+function saveBlogPosts(posts) { localStorage.setItem('ccs_blog_posts', JSON.stringify(posts)); }
+
+function renderBlogTab() {
+  const posts = getBlogPosts().sort((a,b) => new Date(b.date) - new Date(a.date));
+  const el = document.getElementById('blog-posts-list');
+  if (!posts.length) {
+    el.innerHTML = '<p class="text-on-surface-variant font-light text-center py-16">No posts yet. Click "New Post" to get started.</p>';
+    return;
+  }
+  el.innerHTML = posts.map(p => `
+    <div class="flex items-center gap-4 bg-white border border-outline-variant/30 rounded-xl px-6 py-4">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-[10px] font-label font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${p.published ? 'bg-green-50 text-green-700' : 'bg-stone-100 text-stone-500'}">${p.published ? 'Published' : 'Draft'}</span>
+          <span class="text-xs text-stone-400 font-label">${p.category}</span>
+          <span class="text-xs text-stone-300">·</span>
+          <span class="text-xs text-stone-400 font-label">${p.date}</span>
+        </div>
+        <h3 class="font-headline font-bold truncate">${p.title}</h3>
+        <p class="text-xs text-on-surface-variant mt-0.5 truncate">${p.excerpt}</p>
+      </div>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="../blog-post?slug=${p.slug}" target="_blank" class="p-2 text-stone-400 hover:text-primary transition-colors" title="Preview">
+          <span class="material-symbols-outlined text-base">open_in_new</span>
+        </a>
+        <button onclick="toggleBlogPublished(${p.id})" class="p-2 text-stone-400 hover:text-primary transition-colors" title="${p.published ? 'Unpublish' : 'Publish'}">
+          <span class="material-symbols-outlined text-base">${p.published ? 'visibility_off' : 'visibility'}</span>
+        </button>
+        <button onclick="openBlogEditor(${p.id})" class="p-2 text-stone-400 hover:text-primary transition-colors" title="Edit">
+          <span class="material-symbols-outlined text-base">edit</span>
+        </button>
+        <button onclick="deleteBlogPost(${p.id})" class="p-2 text-stone-400 hover:text-red-500 transition-colors" title="Delete">
+          <span class="material-symbols-outlined text-base">delete</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openBlogEditor(id) {
+  const posts = getBlogPosts();
+  const post = id ? posts.find(p => p.id === id) : null;
+  document.getElementById('blog-modal-title').textContent = post ? 'Edit Post' : 'New Post';
+  document.getElementById('blog-edit-id').value = post ? post.id : '';
+  document.getElementById('blog-title').value = post ? post.title : '';
+  document.getElementById('blog-slug').value = post ? post.slug : '';
+  document.getElementById('blog-category').value = post ? post.category : 'Artist Story';
+  document.getElementById('blog-date').value = post ? post.date : new Date().toISOString().split('T')[0];
+  document.getElementById('blog-excerpt').value = post ? post.excerpt : '';
+  document.getElementById('blog-content').value = post ? post.content : '';
+  document.getElementById('blog-cover').value = post ? post.coverImage : '';
+  document.getElementById('blog-tags').value = post ? (post.tags || []).join(', ') : '';
+  document.getElementById('blog-published').checked = post ? post.published : false;
+  const overlay = document.getElementById('blog-modal-overlay');
+  overlay.classList.remove('hidden');
+  overlay.classList.add('flex');
+}
+
+function closeBlogEditor() {
+  const overlay = document.getElementById('blog-modal-overlay');
+  overlay.classList.add('hidden');
+  overlay.classList.remove('flex');
+}
+
+function autoSlug() {
+  const title = document.getElementById('blog-title').value;
+  const existingId = document.getElementById('blog-edit-id').value;
+  if (existingId) return; // don't auto-change slug when editing
+  document.getElementById('blog-slug').value = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function saveBlogPost() {
+  const title = document.getElementById('blog-title').value.trim();
+  const slug = document.getElementById('blog-slug').value.trim();
+  if (!title || !slug) { showAdminToast('Title and slug are required.'); return; }
+  const posts = getBlogPosts();
+  const editId = document.getElementById('blog-edit-id').value;
+  const tags = document.getElementById('blog-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+  const data = {
+    id: editId ? parseInt(editId) : Date.now(),
+    title,
+    slug,
+    excerpt: document.getElementById('blog-excerpt').value.trim(),
+    content: document.getElementById('blog-content').value.trim(),
+    author: 'Canvas Crush Studio',
+    date: document.getElementById('blog-date').value,
+    category: document.getElementById('blog-category').value,
+    coverImage: document.getElementById('blog-cover').value.trim(),
+    published: document.getElementById('blog-published').checked,
+    tags
+  };
+  if (editId) {
+    const idx = posts.findIndex(p => p.id === parseInt(editId));
+    if (idx > -1) posts[idx] = data; else posts.push(data);
+  } else {
+    posts.push(data);
+  }
+  saveBlogPosts(posts);
+  closeBlogEditor();
+  renderBlogTab();
+  showAdminToast(`"${title}" ${data.published ? 'published' : 'saved as draft'} ✓`);
+}
+
+function toggleBlogPublished(id) {
+  const posts = getBlogPosts();
+  const p = posts.find(p => p.id === id);
+  if (p) { p.published = !p.published; saveBlogPosts(posts); renderBlogTab(); showAdminToast(`"${p.title}" ${p.published ? 'published' : 'set to draft'}`); }
+}
+
+function deleteBlogPost(id) {
+  const posts = getBlogPosts();
+  const p = posts.find(p => p.id === id);
+  if (!p || !confirm(`Delete "${p.title}"? This cannot be undone.`)) return;
+  saveBlogPosts(posts.filter(p => p.id !== id));
+  renderBlogTab();
+  showAdminToast('Post deleted.');
 }
 
 // ─── Home Sections ───────────────────────────────────────────────────────────

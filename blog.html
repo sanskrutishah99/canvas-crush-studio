@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Journal | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: { "primary":"#003635","secondary":"#904b36","surface-container-low":"#f6f3f0","surface-container-high":"#ede8e5","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-container":"#003635","on-primary":"#ffffff","secondary-container":"#ffdad3","on-secondary-container":"#904b36" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Manrope"] } } }
+  }
+</script>
+</head>
+<body class="bg-surface text-on-surface">
+
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="/" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery?cat=passionate" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-on-surface-variant hover:text-primary transition-colors duration-300">Culture</a>
+      <a href="blog" class="text-primary font-bold border-b-2 border-primary pb-0.5">Journal</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart" class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
+      </a>
+      <button id="hamburger" class="md:hidden p-2 text-stone-600">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery?cat=passionate" class="text-stone-700 font-medium py-2">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-stone-700 font-medium py-2">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-stone-700 font-medium py-2">Culture</a>
+      <a href="blog" class="text-primary font-bold py-2">Journal</a>
+      <a href="cart" class="text-stone-700 font-medium py-2">Cart</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-32 pb-24">
+
+  <!-- Hero -->
+  <div class="max-w-5xl mx-auto px-6 md:px-12 mb-16">
+    <span class="ccs-section-label">Studio Journal</span>
+    <h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Stories, Ideas<br/>& Inspirations</h1>
+    <p class="text-on-surface-variant text-xl font-light max-w-xl">The thinking behind the work — artist stories, colour theory, and the books that shape our world.</p>
+  </div>
+
+  <!-- Category filter -->
+  <div class="max-w-5xl mx-auto px-6 md:px-12 mb-12">
+    <div id="filter-bar" class="flex flex-wrap gap-3"></div>
+  </div>
+
+  <!-- Posts grid -->
+  <div class="max-w-5xl mx-auto px-6 md:px-12">
+    <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10"></div>
+    <p id="no-posts" class="hidden text-on-surface-variant font-light text-center py-20">No posts in this category yet.</p>
+  </div>
+
+</main>
+
+<footer class="bg-surface-container-low w-full mt-20 border-t border-outline-variant/20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
+    <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
+    <div class="flex gap-8 font-body font-light">
+      <a href="newsletter" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity"><span data-global="footer-link1-text">Newsletter</span></a>
+      <a href="privacy-policy" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity"><span data-global="footer-link2-text">Privacy Policy</span></a>
+      <a href="shipping-info" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity"><span data-global="footer-link3-text">Shipping Info</span></a>
+    </div>
+    <p class="text-stone-400 text-sm font-body font-light">© 2025 Canvas Crush Studio.</p>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  CCS.updateCartBadge();
+  CCS.applyGlobalContent();
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  const posts = CCS.getPublishedPosts();
+  const categories = ['All', ...new Set(posts.map(p => p.category))];
+  let activeCategory = 'All';
+
+  // Build filter bar
+  const filterBar = document.getElementById('filter-bar');
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.textContent = cat;
+    btn.className = `filter-btn px-5 py-2 rounded-full text-sm font-label font-bold border border-outline-variant transition-all ${cat === 'All' ? 'active bg-primary text-white border-primary' : 'bg-white text-on-surface-variant hover:border-primary'}`;
+    btn.addEventListener('click', () => {
+      activeCategory = cat;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-primary', 'text-white', 'border-primary');
+        b.classList.add('text-on-surface-variant');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-white', 'border-primary');
+      btn.classList.remove('text-on-surface-variant');
+      renderPosts();
+    });
+    filterBar.appendChild(btn);
+  });
+
+  function renderPosts() {
+    const filtered = activeCategory === 'All' ? posts : posts.filter(p => p.category === activeCategory);
+    const grid = document.getElementById('posts-grid');
+    const noEl = document.getElementById('no-posts');
+
+    if (!filtered.length) {
+      grid.innerHTML = '';
+      noEl.classList.remove('hidden');
+      return;
+    }
+    noEl.classList.add('hidden');
+
+    grid.innerHTML = filtered.map((post, i) => {
+      const isHero = i === 0 && activeCategory === 'All';
+      return `
+        <a href="blog-post?slug=${post.slug}" class="group ${isHero ? 'md:col-span-2' : ''} flex flex-col gap-0 rounded-2xl overflow-hidden border border-outline-variant/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-1 bg-white">
+          ${post.coverImage
+            ? `<div class="${isHero ? 'h-72' : 'h-52'} bg-surface-container-low overflow-hidden flex items-center justify-center">
+                <img src="${post.coverImage}" alt="${post.title}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 p-4"/>
+               </div>`
+            : `<div class="${isHero ? 'h-72' : 'h-52'} bg-gradient-to-br from-surface-container-low to-orange-50 flex items-center justify-center">
+                <span class="material-symbols-outlined text-6xl text-primary/20" style="font-variation-settings:'FILL' 1">article</span>
+               </div>`
+          }
+          <div class="p-7 flex flex-col gap-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="ccs-badge ccs-badge--secondary">${post.category}</span>
+              <span class="text-stone-400 text-xs font-label">${CCS.formatBlogDate(post.date)}</span>
+            </div>
+            <h2 class="font-headline ${isHero ? 'text-3xl' : 'text-xl'} font-extrabold tracking-tight leading-tight">${post.title}</h2>
+            <p class="text-on-surface-variant font-light leading-relaxed text-sm flex-1">${post.excerpt}</p>
+            <span class="inline-flex items-center gap-1 text-primary font-label font-bold text-sm mt-2 group-hover:gap-2 transition-all">
+              Read more <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </span>
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+
+  renderPosts();
+});
+</script>
+</body>
+</html>
