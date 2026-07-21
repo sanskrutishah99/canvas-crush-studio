@@ -544,16 +544,16 @@ const CCS = {
     },
     {
       id: 2,
-      title: "The Psychology of Colour in Living Spaces",
-      slug: "psychology-of-colour-living-spaces",
-      excerpt: "Colour isn't decoration. It's the silent architecture of how a room makes you feel the moment you walk in.",
-      content: `Before you notice the furniture, before you register the light, you feel the colour.\n\nThis isn't metaphor — it's physiology. Colour reaches the brain faster than conscious thought. It primes you. A room painted in deep teal activates a different nervous system response than one washed in warm ochre, and the artwork you choose amplifies that signal or contradicts it.\n\nAt Canvas Crush Studio, every collection is anchored in colour psychology.\n\nVitality — our warm reds, corals, and siennas — is designed for spaces that need energy. Dining rooms. Studios. Entrance halls where the first impression matters.\n\nSerenity — deep blues, watery greens, cool neutrals — belongs in bedrooms, reading corners, anywhere the goal is to slow the mind down.\n\nCulture — the ochres, terracottas, and earth tones — grounds a space. It connects interior to landscape, modern to ancient.\n\nChoosing art isn't just about what you love. It's about what you want to feel every time you walk through the door.`,
+      title: "Red Makes You Precise. Blue Makes You Free.",
+      slug: "red-makes-you-precise-blue-makes-you-free",
+      excerpt: "A 2009 study in Science ran six experiments on colour and thinking. The results were simple, specific, and changed how we think about every room we put art into.",
+      content: `We read a lot. Articles, studies, books that float around the studio. Most of them confirm things you already felt. This one surprised us.\n\nIn 2009, researchers Ravi Mehta and Rui Zhu published a paper in the journal Science titled "Blue or Red? Exploring the Effect of Color on Cognitive Task Performances." They ran six separate experiments with hundreds of participants. The question was simple: does the colour behind a task change how well you do it?\n\nYes. A lot.\n\n<h2>What They Did</h2>\n\nThe setup was straightforward. Participants sat in front of screens. Some screens had red backgrounds. Some had blue. Then they were given tasks.\n\nThe detail tasks involved things like proofreading text, solving anagrams, and recalling specific words from a list. Things that require you to slow down, pay attention, and catch what is wrong.\n\nThe creative tasks involved things like brainstorming and finding unexpected connections between objects. Things that require you to open up and move in less obvious directions.\n\nAcross experiments with groups ranging from 42 to 208 participants, the pattern held.\n\nRed backgrounds produced better results on the detail tasks. People were sharper. More accurate. More careful.\n\nBlue backgrounds produced better results on the creative tasks. People generated more ideas. More original ones.\n\nOne experiment confirmed that people did not even know it was happening. The colour was doing its work without being noticed.\n\n<h2>Why Red. Why Blue.</h2>\n\nThe researchers traced it back to association.\n\nRed has followed us through life as a warning. Stop signs. Error marks. A teacher's pen correcting a test. Over time, red has been wired to something in us that says: be careful here. Look closely. Do not miss anything.\n\nThat cautious state, it turns out, is exactly what detail work needs.\n\nBlue has a different history. Sky. Water. Open space. Things that feel calm and large and without edges. That association opens the mind up rather than tightening it. And open minds make more connections.\n\nNeither of these is conscious. You do not see blue and decide to be creative. It happens underneath the decision.\n\n<h2>Our Reading</h2>\n\nThis is where it gets interesting for us.\n\nThe paper talks about screens and lab tasks. We think about rooms and walls and the art that fills them.\n\nA painting is not a background. But it is a presence. It carries colour into a space the same way a screen carried it into those experiments. And if colour activates a state of mind without the person in the room choosing it, then the art you hang is doing something whether you think about it or not.\n\nOur Vitality collection is built on reds, corals, and warm earth tones. We put those in rooms where someone needs to be present. A home office. A studio. A space for getting things done.\n\nOur Serenity collection lives in blues and deep greens. Those belong where ideas need room. A reading corner. A living room. A place where the mind should be able to wander.\n\nWe do not think of this as colour theory. We think of it as giving a room a job to do.\n\n<h2>Source</h2>\n\nMehta, R., and Zhu, R. J. (2009). Blue or red? Exploring the effect of color on cognitive task performances. <em>Science, 323</em>(5918), 1226-1229. <a href="https://www.science.org/doi/abs/10.1126/science.1169144" target="_blank" rel="noopener">doi.org/10.1126/science.1169144</a>`,
       author: "Canvas Crush Studio",
-      date: "2026-04-28",
+      date: "2026-05-17",
       category: "Art Theory",
       coverImage: "",
       published: true,
-      tags: ["colour theory", "interior design", "psychology"]
+      tags: ["colour theory", "psychology", "research", "interior design"]
     }
   ],
 
@@ -634,9 +634,10 @@ const CCS = {
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
 // Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v3';
+  const DATA_VERSION = '2026-v4';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
+    localStorage.setItem('ccs_blog_posts', JSON.stringify(CCS.defaultBlogPosts));
     localStorage.setItem('ccs_data_version', DATA_VERSION);
   }
 })();
