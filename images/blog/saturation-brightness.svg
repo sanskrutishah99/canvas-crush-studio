@@ -1,0 +1,45 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Warm cream background -->
+  <rect width="1200" height="630" fill="#faf7f4"/>
+
+  <!-- Top caption -->
+  <text x="600" y="68" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="4" font-family="Georgia, serif" opacity="0.40">COLOUR IS NOT ONE THING</text>
+
+  <!-- Column header labels -->
+  <text x="240" y="108" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="3" font-family="Georgia, serif" opacity="0.50">PALE</text>
+  <text x="600" y="108" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="3" font-family="Georgia, serif" opacity="0.50">RICH</text>
+  <text x="960" y="108" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="3" font-family="Georgia, serif" opacity="0.50">DEEP</text>
+
+  <!-- Thin column dividers -->
+  <line x1="420" y1="120" x2="420" y2="500" stroke="#1f1b1a" stroke-width="0.6" stroke-opacity="0.08"/>
+  <line x1="780" y1="120" x2="780" y2="500" stroke="#1f1b1a" stroke-width="0.6" stroke-opacity="0.08"/>
+
+  <!-- Row 1 — Coral -->
+  <rect x="90" y="128" width="260" height="90" rx="14" fill="#f2cac0"/>
+  <rect x="450" y="128" width="260" height="90" rx="14" fill="#d4614a"/>
+  <rect x="810" y="128" width="260" height="90" rx="14" fill="#7a2e1f"/>
+
+  <!-- Row 2 — Blue -->
+  <rect x="90" y="248" width="260" height="90" rx="14" fill="#cfe0f0"/>
+  <rect x="450" y="248" width="260" height="90" rx="14" fill="#4a90b8"/>
+  <rect x="810" y="248" width="260" height="90" rx="14" fill="#1a4a6b"/>
+
+  <!-- Row 3 — Sage -->
+  <rect x="90" y="368" width="260" height="90" rx="14" fill="#d2ddd1"/>
+  <rect x="450" y="368" width="260" height="90" rx="14" fill="#7a9f7a"/>
+  <rect x="810" y="368" width="260" height="90" rx="14" fill="#3a5e3a"/>
+
+  <!-- Column annotations -->
+  <text x="240" y="498" text-anchor="middle" fill="#5a524e" font-size="9.5" letter-spacing="2" font-family="Georgia, serif" opacity="0.45">gentle · pleasant</text>
+  <text x="600" y="498" text-anchor="middle" fill="#5a524e" font-size="9.5" letter-spacing="2" font-family="Georgia, serif" opacity="0.45">vivid · alive</text>
+  <text x="960" y="498" text-anchor="middle" fill="#5a524e" font-size="9.5" letter-spacing="2" font-family="Georgia, serif" opacity="0.45">arresting · present</text>
+
+  <!-- Source note -->
+  <text x="600" y="570" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.32">VALDEZ + MEHRABIAN, 1994</text>
+</svg>
