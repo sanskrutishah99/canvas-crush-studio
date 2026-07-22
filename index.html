@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
   featuredArtworks.forEach((art, i) => {
     const isFirst = i === 0;
     html += `
-      <a href="product?id=${art.id}" class="md:col-span-4 group flex flex-col gap-4">
+      <a href="product?id=${art.id}" class="group flex flex-col gap-4">
         <div class="h-44 rounded-2xl overflow-hidden bg-surface-container-low flex items-center justify-center relative">
           <img class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 p-4" alt="${art.title}" src="${art.images[0]}"/>
           ${isFirst ? `<span class="absolute top-3 left-3 px-3 py-1 bg-primary text-white text-[9px] font-label font-bold tracking-widest uppercase rounded-full">Editor's Pick</span>` : ''}
