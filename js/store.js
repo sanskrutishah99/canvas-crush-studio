@@ -554,6 +554,19 @@ const CCS = {
       coverImage: "/images/blog/saturation-brightness.svg",
       published: true,
       tags: ["colour theory", "psychology", "research", "saturation", "brightness"]
+    },
+    {
+      id: 4,
+      title: "Green Is the Colour of New Ideas",
+      slug: "green-is-the-colour-of-new-ideas",
+      excerpt: "A 2012 study found that a brief glimpse of green before a creative task produced meaningfully better results. Not as a mood lifter — as a specific signal about what the mind is allowed to do.",
+      content: `We had not thought about green this way before reading this paper.\n\nIn 2012, Stephanie Lichtenfeld and colleagues published a study in Personality and Social Psychology Bulletin called "Fertile Green: Green Facilitates Creative Performance." They ran five separate experiments to test a simple question: does seeing green before a creative task change how well you do?\n\nIt does. Consistently, and by a meaningful margin.\n\n<h2>What They Did</h2>\n\nParticipants in each experiment were briefly shown a coloured rectangle before working on a creative task. The colours tested were green, white, grey, red, and blue, depending on the experiment.\n\nThe creative tasks involved things like generating unusual uses for a common object, completing sentences with imaginative endings, and solving problems that required thinking outside the obvious categories.\n\nAcross five experiments with different participant groups, different tasks, and different comparison colours, green consistently produced the best creative results.\n\n<h2>Why Green</h2>\n\nThe researchers traced the effect back to association.\n\nGreen is the colour of growing things. Grass coming through in spring. New leaves. Fresh shoots. In nature, green signals that conditions are right for growth — that the environment is safe, rich, and ready.\n\nOver a lifetime of seeing green in these contexts, the mind builds a shortcut. Green means: something is developing here. It is okay to reach, to try, to begin something that is not yet finished.\n\nThat state — open, reaching, unguarded — is exactly the state creative work needs.\n\nThe effect happened quickly and without awareness. Participants did not consciously think about plants or growth. The colour did its work before they could notice it.\n\n<h2>What This Means for a Room</h2>\n\nIf a few seconds of exposure to green can shift how a mind works, what does a piece of green art in a room do over hours and days?\n\nA painting holds colour in a space consistently. It does not just pass across your vision. It lives in the periphery, contributes to the feeling of the room, sets a background that your brain reads continuously.\n\nGreen art in a creative space is not decoration. It is a signal, carried daily, that says: growth is happening here. It is safe to reach.\n\nAt Canvas Crush Studio we think about this with the Serenity collection. Blues and deep greens together. Not only because they look well beside each other — though they do — but because they both point toward the same mental state: open, exploratory, free to make something new. A studio is exactly the kind of room that deserves that signal on the wall.\n\n<h2>Source</h2>\n\nLichtenfeld, S., Elliot, A. J., Maier, M. A., and Pekrun, R. (2012). Fertile green: Green facilitates creative performance. <em>Personality and Social Psychology Bulletin, 38</em>(6), 784-797. <a href="https://doi.org/10.1177/0146167212436611" target="_blank" rel="noopener">doi.org/10.1177/0146167212436611</a>`,
+      author: "Canvas Crush Studio",
+      date: "2026-07-21",
+      category: "Art Theory",
+      coverImage: "/images/blog/fertile-green.svg",
+      published: true,
+      tags: ["colour theory", "psychology", "research", "green", "creativity"]
     }
   ],
 
@@ -634,7 +647,7 @@ const CCS = {
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
 // Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v6';
+  const DATA_VERSION = '2026-v7';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_blog_posts', JSON.stringify(CCS.defaultBlogPosts));
