@@ -394,11 +394,20 @@ const CCS = {
   getSections() {
     try {
       const saved = localStorage.getItem('ccs_home_sections');
-      const defaults = { hero: { imgSrc: '/images/hero-abstract.svg' } };
+      const defaults = {
+        hero:     { imgSrc: '/images/hero-abstract.svg' },
+        vitality: { imgSrc: '/images/vitality-abstract.svg' },
+        culture:  { imgSrc: '/images/culture-abstract.svg' }
+      };
       if (!saved) return defaults;
       const parsed = JSON.parse(saved);
-      return { ...defaults, ...parsed, hero: { ...defaults.hero, ...(parsed.hero || {}) } };
-    } catch(e) { return { hero: { imgSrc: '/images/hero-abstract.svg' } }; }
+      return {
+        ...defaults, ...parsed,
+        hero:     { ...defaults.hero,     ...(parsed.hero     || {}) },
+        vitality: { ...defaults.vitality, ...(parsed.vitality || {}) },
+        culture:  { ...defaults.culture,  ...(parsed.culture  || {}) }
+      };
+    } catch(e) { return { hero: { imgSrc: '/images/hero-abstract.svg' }, vitality: { imgSrc: '/images/vitality-abstract.svg' }, culture: { imgSrc: '/images/culture-abstract.svg' } }; }
   },
 
   saveSections(obj) {

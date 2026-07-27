@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="40%" cy="55%" r="70%">
+      <stop offset="0%"   stop-color="#5c1e10"/>
+      <stop offset="100%" stop-color="#2a0a04"/>
+    </radialGradient>
+    <radialGradient id="fire" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#e05c30" stop-opacity="0.92"/>
+      <stop offset="55%"  stop-color="#c0392b" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#c0392b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amber" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#e09020" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#e09020" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blush" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#f0b090" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="#f0b090" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="55"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="35"/></filter>
+    <filter id="blur3"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+
+  <!-- Deep warm dark ground -->
+  <rect width="1400" height="700" fill="url(#bg)"/>
+
+  <!-- Main fire/coral form — centre-right -->
+  <ellipse cx="850" cy="360" rx="500" ry="340" fill="url(#fire)" filter="url(#blur1)"/>
+
+  <!-- Amber warmth — upper left -->
+  <ellipse cx="320" cy="260" rx="360" ry="280" fill="url(#amber)" filter="url(#blur1)"/>
+
+  <!-- Soft blush highlight — upper centre -->
+  <ellipse cx="640" cy="200" rx="280" ry="200" fill="url(#blush)" filter="url(#blur1)"/>
+
+  <!-- Tighter coral core -->
+  <ellipse cx="820" cy="320" rx="200" ry="160" fill="#e05c30" fill-opacity="0.32" filter="url(#blur2)"/>
+
+  <!-- Warm glow -->
+  <ellipse cx="500" cy="400" rx="260" ry="200" fill="url(#glow)" filter="url(#blur1)"/>
+
+  <!-- Subtle dark vignette -->
+  <rect width="1400" height="700" fill="#2a0a04" fill-opacity="0.20"/>
+
+  <!-- Small hot accent -->
+  <circle cx="790" cy="295" r="70" fill="#f07040" fill-opacity="0.30" filter="url(#blur3)"/>
+</svg>
