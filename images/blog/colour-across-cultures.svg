@@ -1,0 +1,43 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="bloom">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- Cream background -->
+  <rect width="1200" height="630" fill="#faf7f4"/>
+
+  <!-- Scattered colour washes — the "universal" hues -->
+  <circle cx="210" cy="220" r="130" fill="#e8c840" fill-opacity="0.28" filter="url(#bloom)"/>
+  <circle cx="480" cy="180" r="100" fill="#c0392b" fill-opacity="0.22" filter="url(#bloom)"/>
+  <circle cx="720" cy="200" r="120" fill="#2471a3" fill-opacity="0.26" filter="url(#bloom)"/>
+  <circle cx="980" cy="230" r="110" fill="#4a8c5c" fill-opacity="0.22" filter="url(#bloom)"/>
+  <circle cx="340" cy="420" r="90"  fill="#7b4ea0" fill-opacity="0.18" filter="url(#bloom)"/>
+  <circle cx="870" cy="400" r="100" fill="#d4614a" fill-opacity="0.20" filter="url(#bloom)"/>
+
+  <!-- Soft circle outlines — clean markers -->
+  <circle cx="210" cy="220" r="52" fill="#e8c840" fill-opacity="0.55" filter="url(#soft)"/>
+  <circle cx="480" cy="180" r="42" fill="#c0392b" fill-opacity="0.50" filter="url(#soft)"/>
+  <circle cx="720" cy="200" r="48" fill="#2471a3" fill-opacity="0.50" filter="url(#soft)"/>
+  <circle cx="980" cy="230" r="44" fill="#4a8c5c" fill-opacity="0.48" filter="url(#soft)"/>
+  <circle cx="340" cy="420" r="38" fill="#7b4ea0" fill-opacity="0.40" filter="url(#soft)"/>
+  <circle cx="870" cy="400" r="42" fill="#d4614a" fill-opacity="0.42" filter="url(#soft)"/>
+
+  <!-- Labels under each circle -->
+  <text x="210" y="298" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">joy</text>
+  <text x="480" y="248" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">love</text>
+  <text x="720" y="272" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">calm</text>
+  <text x="980" y="300" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">hope</text>
+  <text x="340" y="480" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">dignity</text>
+  <text x="870" y="466" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.50">energy</text>
+
+  <!-- Top caption -->
+  <text x="600" y="82" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="4" font-family="Georgia, serif" opacity="0.38">COLOUR AND MEANING ACROSS 30 NATIONS</text>
+
+  <!-- Source note -->
+  <text x="600" y="588" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.30">JONAUSKAITE ET AL., 2020</text>
+</svg>
