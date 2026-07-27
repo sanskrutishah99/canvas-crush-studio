@@ -567,6 +567,19 @@ const CCS = {
       coverImage: "/images/blog/fertile-green.svg",
       published: true,
       tags: ["colour theory", "psychology", "research", "green", "creativity"]
+    },
+    {
+      id: 5,
+      title: "Some Colours Mean the Same Thing Everywhere",
+      slug: "some-colours-mean-the-same-thing-everywhere",
+      excerpt: "A study across 30 nations and nearly 5,000 people found that certain colour-emotion links are consistent across cultures. Others are entirely personal. Knowing which is which changes how you think about what art does to a room.",
+      content: `Most colour research is done in one country, with one group of participants. The findings feel universal. But are they?\n\nIn 2020, Domicele Jonauskaite and a team of researchers across Europe published a study in Psychological Science that asked exactly this. They surveyed 4,598 people from 30 nations and asked each person to link colours with emotions. The question was simple: which colour-emotion associations are shared across cultures, and which are not?\n\nThe answer split in a way we found genuinely surprising.\n\n<h2>What They Found</h2>\n\nSome associations held up everywhere. Yellow and joy appeared together in nearly every country. Black and sadness. White and relief. Red consistently linked to both love and anger — the same colour pulling in two directions, but the same two directions, across the world.\n\nThese, the researchers concluded, are likely rooted in something deeper than learning. Yellow shares something with sunlight. Black shares something with darkness and loss. These connections are old enough that culture has not overwritten them.\n\nBut many other associations were different across countries. Green meant hope and nature in some places. In others it carried associations with disgust or envy. Purple ranged from dignity to mourning depending on where participants grew up. The differences were not small — they were meaningful and consistent within each culture.\n\nThe researchers found that geographical and cultural proximity mattered. Countries near each other, sharing languages or histories, tended to share more colour-emotion associations. The further apart, the more the meanings diverged.\n\n<h2>What This Means for a Room</h2>\n\nThere are two things here that we think about.\n\nThe first is that some colours carry meaning that does not require shared experience. If you hang a piece built around deep yellow warmth or rich black weight, those signals will reach most people in roughly the same way. The emotional core is shared.\n\nThe second is that colour is also personal. Where you grew up, the associations you have built over a lifetime — these shape what a colour means to you in ways that are real and valid and different from the person next to you.\n\nAt Canvas Crush Studio we work with the universal signals as a foundation. But we also believe a room should ultimately reflect the person in it. The research tells us what colours do broadly. You decide what they mean here, in this space, in your life.\n\nThat conversation between the universal and the personal is, honestly, what makes choosing art interesting.\n\n<h2>Source</h2>\n\nJonauskaite, D., Abu-Akel, A., Dael, N., Oberfeld, D., Vesala, M., Wojtczuk, A., and Mohr, C. (2020). Universal and culture-specific factors in the colour-emotion association. <em>Psychological Science, 31</em>(1), 58-74. <a href="https://doi.org/10.1177/0956797619876895" target="_blank" rel="noopener">doi.org/10.1177/0956797619876895</a>`,
+      author: "Canvas Crush Studio",
+      date: "2026-07-21",
+      category: "Art Theory",
+      coverImage: "/images/blog/colour-across-cultures.svg",
+      published: true,
+      tags: ["colour theory", "psychology", "research", "culture", "emotion"]
     }
   ],
 
@@ -647,7 +660,7 @@ const CCS = {
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
 // Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v7';
+  const DATA_VERSION = '2026-v8';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_blog_posts', JSON.stringify(CCS.defaultBlogPosts));
