@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="55%" cy="50%" r="70%">
+      <stop offset="0%"   stop-color="#3a2005"/>
+      <stop offset="100%" stop-color="#1a0e00"/>
+    </radialGradient>
+    <radialGradient id="gold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#c8901a" stop-opacity="0.90"/>
+      <stop offset="55%"  stop-color="#a06010" stop-opacity="0.52"/>
+      <stop offset="100%" stop-color="#a06010" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="terra" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#904b36" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#904b36" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ochre" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#d4a040" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#d4a040" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="55"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="35"/></filter>
+    <filter id="blur3"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+
+  <!-- Deep warm dark ground -->
+  <rect width="1400" height="700" fill="url(#bg)"/>
+
+  <!-- Main gold form — centre -->
+  <ellipse cx="780" cy="370" rx="520" ry="340" fill="url(#gold)" filter="url(#blur1)"/>
+
+  <!-- Terracotta — left -->
+  <ellipse cx="300" cy="320" rx="380" ry="280" fill="url(#terra)" filter="url(#blur1)"/>
+
+  <!-- Ochre highlight — upper right -->
+  <ellipse cx="1050" cy="220" rx="320" ry="220" fill="url(#ochre)" filter="url(#blur1)"/>
+
+  <!-- Tighter gold core -->
+  <ellipse cx="740" cy="330" rx="220" ry="170" fill="#c8901a" fill-opacity="0.30" filter="url(#blur2)"/>
+
+  <!-- Warm glow centre-left -->
+  <ellipse cx="520" cy="380" rx="250" ry="190" fill="url(#glow)" filter="url(#blur1)"/>
+
+  <!-- Subtle dark vignette -->
+  <rect width="1400" height="700" fill="#1a0e00" fill-opacity="0.22"/>
+
+  <!-- Small bright gold accent -->
+  <circle cx="720" cy="300" r="75" fill="#e0b030" fill-opacity="0.28" filter="url(#blur3)"/>
+</svg>
