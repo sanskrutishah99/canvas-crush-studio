@@ -1,0 +1,53 @@
+<svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="60%" cy="45%" r="70%">
+      <stop offset="0%"   stop-color="#1a5c5a"/>
+      <stop offset="100%" stop-color="#002120"/>
+    </radialGradient>
+    <radialGradient id="coral" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#c8604a" stop-opacity="0.90"/>
+      <stop offset="60%"  stop-color="#904b36" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#904b36" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warm" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#e8c490" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#e8c490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="teal" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#2a9d8f" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#2a9d8f" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="55"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="35"/></filter>
+    <filter id="blur3"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+
+  <!-- Deep teal ground -->
+  <rect width="1400" height="700" fill="url(#bg)"/>
+
+  <!-- Large coral form — right of centre -->
+  <ellipse cx="920" cy="380" rx="480" ry="360" fill="url(#coral)" filter="url(#blur1)"/>
+
+  <!-- Secondary teal wash — left -->
+  <ellipse cx="280" cy="300" rx="380" ry="280" fill="url(#teal)" filter="url(#blur1)"/>
+
+  <!-- Warm cream highlight — upper centre -->
+  <ellipse cx="680" cy="220" rx="300" ry="200" fill="url(#warm)" filter="url(#blur1)"/>
+
+  <!-- Tighter coral accent -->
+  <ellipse cx="880" cy="340" rx="220" ry="180" fill="#c8604a" fill-opacity="0.30" filter="url(#blur2)"/>
+
+  <!-- Soft white glow centre-left -->
+  <ellipse cx="500" cy="350" rx="260" ry="200" fill="url(#glow)" filter="url(#blur1)"/>
+
+  <!-- Subtle dark frame edges -->
+  <rect width="1400" height="700" fill="#002120" fill-opacity="0.22"/>
+  <rect width="1400" height="700" fill="url(#bg)" fill-opacity="0.15"/>
+
+  <!-- Fine detail: small bright coral dot -->
+  <circle cx="860" cy="310" r="80" fill="#e07055" fill-opacity="0.28" filter="url(#blur3)"/>
+</svg>

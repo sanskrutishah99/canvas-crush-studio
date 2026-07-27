@@ -394,8 +394,11 @@ const CCS = {
   getSections() {
     try {
       const saved = localStorage.getItem('ccs_home_sections');
-      return saved ? JSON.parse(saved) : null;
-    } catch(e) { return null; }
+      const defaults = { hero: { imgSrc: '/images/hero-abstract.svg' } };
+      if (!saved) return defaults;
+      const parsed = JSON.parse(saved);
+      return { ...defaults, ...parsed, hero: { ...defaults.hero, ...(parsed.hero || {}) } };
+    } catch(e) { return { hero: { imgSrc: '/images/hero-abstract.svg' } }; }
   },
 
   saveSections(obj) {
