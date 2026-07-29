@@ -296,6 +296,17 @@ function renderGallery() {
               </button>
             </div>
             <div>
+              ${art.type === 'curated' ? `
+              <div class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200/60 flex items-center justify-between">
+                <div>
+                  <span class="block text-[11px] font-label font-bold text-amber-700 uppercase tracking-widest mb-1">Curated Pick · ${art.affiliateSource || ''}</span>
+                  <span class="text-lg font-bold font-headline text-on-surface">${art.affiliatePrice ? CCS.formatPrice(art.affiliatePrice) : 'View Price'}</span>
+                </div>
+                <span class="material-symbols-outlined text-amber-600">open_in_new</span>
+              </div>
+              <a href="product?id=${art.id}" class="block w-full mt-3 py-4 bg-amber-600 text-white font-label font-bold rounded-lg hover:bg-amber-700 transition-all active:scale-[0.98] text-center">
+                Shop on ${art.affiliateSource || 'Partner Site'}
+              </a>` : `
               <div class="grid grid-cols-2 gap-4 mt-4">
                 <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 ${art.sold ? 'opacity-60' : ''}">
                   <span class="block text-[11px] font-label font-bold text-primary uppercase tracking-widest mb-1">Original</span>
@@ -317,7 +328,7 @@ function renderGallery() {
               </button>` : ''}
               <a href="product?id=${art.id}" class="block w-full mt-3 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
                 View Details
-              </a>
+              </a>`}
             </div>
           </div>
         </div>

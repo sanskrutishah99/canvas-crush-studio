@@ -197,6 +197,22 @@ function renderProduct() {
         </header>
 
         <div class="bg-surface-container-low p-8 rounded-xl flex flex-col gap-7 border border-outline-variant/20">
+          ${artwork.type === 'curated' ? `
+          <!-- Curated affiliate CTA -->
+          <div class="flex items-center gap-2 pb-1 border-b border-outline-variant/20">
+            <span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-[10px] font-label font-bold tracking-widest uppercase rounded-sm">Curated Pick</span>
+            <span class="text-stone-400 text-xs font-label">via ${artwork.affiliateSource || 'Partner'}</span>
+          </div>
+          <div class="flex items-baseline gap-3">
+            <span class="text-4xl font-headline font-bold text-on-surface">${artwork.affiliatePrice ? CCS.formatPrice(artwork.affiliatePrice) : 'View Price'}</span>
+          </div>
+          <div class="space-y-3">
+            <a href="${artwork.affiliateUrl}" target="_blank" rel="noopener noreferrer sponsored" class="w-full py-5 bg-amber-600 text-white rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-amber-700 transition-all active:scale-[0.98] shadow-lg shadow-amber-600/10">
+              <span class="material-symbols-outlined">open_in_new</span>Shop on ${artwork.affiliateSource || 'Partner Site'}
+            </a>
+            <p class="text-center text-[10px] text-stone-400 font-label">* Affiliate link. Canvas Crush Studio may earn a small commission at no extra cost to you.</p>
+          </div>
+          ` : `
           <!-- Type selector -->
           ${typeSelectorHtml}
 
@@ -237,6 +253,7 @@ function renderProduct() {
             </a>
             <p class="text-center text-[10px] text-stone-400 font-label">Free Insured Global Shipping • 30-Day Gallery Guarantee</p>
           </div>
+          `}
         </div>
 
       </div>
