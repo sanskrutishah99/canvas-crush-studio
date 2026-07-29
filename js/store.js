@@ -592,6 +592,19 @@ const CCS = {
       coverImage: "/images/blog/colour-across-cultures.svg",
       published: true,
       tags: ["colour theory", "psychology", "research", "culture", "emotion"]
+    },
+    {
+      id: 6,
+      title: "Red Tells Your Hand to Stop",
+      slug: "red-tells-your-hand-to-stop",
+      excerpt: "A 2012 study found that people eat and drink less from red plates and cups than from white or blue ones. The colour is doing something before a single conscious thought forms.",
+      content: `We talk about colour and mood. Colour and creativity. Colour and focus. But a 2012 study took it somewhere more surprising: colour and how much you eat.\n\nOliver Genschow, Leonie Reutner, and Michaela Wanke published a paper in the journal Appetite called "The Color Red Reduces Snack Food and Soft Drink Intake." Across three experiments, they tested whether the colour of a plate or cup changes how much a person consumes from it.\n\nIt does. And the effect is not small.\n\n<h2>What They Did</h2>\n\nIn the first two experiments, participants were given snacks — crackers in one study, chocolate in another — served on either a red plate or a white or blue plate. They were told to help themselves freely while completing an unrelated task. The researchers measured how much each person ate.\n\nIn the third experiment, participants were given drinks in red cups or blue cups and told to drink as much as they liked.\n\nIn every case, the people with red plates or cups consumed significantly less.\n\n<h2>Why Red Works This Way</h2>\n\nThe researchers traced it back to the same mechanism that appears across colour research: association built up over a lifetime.\n\nRed means stop. It means danger. It means pay attention, something is wrong here. Traffic lights. Warning signs. A mark on a test paper. These signals have taught us, over and over, that red means slow down or do not proceed.\n\nWhen you reach for food on a red plate, that signal fires. Not loudly. Not consciously. But it fires. And your hand pulls back a little sooner than it would have from a white plate.\n\nThe colour is doing something before a single thought forms about whether you are still hungry.\n\n<h2>What This Means for a Room</h2>\n\nThis is the part that stays with us.\n\nThe study is about plates. But the mechanism is about colour in the environment activating automatic responses. A red wall in a dining room, a red piece of art hung where you eat — these carry the same signal, at a lower intensity, continuously.\n\nWe are not saying red in a dining room is a mistake. Context shapes meaning, and a rich terracotta or deep coral in a kitchen can feel warm and grounding rather than cautionary. The signal is not binary.\n\nBut we do think about it. When we place work from the Vitality collection — our reds and corals — we think about what a room is for. Energy and presence in a home office. Perhaps not the place you want to linger longest over a slow meal.\n\nColour does not just set a mood. It shapes behaviour. The research keeps showing this, and the more we sit with it, the more seriously we take what we put on the walls.\n\n<h2>Source</h2>\n\nGenschow, O., Reutner, L., and Wanke, M. (2012). The color red reduces snack food and soft drink intake. <em>Appetite, 58</em>(2), 699-702. <a href="https://doi.org/10.1016/j.appet.2011.12.023" target="_blank" rel="noopener">doi.org/10.1016/j.appet.2011.12.023</a>`,
+      author: "Canvas Crush Studio",
+      date: "2026-07-29",
+      category: "Art Theory",
+      coverImage: "/images/blog/red-plate.svg",
+      published: true,
+      tags: ["colour theory", "psychology", "research", "red", "behaviour"]
     }
   ],
 
@@ -672,7 +685,7 @@ const CCS = {
 // ─── Hard reset to correct artworks ─────────────────────────────────────────
 // Bump DATA_VERSION any time defaultArtworks changes — forces all browsers to update.
 (function() {
-  const DATA_VERSION = '2026-v8';
+  const DATA_VERSION = '2026-v9';
   if (localStorage.getItem('ccs_data_version') !== DATA_VERSION) {
     localStorage.setItem('ccs_artworks', JSON.stringify(CCS.defaultArtworks));
     localStorage.setItem('ccs_blog_posts', JSON.stringify(CCS.defaultBlogPosts));
