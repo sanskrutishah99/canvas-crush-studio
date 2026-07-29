@@ -1,0 +1,42 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="plate" cx="50%" cy="42%" r="50%">
+      <stop offset="0%"   stop-color="#d44030" stop-opacity="1"/>
+      <stop offset="70%"  stop-color="#b02818" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#8a1c10" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="inner" cx="50%" cy="42%" r="50%">
+      <stop offset="0%"   stop-color="#e05040" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#e05040" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="12" stdDeviation="28" flood-color="#8a1c10" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <!-- Cream background -->
+  <rect width="1200" height="630" fill="#faf7f4"/>
+
+  <!-- Plate shadow -->
+  <circle cx="600" cy="320" r="220" fill="#8a1c10" fill-opacity="0.10" transform="translate(0, 18)" filter="url(#shadow)"/>
+
+  <!-- Main plate circle -->
+  <circle cx="600" cy="310" r="218" fill="url(#plate)"/>
+
+  <!-- Inner plate rim -->
+  <circle cx="600" cy="310" r="185" fill="none" stroke="#e05040" stroke-width="1.5" stroke-opacity="0.30"/>
+
+  <!-- Inner well -->
+  <circle cx="600" cy="310" r="148" fill="url(#inner)"/>
+  <circle cx="600" cy="310" r="148" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.12"/>
+
+  <!-- Top caption -->
+  <text x="600" y="72" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="4" font-family="Georgia, serif" opacity="0.38">RED AND THE STOP SIGNAL</text>
+
+  <!-- Label below plate -->
+  <text x="600" y="562" text-anchor="middle" fill="#b02818" font-size="11" letter-spacing="5" font-family="Georgia, serif" opacity="0.70">RED</text>
+  <text x="600" y="584" text-anchor="middle" fill="#5a524e" font-size="10" letter-spacing="2" font-family="Georgia, serif" opacity="0.45">stop · pause · pull back</text>
+
+  <!-- Source note -->
+  <text x="600" y="614" text-anchor="middle" fill="#5a524e" font-size="9" letter-spacing="2" font-family="Georgia, serif" opacity="0.30">GENSCHOW ET AL., 2012</text>
+</svg>
