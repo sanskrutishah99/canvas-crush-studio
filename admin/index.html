@@ -917,6 +917,44 @@
     </div>
 
     <div class="px-8 py-8 space-y-8 max-h-[70vh] overflow-y-auto">
+
+      <!-- Listing Type -->
+      <div>
+        <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">Listing Type</label>
+        <div class="flex gap-3">
+          <button type="button" id="type-btn-own" onclick="setListingType('own')" class="listing-type-btn flex-1 py-3 rounded-lg border-2 border-primary bg-primary text-white font-label font-bold text-sm transition-all">Own Artwork</button>
+          <button type="button" id="type-btn-curated" onclick="setListingType('curated')" class="listing-type-btn flex-1 py-3 rounded-lg border-2 border-stone-200 bg-stone-50 text-stone-500 font-label font-bold text-sm transition-all">Curated Pick</button>
+        </div>
+        <p class="mt-2 text-[10px] text-stone-400 font-label">Curated Picks link out to an affiliate platform. Own Artworks use the cart checkout.</p>
+      </div>
+
+      <!-- Affiliate fields (shown when curated) -->
+      <div id="affiliate-fields" class="hidden space-y-4 p-5 bg-amber-50 border border-amber-200 rounded-xl">
+        <p class="text-[10px] font-label font-bold uppercase tracking-widest text-amber-700">Affiliate Listing</p>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Affiliate URL *</label>
+          <input id="m-affiliate-url" type="url" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 text-on-surface placeholder:text-stone-300 transition-all text-sm" placeholder="https://society6.com/product/..."/>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Platform</label>
+            <select id="m-affiliate-source" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all text-sm">
+              <option value="Society6">Society6</option>
+              <option value="Saatchi Art">Saatchi Art</option>
+              <option value="Minted">Minted</option>
+              <option value="Desenio">Desenio</option>
+              <option value="Artfinder">Artfinder</option>
+              <option value="Redbubble">Redbubble</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Display Price ($)</label>
+            <input id="m-affiliate-price" type="number" min="0" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="150"/>
+          </div>
+        </div>
+      </div>
+
       <!-- Basic Info -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="md:col-span-2">
@@ -949,8 +987,8 @@
         </div>
       </div>
 
-      <!-- Pricing -->
-      <div class="grid grid-cols-2 gap-6">
+      <!-- Pricing (own artworks only) -->
+      <div id="own-pricing-fields" class="grid grid-cols-2 gap-6">
         <div>
           <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Original Price ($) *</label>
           <input id="m-original-price" type="number" min="0" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-4 py-3 text-on-surface transition-all" placeholder="2500"/>
@@ -1781,6 +1819,24 @@ function deleteArtwork(id) {
 }
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
+let currentListingType = 'own';
+
+function setListingType(type) {
+  currentListingType = type;
+  ['own','curated'].forEach(t => {
+    const btn = document.getElementById(`type-btn-${t}`);
+    if (t === type) {
+      btn.classList.add('border-primary','bg-primary','text-white');
+      btn.classList.remove('border-stone-200','bg-stone-50','text-stone-500');
+    } else {
+      btn.classList.remove('border-primary','bg-primary','text-white');
+      btn.classList.add('border-stone-200','bg-stone-50','text-stone-500');
+    }
+  });
+  document.getElementById('affiliate-fields').classList.toggle('hidden', type !== 'curated');
+  document.getElementById('own-pricing-fields').classList.toggle('hidden', type === 'curated');
+}
+
 function openModal(id) {
   editingId = id;
   const overlay = document.getElementById('modal-overlay');
@@ -1795,20 +1851,24 @@ function openModal(id) {
     title.textContent = 'Edit Artwork';
     const art = CCS.getArtworks().find(a => a.id === id);
     if (!art) return;
+    setListingType(art.type === 'curated' ? 'curated' : 'own');
     document.getElementById('m-title').value = art.title;
     document.getElementById('m-artist').value = art.artist;
     document.getElementById('m-category').value = art.category;
-    document.getElementById('m-medium').value = art.medium;
+    document.getElementById('m-medium').value = art.medium || '';
     document.getElementById('m-year').value = art.year;
-    document.getElementById('m-dimensions').value = art.dimensions;
-    document.getElementById('m-original-price').value = art.originalPrice;
-    document.getElementById('m-print-price').value = art.printPrice;
+    document.getElementById('m-dimensions').value = art.dimensions || '';
+    document.getElementById('m-original-price').value = art.originalPrice || 0;
+    document.getElementById('m-print-price').value = art.printPrice || 0;
     document.getElementById('m-featured').checked = art.featured;
     document.getElementById('m-badge').value = art.badge || '';
-    document.getElementById('m-description').value = art.description;
+    document.getElementById('m-description').value = art.description || '';
     document.getElementById('m-img-1').value = art.images[0] || '';
     document.getElementById('m-img-2').value = art.images[1] || '';
     document.getElementById('m-img-3').value = art.images[2] || '';
+    document.getElementById('m-affiliate-url').value = art.affiliateUrl || '';
+    document.getElementById('m-affiliate-source').value = art.affiliateSource || 'Society6';
+    document.getElementById('m-affiliate-price').value = art.affiliatePrice || '';
     updateImagePreview();
   }
 
@@ -1823,13 +1883,15 @@ function closeModal() {
 }
 
 function clearModal() {
-  ['m-title','m-artist','m-medium','m-year','m-dimensions','m-original-price','m-print-price','m-badge','m-description','m-img-1','m-img-2','m-img-3'].forEach(id => {
+  ['m-title','m-artist','m-medium','m-year','m-dimensions','m-original-price','m-print-price','m-badge','m-description','m-img-1','m-img-2','m-img-3','m-affiliate-url','m-affiliate-price'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
   document.getElementById('m-featured').checked = false;
   document.getElementById('m-category').value = 'passionate';
+  document.getElementById('m-affiliate-source').value = 'Society6';
   document.getElementById('img-preview-container').classList.add('hidden');
+  setListingType('own');
 }
 
 function updateImagePreview() {
@@ -1847,11 +1909,25 @@ function updateImagePreview() {
 function saveArtwork() {
   const title = document.getElementById('m-title').value.trim();
   const artist = document.getElementById('m-artist').value.trim();
-  const originalPrice = parseFloat(document.getElementById('m-original-price').value);
+  const isCurated = currentListingType === 'curated';
 
-  if (!title || !artist || isNaN(originalPrice)) {
-    showAdminToast('Please fill in all required fields (Title, Artist, Original Price)', 'error');
+  if (!title || !artist) {
+    showAdminToast('Please fill in Title and Artist', 'error');
     return;
+  }
+
+  if (isCurated) {
+    const affiliateUrl = document.getElementById('m-affiliate-url').value.trim();
+    if (!affiliateUrl) {
+      showAdminToast('Please add an affiliate link URL', 'error');
+      return;
+    }
+  } else {
+    const originalPrice = parseFloat(document.getElementById('m-original-price').value);
+    if (isNaN(originalPrice)) {
+      showAdminToast('Please enter an original price', 'error');
+      return;
+    }
   }
 
   const imgs = [
@@ -1868,14 +1944,18 @@ function saveArtwork() {
   const artworks = CCS.getArtworks();
   const artData = {
     id: editingId !== null ? editingId : (Math.max(...artworks.map(a => a.id), 0) + 1),
+    type: currentListingType,
     title,
     artist,
     category: document.getElementById('m-category').value,
     medium: document.getElementById('m-medium').value.trim(),
     year: parseInt(document.getElementById('m-year').value) || new Date().getFullYear(),
     dimensions: document.getElementById('m-dimensions').value.trim(),
-    originalPrice,
-    printPrice: parseFloat(document.getElementById('m-print-price').value) || 0,
+    originalPrice: isCurated ? null : (parseFloat(document.getElementById('m-original-price').value) || 0),
+    printPrice: isCurated ? null : (parseFloat(document.getElementById('m-print-price').value) || 0),
+    affiliateUrl: isCurated ? document.getElementById('m-affiliate-url').value.trim() : null,
+    affiliateSource: isCurated ? document.getElementById('m-affiliate-source').value : null,
+    affiliatePrice: isCurated ? (parseFloat(document.getElementById('m-affiliate-price').value) || null) : null,
     featured: document.getElementById('m-featured').checked,
     badge: document.getElementById('m-badge').value.trim() || null,
     description: document.getElementById('m-description').value.trim(),

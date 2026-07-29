@@ -67,7 +67,7 @@
       <a href="privacy-policy" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Privacy Policy</a>
       <a href="shipping-info" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Shipping Info</a>
     </div>
-    <p class="text-stone-400 text-sm font-body font-light">© 2025 Canvas Crush Studio.</p>
+    <p class="text-stone-400 text-sm font-body font-light">© 2025 Canvas Crush Studio. · <span class="text-stone-300">Some links are affiliate links.</span></p>
   </div>
 </footer>
 
@@ -103,6 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Related posts (same category, exclude current)
   const related = CCS.getPublishedPosts().filter(p => p.slug !== post.slug && p.category === post.category).slice(0, 3);
+
+  // Curated artworks for "Shop This Collection"
+  const curatedArtworks = CCS.getArtworks().filter(a => a.type === 'curated').slice(0, 3);
 
   main.innerHTML = `
     <!-- Back -->
@@ -142,6 +145,40 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="max-w-3xl mx-auto px-6 md:px-12 mb-16 pt-8 border-t border-outline-variant/30 flex flex-wrap gap-2">
       ${post.tags.map(t => `<span class="px-3 py-1 bg-surface-container-low rounded-full text-xs font-label font-bold text-on-surface-variant">#${t}</span>`).join('')}
     </div>` : ''}
+
+    <!-- Shop This Collection -->
+    ${curatedArtworks.length ? `
+    <section class="max-w-5xl mx-auto px-6 md:px-12 mb-20">
+      <div class="border-t border-outline-variant/30 pt-12">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h2 class="font-headline text-2xl font-bold">Shop This Collection</h2>
+            <p class="text-stone-400 text-sm font-label mt-1">Curated picks that bring these ideas to life.</p>
+          </div>
+          <a href="gallery" class="text-primary font-label font-bold text-sm hover:underline">View All</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          ${curatedArtworks.map(art => `
+            <div class="group bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-all duration-300 flex flex-col">
+              <a href="product?id=${art.id}" class="h-48 bg-surface-container flex items-center justify-center overflow-hidden block">
+                <img src="${art.images[0]}" alt="${art.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"/>
+              </a>
+              <div class="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div>
+                  <span class="text-[10px] font-label font-bold text-amber-600 uppercase tracking-widest">via ${art.affiliateSource || 'Partner'}</span>
+                  <h3 class="font-headline font-bold leading-tight mt-1">${art.title}</h3>
+                  <p class="text-stone-500 text-sm font-body mt-1">${art.artist}</p>
+                </div>
+                <a href="${art.affiliateUrl}" target="_blank" rel="noopener noreferrer sponsored" class="w-full py-3 bg-amber-600 text-white font-label font-bold text-sm rounded-lg flex items-center justify-center gap-2 hover:bg-amber-700 transition-all text-center">
+                  <span class="material-symbols-outlined text-sm">open_in_new</span>${art.affiliatePrice ? CCS.formatPrice(art.affiliatePrice) : 'Shop Now'}
+                </a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <p class="text-center text-[10px] text-stone-400 font-label mt-6">* Affiliate links. We may earn a small commission at no extra cost to you.</p>
+      </div>
+    </section>` : ''}
 
     <!-- Related -->
     ${related.length ? `
