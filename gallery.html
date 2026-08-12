@@ -39,7 +39,7 @@
 <!-- Toast -->
 <div id="toast" class="fixed bottom-6 right-6 z-[100] bg-on-surface text-surface px-6 py-4 rounded-xl shadow-2xl font-label text-sm font-bold flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
   <span class="material-symbols-outlined text-green-400" style="font-variation-settings:'FILL' 1">check_circle</span>
-  <span id="toast-msg">Added to cart!</span>
+  <span id="toast-msg"></span>
 </div>
 
 <!-- Nav -->
@@ -58,10 +58,6 @@
       <button class="p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined" data-icon="search">search</span>
       </button>
-      <a href="cart" class="p-2 text-outline hover:text-primary transition-colors relative">
-        <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
-      </a>
       <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined" data-icon="menu">menu</span>
       </button>
@@ -73,7 +69,6 @@
       <a href="gallery?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
       <a href="gallery?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
       <a href="blog" class="text-stone-700 font-medium py-2">Journal</a>
-      <a href="cart" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
@@ -131,7 +126,6 @@
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
       <a data-global="footer-link1-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
       <a data-global="footer-link2-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
-      <a data-global="footer-link3-href" class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -307,26 +301,7 @@ function renderGallery() {
               <a href="product?id=${art.id}" class="block w-full mt-3 py-4 bg-amber-600 text-white font-label font-bold rounded-lg hover:bg-amber-700 transition-all active:scale-[0.98] text-center">
                 Shop on ${art.affiliateSource || 'Partner Site'}
               </a>` : `
-              <div class="grid grid-cols-2 gap-4 mt-4">
-                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 ${art.sold ? 'opacity-60' : ''}">
-                  <span class="block text-[11px] font-label font-bold text-primary uppercase tracking-widest mb-1">Original</span>
-                  ${art.sold
-                    ? `<span class="text-lg font-bold font-headline text-red-600">Sold</span>`
-                    : `<span class="text-lg font-bold font-headline text-on-surface">${art.originalPrice > 0 ? CCS.formatPrice(art.originalPrice) : 'Price TBD'}</span>`
-                  }
-                </div>
-                <div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 ${art.printsAvailable === false ? 'opacity-50' : ''}">
-                  <span class="block text-[11px] font-label font-bold text-secondary uppercase tracking-widest mb-1">Print</span>
-                  ${art.printsAvailable === false
-                    ? `<span class="text-sm font-bold font-headline text-stone-400">Not Available</span>`
-                    : `<span class="text-lg font-bold font-headline text-on-surface">${(() => { const ps = CCS.getPrintSizes(art); return ps.length ? CCS.formatPrice(ps[0].price) + '+' : 'TBD'; })()}</span>`
-                  }
-                </div>
-              </div>
-              ${art.setId ? `<button onclick="addSetToCart('${art.setId}', '${art.setName}', event)" class="block w-full mt-4 py-3 bg-secondary text-on-secondary font-label font-bold rounded-lg hover:bg-secondary-container transition-all active:scale-[0.98] text-sm text-center">
-                <span class="material-symbols-outlined text-sm align-middle mr-1">collections</span>Buy Full Set — ${art.setPrice > 0 ? CCS.formatPrice(art.setPrice) : 'Price TBD'}
-              </button>` : ''}
-              <a href="product?id=${art.id}" class="block w-full mt-3 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
+              <a href="product?id=${art.id}" class="block w-full mt-4 py-4 bg-primary text-on-primary font-label font-bold rounded-lg hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10 text-center">
                 View Details
               </a>`}
             </div>

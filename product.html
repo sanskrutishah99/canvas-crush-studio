@@ -39,7 +39,7 @@
 <!-- Toast -->
 <div id="toast" class="fixed bottom-6 right-6 z-[100] bg-on-surface text-surface px-6 py-4 rounded-xl shadow-2xl font-label text-sm font-bold flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
   <span class="material-symbols-outlined text-green-400" style="font-variation-settings:'FILL' 1">check_circle</span>
-  <span id="toast-msg">Added to cart!</span>
+  <span id="toast-msg"></span>
 </div>
 
 <!-- Nav -->
@@ -56,10 +56,6 @@
       <button class="text-outline hover:text-primary transition-colors duration-300">
         <span class="material-symbols-outlined" data-icon="search">search</span>
       </button>
-      <a href="cart" class="text-outline hover:text-primary relative p-2">
-        <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
-      </a>
       <button id="hamburger" class="md:hidden p-2 text-outline hover:text-primary transition-colors">
         <span class="material-symbols-outlined" data-icon="menu">menu</span>
       </button>
@@ -71,7 +67,6 @@
       <a href="gallery?cat=abstract" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Serenity</a>
       <a href="gallery?cat=cultural" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Culture</a>
       <a href="blog" class="text-stone-700 font-medium py-2">Journal</a>
-      <a href="cart" class="text-on-surface font-medium py-2 hover:text-primary transition-colors">Cart</a>
     </div>
   </div>
 </nav>
@@ -89,7 +84,6 @@
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
       <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
       <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
-      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="shipping-info">Shipping Info</a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -144,33 +138,6 @@ function renderProduct() {
     `;
   });
 
-  // Type selector: show print tab only when prints are available
-  const typeSelectorHtml = hasPrints ? `
-    <div class="flex p-1 bg-surface-container-high rounded-lg font-label text-sm font-bold">
-      <button id="tab-original" class="tab-btn active flex-1 py-2 rounded-md transition-all" onclick="selectType('original')">Buy Original</button>
-      <button id="tab-print" class="tab-btn flex-1 py-2 rounded-md text-stone-500 hover:text-stone-700 transition-all" onclick="selectType('print')">Order Print</button>
-    </div>
-  ` : `
-    <div class="flex p-1 bg-surface-container-high rounded-lg font-label text-sm font-bold">
-      <button class="tab-btn active flex-1 py-2 rounded-md transition-all">Buy Original</button>
-      <div class="flex-1 py-2 text-center text-stone-300 text-xs font-label font-bold tracking-wide">Prints Not Available</div>
-    </div>
-  `;
-
-  // Print size pill-buttons (hidden until print tab is selected)
-  const printSizesHtml = hasPrints ? `
-    <div id="print-size-container" class="hidden space-y-3">
-      <label class="block font-label text-xs font-bold text-stone-500 uppercase">Choose Print Size</label>
-      <div class="flex flex-wrap gap-2">
-        ${printSizes.map((sz, i) => `
-          <button class="print-size-btn ${i === 0 ? 'border-primary bg-white' : 'border-transparent bg-surface-container-high'} border-2 px-4 py-2.5 rounded-xl font-label text-xs font-bold transition-all hover:border-outline-variant text-left" onclick="selectPrintSize(${i}, this)">
-            <div class="font-bold text-on-surface">${sz.label}</div>
-            <div class="text-primary mt-0.5">${CCS.formatPrice(sz.price)}</div>
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  ` : '';
 
   main.innerHTML = `
     <section class="max-w-7xl mx-auto px-6 md:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
@@ -213,45 +180,12 @@ function renderProduct() {
             <p class="text-center text-[10px] text-stone-400 font-label">* Affiliate link. Canvas Crush Studio may earn a small commission at no extra cost to you.</p>
           </div>
           ` : `
-          <!-- Type selector -->
-          ${typeSelectorHtml}
-
-          <!-- Price -->
-          <div class="flex items-baseline gap-3">
-            <span id="displayed-price" class="text-4xl font-headline font-bold text-on-surface">${artwork.originalPrice > 0 ? CCS.formatPrice(artwork.originalPrice) : 'Price TBD'}</span>
-          </div>
-
-          <!-- Print size selector (shown when Order Print is active) -->
-          ${printSizesHtml}
-
-          <!-- Frame selector -->
+          <!-- Enquire CTA for own artwork -->
           <div class="space-y-3">
-            <label class="block font-label text-xs font-bold text-stone-500 uppercase">Select Frame Style</label>
-            <div class="grid grid-cols-3 gap-3">
-              <button class="frame-btn selected border-2 p-2 rounded-lg text-xs font-bold flex flex-col items-center gap-1 transition-all" onclick="selectFrame('Midnight Oak', this)">
-                <div class="w-full h-8 bg-stone-900 rounded-sm"></div>Midnight Oak
-              </button>
-              <button class="frame-btn border-2 border-transparent bg-surface-container-high p-2 rounded-lg text-xs font-bold flex flex-col items-center gap-1 hover:border-outline-variant transition-all" onclick="selectFrame('Gallery White', this)">
-                <div class="w-full h-8 bg-surface-container-low rounded-sm border border-stone-200"></div>Gallery White
-              </button>
-              <button class="frame-btn border-2 border-transparent bg-surface-container-high p-2 rounded-lg text-xs font-bold flex flex-col items-center gap-1 hover:border-outline-variant transition-all" onclick="selectFrame('Natural Pine', this)">
-                <div class="w-full h-8 bg-[#e8be8d] rounded-sm"></div>Natural Pine
-              </button>
-            </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="space-y-3">
-            <button onclick="addToCart()" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
-              <span class="material-symbols-outlined">add_shopping_cart</span>Add to Cart
-            </button>
-            ${artwork.setId ? `<button onclick="addSetToCart('${artwork.setId}','${artwork.setName}')" class="w-full py-4 bg-secondary text-on-secondary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-secondary-container transition-all active:scale-[0.98]">
-              <span class="material-symbols-outlined">collections</span>Buy Full Set — ${artwork.setPrice > 0 ? CCS.formatPrice(artwork.setPrice) : 'Price TBD'}
-            </button>` : ''}
-            <a href="cart" class="w-full py-4 border-2 border-primary text-primary rounded-lg font-headline font-bold text-base flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all active:scale-[0.98]">
-              <span class="material-symbols-outlined">shopping_bag</span>Secure Checkout
+            <a href="mailto:hello@canvascrushstudio.com?subject=Enquiry: ${encodeURIComponent(artwork.title)}" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
+              <span class="material-symbols-outlined">mail</span>Enquire About This Work
             </a>
-            <p class="text-center text-[10px] text-stone-400 font-label">Free Insured Global Shipping • 30-Day Gallery Guarantee</p>
+            <p class="text-center text-[10px] text-stone-400 font-label">Get in touch to discuss availability and pricing.</p>
           </div>
           `}
         </div>
@@ -273,7 +207,6 @@ function renderProduct() {
           <div><span class="block text-stone-400 uppercase text-[10px] mb-1 font-bold">Dimensions</span><span class="font-bold text-on-surface">${artwork.dimensions}</span></div>
           <div><span class="block text-stone-400 uppercase text-[10px] mb-1 font-bold">Medium</span><span class="font-bold text-on-surface">${artwork.medium}</span></div>
           <div><span class="block text-stone-400 uppercase text-[10px] mb-1 font-bold">Year</span><span class="font-bold text-on-surface">${artwork.year}</span></div>
-          <div><span class="block text-stone-400 uppercase text-[10px] mb-1 font-bold">Certificate</span><span class="font-bold text-secondary">COA Included</span></div>
         </div>
       </div>
     </section>
