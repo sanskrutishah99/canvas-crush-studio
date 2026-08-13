@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact | Canvas Crush Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: { "primary":"#003635","surface-container-low":"#f6f3f0","on-surface":"#1f1b1a","on-surface-variant":"#5a524e","outline-variant":"#d8cfcc","surface":"#fbfaf9","primary-fixed":"#ffdad3","on-primary":"#ffffff" }, fontFamily: { "headline":["Epilogue"],"body":["Manrope"],"label":["Plus Jakarta Sans"] } } }
+  }
+</script>
+</head>
+<body class="bg-surface text-on-surface">
+
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-6 md:px-12 py-5 max-w-full font-headline tracking-tight font-light">
+    <a href="/" class="text-2xl font-bold tracking-tighter text-primary">Canvas Crush Studio</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="gallery?cat=passionate" class="text-outline hover:text-primary transition-colors duration-300">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-outline hover:text-primary transition-colors duration-300">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-outline hover:text-primary transition-colors duration-300">Culture</a>
+      <a href="blog" class="text-outline hover:text-primary transition-colors duration-300">Journal</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="hamburger" class="md:hidden p-2 text-stone-600">
+        <span class="material-symbols-outlined" data-icon="menu">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
+    <div class="flex flex-col px-6 py-4 gap-4">
+      <a href="gallery?cat=passionate" class="text-stone-700 font-medium py-2">Vitality</a>
+      <a href="gallery?cat=abstract" class="text-stone-700 font-medium py-2">Serenity</a>
+      <a href="gallery?cat=cultural" class="text-stone-700 font-medium py-2">Culture</a>
+      <a href="blog" class="text-stone-700 font-medium py-2">Journal</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-36 pb-24 px-6 max-w-2xl mx-auto">
+
+  <!-- Success state (hidden by default) -->
+  <div id="success-state" class="hidden text-center py-20">
+    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-green-500 text-4xl" style="font-variation-settings:'FILL' 1">check_circle</span>
+    </div>
+    <h2 class="font-headline text-4xl font-extrabold tracking-tighter mb-4">Message Sent</h2>
+    <p class="text-on-surface-variant font-light text-lg mb-8">Thanks for reaching out — we read every message and typically reply within 1–2 business days.</p>
+    <a href="/" class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-label font-bold rounded-lg hover:opacity-90 transition-all">
+      Back to Home <span class="material-symbols-outlined text-sm">arrow_forward</span>
+    </a>
+  </div>
+
+  <!-- Form state -->
+  <div id="form-state">
+    <div class="mb-12 text-center">
+      <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1">forum</span>
+      </div>
+      <span class="font-label text-primary font-bold tracking-widest uppercase text-[10px] px-4 py-1.5 bg-orange-50 rounded-full">Get in Touch</span>
+      <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface mt-6 mb-4">Leave Us a Message.</h1>
+      <p class="text-on-surface-variant font-light text-lg leading-relaxed">Questions, support, artwork enquiries, or partnership ideas — one form for everything. We'll get back to you by email.</p>
+    </div>
+
+    <div class="bg-white border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+      <form id="contact-form" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Name *</label>
+            <input id="ct-name" type="text" required class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="Your name"/>
+          </div>
+          <div>
+            <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Email Address *</label>
+            <input id="ct-email" type="email" required class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all" placeholder="you@example.com"/>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Topic *</label>
+          <select id="ct-topic" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface transition-all">
+            <option value="General Question">General Question</option>
+            <option value="Support">Support</option>
+            <option value="Artwork Enquiry">Artwork Enquiry</option>
+            <option value="Curation / Partnership">Curation / Partnership</option>
+            <option value="Press">Press</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[10px] font-label font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">Message *</label>
+          <textarea id="ct-message" required rows="6" class="w-full bg-stone-50 border border-stone-200 rounded-lg px-5 py-4 text-on-surface placeholder:text-stone-300 transition-all resize-y" placeholder="How can we help?"></textarea>
+        </div>
+        <p id="ct-error" class="hidden text-red-500 text-xs font-label font-bold"></p>
+        <button type="submit" id="ct-submit" class="w-full py-5 bg-primary text-on-primary font-headline font-bold text-lg rounded-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-3">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">send</span>
+          Send Message
+        </button>
+      </form>
+      <p class="text-center text-stone-400 text-[10px] font-label uppercase tracking-widest mt-6">We only use your email to reply. Never shared, never spammed.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-surface-container-low w-full mt-20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-16 py-16 gap-8">
+    <span class="text-xl font-bold text-on-surface font-headline">Canvas Crush Studio</span>
+    <div class="flex gap-8 font-body font-light">
+      <a href="newsletter" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Newsletter</a>
+      <a href="privacy-policy" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity">Privacy Policy</a>
+      <a href="contact" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4">Contact</a>
+    </div>
+    <p class="text-stone-400 text-sm font-body font-light">© 2025 Canvas Crush Studio.</p>
+  </div>
+</footer>
+
+<script src="js/store.js?v=10"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Pre-select topic / prefill message from query params (e.g. ?topic=Support, ?about=Artwork Title)
+    const params = new URLSearchParams(location.search);
+    const topic = params.get('topic');
+    if (topic) {
+      const sel = document.getElementById('ct-topic');
+      [...sel.options].forEach(o => { if (o.value.toLowerCase() === topic.toLowerCase()) sel.value = o.value; });
+    }
+    const about = params.get('about');
+    if (about) {
+      document.getElementById('ct-topic').value = 'Artwork Enquiry';
+      document.getElementById('ct-message').value = `Hi, I'm interested in "${about}". `;
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('ct-name').value.trim();
+      const email = document.getElementById('ct-email').value.trim();
+      const message = document.getElementById('ct-message').value.trim();
+      const topicVal = document.getElementById('ct-topic').value;
+      const errEl = document.getElementById('ct-error');
+
+      if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = 'Please fill in your name, a valid email, and a message.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+      errEl.classList.add('hidden');
+
+      const formId = CCS.getContactFormId();
+      if (!formId) {
+        errEl.textContent = 'Our contact form is being set up — please check back shortly.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('ct-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`https://formspree.io/f/${formId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name, email, topic: topicVal, message, _subject: `[CCS ${topicVal}] from ${name}` })
+        });
+        if (!res.ok) throw new Error('send failed');
+        document.getElementById('form-state').classList.add('hidden');
+        document.getElementById('success-state').classList.remove('hidden');
+        window.scrollTo(0, 0);
+      } catch (err) {
+        errEl.textContent = 'Something went wrong sending your message. Please try again in a moment.';
+        errEl.classList.remove('hidden');
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1">send</span>Send Message';
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+</body>
+</html>

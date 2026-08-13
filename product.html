@@ -84,6 +84,8 @@
     <div class="flex flex-wrap justify-center gap-8 text-sm font-label">
       <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="newsletter">Newsletter</a>
       <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="privacy-policy">Privacy Policy</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="contact">Contact</a>
+      <a class="text-outline hover:text-primary transition-colors underline decoration-secondary decoration-2 underline-offset-4" href="contact?topic=support">Support</a>
     </div>
     <div class="flex gap-4">
       <span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">share</span>
@@ -182,10 +184,10 @@ function renderProduct() {
           ` : `
           <!-- Enquire CTA for own artwork -->
           <div class="space-y-3">
-            <a href="mailto:hello@canvascrushstudio.com?subject=Enquiry: ${encodeURIComponent(artwork.title)}" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
-              <span class="material-symbols-outlined">mail</span>Enquire About This Work
+            <a href="contact?about=${encodeURIComponent(artwork.title)}" class="w-full py-5 bg-primary text-on-primary rounded-lg font-headline font-extrabold text-lg flex items-center justify-center gap-3 hover:bg-primary-container transition-all active:scale-[0.98] shadow-lg shadow-primary/10">
+              <span class="material-symbols-outlined">forum</span>Enquire About This Work
             </a>
-            <p class="text-center text-[10px] text-stone-400 font-label">Get in touch to discuss availability and pricing.</p>
+            <p class="text-center text-[10px] text-stone-400 font-label">Leave us a message to discuss availability and pricing.</p>
           </div>
           `}
         </div>
