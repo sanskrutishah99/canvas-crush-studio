@@ -26,10 +26,6 @@
       <a href="blog" class="text-outline hover:text-primary transition-colors duration-300">Journal</a>
     </div>
     <div class="flex items-center gap-3">
-      <a href="cart" class="relative p-2 text-outline hover:text-primary transition-colors">
-        <span class="material-symbols-outlined" data-icon="cart">shopping_cart</span>
-        <span class="cart-count absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-5 h-5 items-center justify-center rounded-full font-bold hidden">0</span>
-      </a>
       <button id="hamburger" class="md:hidden p-2 text-stone-600">
         <span class="material-symbols-outlined" data-icon="menu">menu</span>
       </button>
@@ -41,7 +37,6 @@
       <a href="gallery?cat=abstract" class="text-stone-700 font-medium py-2">Serenity</a>
       <a href="gallery?cat=cultural" class="text-stone-700 font-medium py-2">Culture</a>
       <a href="blog" class="text-stone-700 font-medium py-2">Journal</a>
-      <a href="cart" class="text-stone-700 font-medium py-2">Cart</a>
     </div>
   </div>
 </nav>
@@ -57,16 +52,15 @@
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">1. Who We Are</h2>
-      <p>Canvas Crush Studio ("we", "our", "us") operates <strong>canvascrushstudio.com</strong>. We curate and sell original artworks and fine art prints. This policy explains how we handle your personal information.</p>
+      <p>Canvas Crush Studio ("we", "our", "us") operates <strong>canvascrushstudio.com</strong>. We curate artworks and publish research-backed writing on colour psychology, with recommendations that may include affiliate links to partner retailers. This policy explains how we handle your personal information.</p>
     </section>
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">2. Information We Collect</h2>
       <p>We collect information you provide directly to us, including:</p>
       <ul class="list-disc pl-6 space-y-2">
-        <li><strong>Name and email address</strong> — when you sign up for our newsletter or place an order</li>
-        <li><strong>Shipping address</strong> — to deliver your artwork</li>
-        <li><strong>Payment information</strong> — processed securely through Stripe; we never store your card details</li>
+        <li><strong>Name and email address</strong> — when you sign up for our newsletter or send us a message through our contact form</li>
+        <li><strong>Message content</strong> — anything you write to us via the contact form, so we can respond</li>
         <li><strong>Browser data</strong> — standard analytics (pages visited, time on site) to improve your experience</li>
       </ul>
     </section>
@@ -74,8 +68,7 @@
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">3. How We Use Your Information</h2>
       <ul class="list-disc pl-6 space-y-2">
-        <li>To process and fulfill your orders</li>
-        <li>To send order confirmations and shipping updates</li>
+        <li>To respond to your messages and enquiries</li>
         <li>To send our newsletter (only if you opted in — you can unsubscribe anytime)</li>
         <li>To improve our website and curated collections</li>
         <li>To comply with legal obligations</li>
@@ -84,18 +77,16 @@
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">4. Cookies</h2>
-      <p>We use cookies to remember your cart contents and preferences. We do not use advertising or tracking cookies. You can disable cookies in your browser settings, though this may affect cart functionality.</p>
+      <p>We use cookies to remember your preferences. We do not use advertising or tracking cookies. You can disable cookies in your browser settings.</p>
     </section>
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">5. Sharing Your Information</h2>
       <p>We do not sell or rent your personal data. We share information only with:</p>
       <ul class="list-disc pl-6 space-y-2">
-        <li><strong>Stripe</strong> — for payment processing</li>
-        <li><strong>Shipping carriers</strong> — to deliver your order</li>
-        <li><strong>Cloudinary</strong> — for image hosting</li>
+        <li><strong>Formspree</strong> — our form provider, which relays your contact-form messages and newsletter signups to us</li>
       </ul>
-      <p>All partners are bound by strict data protection agreements.</p>
+      <p>When you follow an affiliate link, the partner retailer's own privacy policy applies on their site. We never pass your personal data to affiliate partners.</p>
     </section>
 
     <section class="space-y-4">
@@ -107,24 +98,22 @@
         <li>Opt out of marketing emails at any time</li>
         <li>Request a copy of your data in a portable format</li>
       </ul>
-      <p>To exercise any of these rights, email us at <strong data-global="contact-email"></strong>.</p>
+      <p>To exercise any of these rights, <a href="contact" class="text-primary font-bold underline">leave us a message</a>.</p>
     </section>
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">7. Data Retention</h2>
-      <p>We retain order information for 7 years for tax and legal purposes. Newsletter subscriber data is kept until you unsubscribe. You may request earlier deletion by contacting us.</p>
+      <p>Contact-form messages are kept only as long as needed to respond. Newsletter subscriber data is kept until you unsubscribe. You may request earlier deletion by contacting us.</p>
     </section>
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">8. Security</h2>
-      <p>We use industry-standard SSL encryption for all transactions. Payment data is handled exclusively by Stripe and never stored on our servers.</p>
+      <p>Our site is served over industry-standard SSL encryption. We do not collect or store payment information — all purchases happen on our partner retailers' sites.</p>
     </section>
 
     <section class="space-y-4">
       <h2 class="font-headline text-2xl font-bold text-on-surface">9. Contact</h2>
-      <p>For any privacy-related questions, contact us at:<br/>
-      <strong>Email:</strong> <span data-global="contact-email"></span><br/>
-      <strong>Website:</strong> canvascrushstudio.com</p>
+      <p>For any privacy-related questions, <a href="contact" class="text-primary font-bold underline">leave us a message via our contact form</a> and we'll get back to you by email.</p>
     </section>
   </div>
 
@@ -141,7 +130,8 @@
     <div class="flex gap-8 font-body font-light">
       <a data-global="footer-link1-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="newsletter"><span data-global="footer-link1-text">Newsletter</span></a>
       <a data-global="footer-link2-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity font-bold underline decoration-orange-800/40 underline-offset-4" href="privacy-policy"><span data-global="footer-link2-text">Privacy Policy</span></a>
-      <a data-global="footer-link3-href" class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="shipping-info"><span data-global="footer-link3-text">Shipping Info</span></a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="contact">Contact</a>
+      <a class="text-stone-500 hover:text-on-surface opacity-70 hover:opacity-100 transition-opacity" href="contact?topic=support">Support</a>
     </div>
     <p class="text-stone-400 text-sm font-body font-light">© 2024 Canvas Crush Studio.</p>
   </div>

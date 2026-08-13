@@ -250,6 +250,15 @@ const CCS = {
     localStorage.setItem('ccs_settings', JSON.stringify({ ...current, ...obj }));
   },
 
+  // Formspree form ID used by the public contact form. Admin-saved settings live
+  // in localStorage and are NOT visible to site visitors, so the ID must be
+  // hardcoded here for the deployed site to deliver messages.
+  CONTACT_FORM_ID: '',
+
+  getContactFormId() {
+    return this.CONTACT_FORM_ID || this.getSettings().formspreeId || '';
+  },
+
   // ─── Admin Auth ──────────────────────────────────────────────────────────────
 
   isAdminLoggedIn() {
